@@ -28,13 +28,14 @@ if (isset($_POST['Submit'])) {
                             $parame_email = $email;
                             if ($mystmt->execute()) {
                                 $result = mysqli_stmt_get_result($mystmt);
+                                session_start();
+                                $_SESSION["loggedin"] = true;
+                                $_SESSION["id"] = $id;
+                                $_SESSION["email"] = $email;
+                                $_SESSION["type"] = $row["type"];
                                 if (mysqli_num_rows($result) == 1) {
                                     $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-                                    session_start();
-                                    $_SESSION["loggedin"] = true;
-                                    $_SESSION["id"] = $id;
-                                    $_SESSION["email"] = $email;
-                                    $_SESSION["type"] = $row["type"];
+                                    
                                     if($row["type"] == 2)
                                     {
                                         header("Location: ../../FrontEnd/HomePage/HomeVendeur.php");
@@ -42,6 +43,7 @@ if (isset($_POST['Submit'])) {
                                     }
                                     else if($row["type"] == 3)
                                     {
+                                        
                                         header("Location: ../../FrontEnd/HomePage/HomeAcheteur.php");
                                         exit();
                                     }

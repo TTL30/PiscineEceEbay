@@ -13,7 +13,7 @@
     </head>
     <body>
             <nav class="navbar fixed-top navbar-expand-lg navbar-light" style="border-bottom: 1px solid grey; background-color: whitesmoke;" >
-                <a class="navbar-brand" href="Acceuil.html">   <img  src="logo.png" alt="" width="60" height="30"> </a>
+                <a class="navbar-brand" href="../HomePage/HomeAcheteur.php">   <img  src="logo.png" alt="" width="60" height="30"> </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
