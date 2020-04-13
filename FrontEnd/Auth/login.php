@@ -27,29 +27,10 @@
     <meta name="theme-color" content="#563d7c">
 
 
-    <style>
-        .bd-placeholder-img {
-            font-size: 1.125rem;
-            text-anchor: middle;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
 
-        @media (min-width: 768px) {
-            .bd-placeholder-img-lg {
-                font-size: 3.5rem;
-            }
-        }
-        .formulaire{
-            padding-right: 35%;
-            padding-left: 35%;
-            margin: 0 auto;
-        }
-    </style>
     <!-- Custom styles for this template -->
     <link href="signin.css" rel="stylesheet">
+     <link href="InscriptionConnexion.css" rel="stylesheet" media="all" type="text/css"> 
     </head>
     <?php
      $myUrl = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
@@ -73,11 +54,13 @@
                         <input type="checkbox" value="remember-me"> Se souvenir de moi
                     </label>
                 </div>
+
                 <button class="btn btn-lg btn-primary btn-block" type="submit" name="Submit">Connexion</button>
                 <a href =inscription.php><h4> Inscivez-vous !</h4></a>
-                
+           
             </form>
         </div>
 <p class="mt-5 mb-3 text-muted">© 2020 -- MARZE Oscar TEIXEIRA Tiago</p>
 
-    </body></html>
+</body></html>
+

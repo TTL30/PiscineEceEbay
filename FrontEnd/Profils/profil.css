@@ -1,0 +1,22 @@
+
+.logo{
+    position: absolute;
+    right: 10px;
+}
+.Profil{
+    position: relative;
+    width: 75%;
+    margin: auto;
+    margin-top:  10%;
+    background-color: whitesmoke;
+font-family: sans-serif;
+}
+.PdP{
+    
+    margin: auto;
+    margin-bottom: 30px;
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    border:1px solid black;
+}
