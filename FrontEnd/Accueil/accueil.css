@@ -1,0 +1,46 @@
+.vertical-menu {
+    width: 100%; /* Set a width if you like */
+    height: 100vh;
+    background-color: whitesmoke;
+    border-right: 1px solid grey;
+
+}
+
+.vertical-menu a {
+    background-color: whitesmoke; /* Grey background color */
+    color: black; /* Black text color */
+    display: block; /* Make the links appear whlow each other */
+    padding: 12px; /* Add some padding */
+    text-decoration: none; /* Remove underline from links */
+}
+
+.vertical-menu a:hover {
+    background-color: rgba(210,78,78,0.45); /* Dark grey background on mouse-over */
+}
+
+.vertical-menu a.active {
+    background-color: #D24E4E; /* Add a green color to the "active/current" link */
+    color: white;
+}
+.Wrapper-VM{
+    padding-top: 60px;
+    width: 170px;
+
+}
+.logo{
+    position: absolute;
+    right: 10px;
+}
+.Categorie{
+    width: 100px;
+    padding: 5px;
+    padding-top: 10px;
+}
+.Categorie a:hover{
+    background-color: rgba(210,78,78,0.45);
+}
+.Achat{
+    width: 100px;
+    padding: 5px;
+    padding-top: 10px;
+}

@@ -48,7 +48,7 @@
     position: absolute;
     pointer-events: none;
     border-color: rgba(0, 0, 0, 0);
-    border-top-color: #000000;
+    border-top-color: #337ab7;
     border-width: 5px;
     margin-top: -2px;
     z-index: 100;
