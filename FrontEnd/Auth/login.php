@@ -51,22 +51,30 @@
     <!-- Custom styles for this template -->
     <link href="signin.css" rel="stylesheet">
     </head>
+    <?php
+     $myUrl = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+    ?>
     <body class="text-center">
         <div class="formulaire">
-            <form class="form-signin">
+            <form class="form-signin" action="../../BackEnd/Auth/login.php" method="POST">
                 <img class="mb-4" src="logo.png" alt="" width="200" height="200">
                 <h1 class="h3 mb-3 font-weight-normal">Connexion</h1>
+                <?php
+                if (strpos($myUrl, "login=email/pass") == true) {
+                    echo "<span>Cette combinaison email/password n'existe pas</span>";
+                }
+                ?>
                 <label for="inputEmail" class="sr-only">Email</label>
-                <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
+                <input type="email" id="inputEmail" class="form-control" placeholder="Email" required="" autofocus="" name="email">
                 <label for="inputPassword" class="sr-only">Mot de passe</label>
-                <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+                <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="" name="password">
                 <div class="checkbox mb-3">
                     <label>
                         <input type="checkbox" value="remember-me"> Se souvenir de moi
                     </label>
                 </div>
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Connexion</button>
-                <a href =inscription.html><h4> Inscivez-vous !</h4></a>
+                <button class="btn btn-lg btn-primary btn-block" type="submit" name="Submit">Connexion</button>
+                <a href =inscription.php><h4> Inscivez-vous !</h4></a>
                 
             </form>
         </div>
