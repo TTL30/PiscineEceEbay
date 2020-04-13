@@ -1,0 +1,11 @@
+.logo{
+    position: absolute;
+    right: 10px;
+}
+.photo{
+    float: left;
+    display: inline;
+    width: 250px;
+    height: 250px;
+    
+}
