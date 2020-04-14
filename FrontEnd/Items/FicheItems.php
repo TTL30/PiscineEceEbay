@@ -11,6 +11,8 @@
         <title>EceBay</title>
         <link href="FicheItems.css" rel="stylesheet" media="all" type="text/css"> 
     </head>
+
+
     <body>
         <nav class="navbar fixed-top navbar-expand-lg navbar-light" style="border-bottom: 1px solid grey; background-color: whitesmoke;" >
             <a class="navbar-brand" href="Acceuil.html">   <img  src="logo.png" alt="" width="60" height="30"> </a>
@@ -28,34 +30,81 @@
                 </div>
             </div>
         </nav>
-        <div class="Produit">
-            <div class="photo"> 
-                <img src="Exemple.jpg" width="250px" height="250px">
+        <div class="container" id="conteneur">
+            <div class="row" id="Produit">
+                <div class="col-sm-4" id="photo"> 
+                    <img id="img"src="Exemple.jpg">
+                </div>
+                <div class="col" id="info">
+
+                    <div id="test">
+                        <table class="tab" cellpadding=10>
+                            <tr>
+                                <td><p>Nom du produit</p> </td>
+                                <td><p style="background-color:whitesmoke"> hi</p></td>
+                            </tr>
+                            <tr>
+                                <td><p>Description</p></td>
+                                <td><p style="background-color:whitesmoke;max-width:550px;max-height:150px"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae felis fringilla, ornare nulla vel, consequat turpis. Maecenas vel ex ac justo tincidunt venenatis vitae quis ante. Nunc dignissim varius est vel eleifend. Sed ac interdum libero. Morbi at finibus sem. Proin dignissim molestie dolor non rhoncus. Fusce at ex ante.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae felis fringilla, ornare nulla vel, consequat turpis. Maecenas</p></td>
+                            </tr>
+                            <tr>
+                                <td><p>Prix</p> </td>
+                                <td><p style="background-color:whitesmoke;max-width:400px"> hi</p></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div id="boutons">
+                        <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Modifier</button>
+                        <input type="submit" class="btn btn-outline-warning my-2 my-sm-0" name="button2" value="Ajouter au panier" style="float:right;float:bottom">
+                    </div>
+                </div>
+
             </div>
-            <form action="#" method="post">
-                <table>
-                    <tr>
-                        <td>Nom du produit :</td>
-                        <td><input type="text" name="nomproduit"></td>
-                    </tr>
-                    <tr>
-                        <td>Description:</td>
-                        <td><input type="text" name="description"></td>
-                    </tr>
-                    <tr>
-                        <td> <a href="../Profils/ProfilVendeur.php">Vendeur: </a></td>
-                        <td><input type="text" name="vendeur"></td>
-                    </tr>
-                    <tr>
-                        <td>Prix:</td>
-                        <td><input type="text" name="prix"></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" align="center">
-                            <input type="submit" name="button2" value="Ajouter au panier"></td>
-                    </tr>
-                </table>
-            </form>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Modifier votre article</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            <form class="was-validated">
+                                <table class="tabModal" cellpadding=10>
+                                    <tr>
+                                        <td>Nom du produit </td>
+                                        <td><input type="text" class="form-control" style="background-color:whitesmoke;border:0" required=""></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Description</td>
+                                        <td><input type="text" class="form-control" maxlength="465" style="background-color:whitesmoke;border:0" required=""></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Prix </td>
+                                        <td>
+                                            <div class="input-group-text">
+                                                <input type="Number" class="form-control" style="background-color:whitesmoke;border:0;" required="">
+                                                <div class="€">
+                                                    <span>€</span>
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                </table>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-danger btn-sm" data-dismiss="modal"> Annuler</button>
+                            <button type="submit" class="btn btn-outline-success" onClick="alert('Salut')"> Enregistrer les modifications</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Optional JavaScript -->

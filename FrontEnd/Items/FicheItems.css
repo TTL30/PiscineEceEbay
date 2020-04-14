@@ -1,11 +1,77 @@
+#conteneur{
+    height: 500px;
+}
 .logo{
     position: absolute;
     right: 10px;
 }
-.photo{
-    float: left;
-    display: inline;
-    width: 250px;
-    height: 250px;
-    
+#img{
+    margin-top: 40%;
+    width: 100%;
+}
+
+#photo{
+    background-color: gold;
+    width: 100%;
+    height: 100%;
+}
+
+.info{
+    margin-left: 40%;
+    margin-top: 5%;
+    height: 313px;
+    background-color: blue;
+    height: 75%;
+    margin-top: 5%;
+
+}
+#info{
+    background-color: whitesmoke;
+    max-height: 500px;
+}
+
+#Produit{
+    margin-top:  7%;
+    width: 100%;
+    height: 100%;
+    background-color: whitesmoke;
+}
+
+.tab{
+    background-color: whitesmoke;
+    border-collapse: collapse;
+    border-spacing: 5px 10px;
+}
+.tabModal{
+    position: relative;
+    border-collapse: collapse;
+    border-spacing: 5px 10px;
+}
+.description{
+    line-height: 6em;
+}
+.boutons{
+    background-color: green;
+    margin-left: 40%;
+}
+#boutons{
+    background-color: whitesmoke;
+    width: 100%;
+    height: 37px;
+}
+.input-group-text{
+    display: flex;
+    background-color: white;
+    border-color: white;
+}
+.€{
+    width: 50px;
+}
+td{
+    border-color: black;
+}
+#test{
+    margin-top: 5%;
+    height: 80%;
+    background-color: whitesmoke;
 }
