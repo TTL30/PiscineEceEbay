@@ -4,31 +4,33 @@
     define('DB_PASSWORD', '');
     define('DB_NAME', 'piscineeceebay');
     
-    function getDBData(){
+    function getDataCurrentItem($item,$vendor){
         $db = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
         $email=$_SESSION["email"];
+        $stack = array();
+
 
         if($db === false){
             die("ERROR: Could not connect. " . $db->connect_error);
         }
 
-        $sql = "SELECT id,title,email_vendor,prix,img FROM items WHERE email_vendor = ?";
+        $sql = "SELECT * FROM items WHERE email_vendor = ? AND title = ?";
         if($stmt = $db->prepare($sql)){
-            $stmt->bind_param("s", $param_email);
-            $param_email = $email;
+
+            $stmt->bind_param("ss", $param_email_vendor,$param_item);
+            $param_email_vendor = $vendor;
+            $param_item = $item;
             if($stmt->execute()){
                 $result = mysqli_stmt_get_result($stmt);
-                $stack = array();
-                while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)) {
-                    $stack[] = array(
-                        $row
-                    );      
-                }   
+                $row = mysqli_fetch_row($result);
             }
             $stmt->close();
         }
-        return($stack);
-        mysqli_free_result($result);
+        else{
+            echo 'aille';
+        }
+    
+        return($row);
         $db->close();
 
     }
