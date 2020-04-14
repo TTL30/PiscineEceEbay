@@ -17,74 +17,88 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
         <title>EceBay</title>
-         <link href="accueil.css" rel="stylesheet" media="all" type="text/css"> 
+        <link href="accueil.css" rel="stylesheet" media="all" type="text/css"> 
     </head>
     <?php
     include '../../BackEnd/Vendor/getDataVendor.php';
     $itemsToSell = getDBData();
     foreach ($itemsToSell as &$value) {
-       // echo $value['title'];
+        // echo $value['title'];
         //echo $value['email_vendor'];
     }
     ?>
 
-<script type="text/javascript">
-    var users = <?php echo json_encode($itemsToSell); ?>;
-    // console.log(users);
-    // users.forEach(element => {
-    //     console.log(element.title);
-    // })
-    // let listItems = users.map((d) =>
-    //     <div>
-    //         <p>{d.title}</p>
-    //     </div>
-    // )
+    <script type="text/javascript">
+        var users = <?php echo json_encode($itemsToSell); ?>;
+        // console.log(users);
+        // users.forEach(element => {
+        //     console.log(element.title);
+        // })
+        // let listItems = users.map((d) =>
+        //     <div>
+        //         <p>{d.title}</p>
+        //     </div>
+        // )
 
-    insert_divs = function() {
-        var parent = document.getElementsByClassName("panel-body")[0];
-        var installments = ['Installment 1', 'Installment 2', 'Installment 3', 'Installment 4', 'Installment 5'];
+        insert_divs = function() {
+            var parent = document.getElementsByClassName("panel-body")[0];
+            var installments = ['Installment 1', 'Installment 2', 'Installment 3', 'Installment 4', 'Installment 5'];
 
-        users.forEach(function(e) {
+            users.forEach(function(e) {
 
-            var sp = document.createElement('span');
-            var img = document.createElement('img');
-            var installment = document.createElement('div');
+                var sp = document.createElement('span');
+                var img = document.createElement('img');
+                var installment = document.createElement('div');
 
-            var span_text = document.createTextNode(e.title);
-            sp.appendChild(span_text);
+                var span_text = document.createTextNode(e.title);
+                sp.appendChild(span_text);
 
-            img.setAttribute('src', 'https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_cancel_48px-128.png')
-            installment.classList.add('panel-more1');
+                img.setAttribute('src', 'https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_cancel_48px-128.png')
+                installment.classList.add('panel-more1');
 
-            installment.appendChild(img);
-            installment.appendChild(sp);
+                installment.appendChild(img);
+                installment.appendChild(sp);
 
-            parent.appendChild(installment);
+                parent.appendChild(installment);
 
-        });
-    }
-    window.onload = insert_divs
-</script>
+            });
+        }
+        window.onload = insert_divs
+    </script>
 
     <body>
-         <nav class="navbar fixed-top navbar-expand-lg navbar-light" style="border-bottom: 1px solid grey; background-color: whitesmoke;" >
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light" style="border-bottom: 1px solid grey; background-color: whitesmoke;" >
             <a class="navbar-brand" href="HomeVendeur.php">   <img  src="logo.png" alt="" width="60" height="30"> </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <div class="logo">
-                    <a href="../Profils/ProfilVendeur.php"><svg class="profil" width="2em" height="2em" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="padding-right: 5px;margin-right: 0px">
-                        <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 008 15a6.987 6.987 0 005.468-2.63z"/>
-                        <path fill-rule="evenodd" d="M8 9a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/>
-                        <path fill-rule="evenodd" d="M8 1a7 7 0 100 14A7 7 0 008 1zM0 8a8 8 0 1116 0A8 8 0 010 8z" clip-rule="evenodd"/>
-                        </svg></a>
+                <div class="container">
+                    <div class="logo">
+                        <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">
+
+                            <a href="../Profils/ProfilVendeur.php"><svg class="dropdown toggle" width="2em" height="2em" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="padding-right: 5px;margin-right: 0px">
+                                <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 008 15a6.987 6.987 0 005.468-2.63z"/>
+                                <path fill-rule="evenodd" d="M8 9a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/>
+                                <path fill-rule="evenodd" d="M8 1a7 7 0 100 14A7 7 0 008 1zM0 8a8 8 0 1116 0A8 8 0 010 8z" clip-rule="evenodd"/>
+                                </svg></a>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Menu item 1</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Menu item 2</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Menu item 3</a></li>
+                            <li role="presentation" class="divider"></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Menu item 4</a></li>
+                        </ul>
+                    </div>
+                    <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Item, vendeur...." aria-label="Search">
+                        <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Rechercher</button>
+                    </form>
                 </div>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Item, vendeur...." aria-label="Search">
-                    <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Rechercher</button>
-                </form>
+
             </div>
         </nav>
         <div class="Wrapper-VM">
@@ -99,7 +113,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                         <option value="3">Accessoire VIP</option>
                     </select>
                 </div>
-               <div class="Achat">
+                <div class="Achat">
                     <select>
                         <option selected> Achat </option>
                         <option value="1"> Enchère</option>
@@ -115,7 +129,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 </div>
             </div>
         </div> 
-     
+
 
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
