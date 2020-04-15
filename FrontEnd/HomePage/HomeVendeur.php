@@ -88,8 +88,6 @@ if (!empty($myUrl[1])) {
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <div class="container">
-                <div class="logo">
-                    <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">
                       <div class="logo dropleft">
                         <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="menu1" data-toggle="dropdown" >
 
@@ -111,8 +109,7 @@ if (!empty($myUrl[1])) {
                     <input class="form-control mr-sm-2" type="search" placeholder="Item, vendeur...." aria-label="Search">
                     <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Rechercher</button>
                 </form>
-            </div>
-
+                </div>
         </div>
     </nav>
     <div class="Wrapper-VM">
