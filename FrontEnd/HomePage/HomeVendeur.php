@@ -9,60 +9,60 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 <!doctype html>
 <html lang="en">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link href="accueil.css" rel="stylesheet" media="all" type="text/css">
-    <title>EceBay</title>
-</head>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="accueil.css" rel="stylesheet" media="all" type="text/css">
+        <title>EceBay</title>
+    </head>
 
 
-<?php
+    <?php
     include '../../BackEnd/Vendor/getDataVendor.php';
     $itemsToSell = getDBData();
-?>
+    ?>
 
-<script type="text/javascript">
-    var itemsToSell = <?php echo json_encode($itemsToSell); ?>;
-    console.log(itemsToSell);
-    
-    insertItems = function() {
-        var parent = document.getElementsByClassName("row list")[0];
-        itemsToSell.forEach(function(e) {
-            var link = document.createElement('a');
-            link.setAttribute('href', '../test/item.php' + '?item=' + e[0].title + '?vendor=' + e[0].email_vendor);
-            var col = document.createElement('div');
-            col.className = 'col-sm-4';
-            var title = document.createElement('p');
-            title.className = 'titleItem';
-            var span_text = document.createTextNode(e[0].title);
-            title.appendChild(span_text);
-            var img = document.createElement('img');
-            img.setAttribute('src', '../../BackEnd/IMG/' + e[0].img)
-            var divImgTit = document.createElement('div');
-            divImgTit.className = 'divImgTit';
-            img.className = 'imgItem';
-            var conta = document.createElement('div');
-            var descri = document.createElement('span');
-            descri.className = 'badge badge-success'
-            var span_prix = document.createTextNode(e[0].prix + '€');
-            descri.appendChild(span_prix);
-            conta.className = 'conta';
-            divImgTit.appendChild(img);
-            conta.appendChild(title);
-            conta.appendChild(divImgTit)
-            conta.appendChild(descri)
-            link.appendChild(conta)
-            col.appendChild(link)
-            parent.appendChild(col);
-        });
-    }
-    window.onload = insertItems
-</script>
+    <script type="text/javascript">
+        var itemsToSell = <?php echo json_encode($itemsToSell); ?>;
+        console.log(itemsToSell);
 
-<body>
-     <nav class="navbar fixed-top navbar-expand-lg navbar-light" style="border-bottom: 1px solid grey; background-color: whitesmoke;" >
+        insertItems = function() {
+            var parent = document.getElementsByClassName("row list")[0];
+            itemsToSell.forEach(function(e) {
+                var link = document.createElement('a');
+                link.setAttribute('href', '../test/item.php' + '?item=' + e[0].title + '?vendor=' + e[0].email_vendor);
+                var col = document.createElement('div');
+                col.className = 'col-sm-4';
+                var title = document.createElement('p');
+                title.className = 'titleItem';
+                var span_text = document.createTextNode(e[0].title);
+                title.appendChild(span_text);
+                var img = document.createElement('img');
+                img.setAttribute('src', '../../BackEnd/IMG/' + e[0].img)
+                var divImgTit = document.createElement('div');
+                divImgTit.className = 'divImgTit';
+                img.className = 'imgItem';
+                var conta = document.createElement('div');
+                var descri = document.createElement('span');
+                descri.className = 'badge badge-success'
+                var span_prix = document.createTextNode(e[0].prix + '€');
+                descri.appendChild(span_prix);
+                conta.className = 'conta';
+                divImgTit.appendChild(img);
+                conta.appendChild(title);
+                conta.appendChild(divImgTit)
+                conta.appendChild(descri)
+                link.appendChild(conta)
+                col.appendChild(link)
+                parent.appendChild(col);
+            });
+        }
+        window.onload = insertItems
+    </script>
+
+    <body>
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light" style="border-bottom: 1px solid grey; background-color: whitesmoke;" >
             <a class="navbar-brand" href="HomeVendeur.php">   <img  src="logo.png" alt="" width="60" height="30"> </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -70,8 +70,8 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <div class="container">
-                    <div class="logo">
-                        <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">
+                    <div class="logo dropleft">
+                        <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="menu1" data-toggle="dropdown" >
 
                             <a href="../Profils/ProfilVendeur.php"><svg class="dropdown toggle" width="2em" height="2em" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="padding-right: 5px;margin-right: 0px">
                                 <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 008 15a6.987 6.987 0 005.468-2.63z"/>
@@ -80,13 +80,12 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                 </svg></a>
                             <span class="caret"></span>
                         </button>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Menu item 1</a></li>
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Menu item 2</a></li>
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Menu item 3</a></li>
-                            <li role="presentation" class="divider"></li>
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Menu item 4</a></li>
-                        </ul>
+                        <div class="dropdown-menu" style="text-align:center">
+                            <a class="dropdown-item" href="#">Mon panier</a>
+                            <a class="dropdown-item" href="#">Mon profil</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="../../BackEnd/Auth/logout.php" class="btn btn-sm btn-outline-danger">Déconnexion</a>
+                        </div>
                     </div>
                     <form class="form-inline my-2 my-lg-0">
                         <input class="form-control mr-sm-2" type="search" placeholder="Item, vendeur...." aria-label="Search">
@@ -96,45 +95,45 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
             </div>
         </nav>
-    <div class="Wrapper-VM">
-        <div class="vertical-menu">
-            <a href="#" class="active">Accueil</a>
-            
-            <div class="Categorie">
-                <select style="min-width : 170px">
-                    <option hidden> Catégorie </option>
-                    <option value="1">Feraille et Trésor</option>
-                    <option value="2">Bon pour le musée</option>
-                    <option value="3">Accessoire VIP</option>
-                </select>
-            </div>
-            <div class="Achat">
-                <select style="min-width : 170px">
-                    <option hidden> Achat </option>
-                    <option value="1"> Enchère</option>
-                    <option value="2">Achat immédiat</option>
-                    <option value="3">Meilleur offre</option>
-                </select>
-            </div>
-            <div>
-                <p>Hello, <b><?php echo htmlspecialchars($_SESSION["email"]); ?></b></p>
-                <p>
-                    <a href="../../BackEnd/Auth/logout.php" class="btn btn-danger">Sign Out of Your Account</a>
-                </p>
-            </div>
-        </div>
-    </div>
-    <div class="listItems">
-        <div class="row list" style="margin-left:0%">
-        </div>
-    </div>
+        <div class="Wrapper-VM">
+            <div class="vertical-menu">
+                <a href="#" class="active">Accueil</a>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-</body>
+                <div class="Categorie">
+                    <select style="min-width : 170px">
+                        <option hidden> Catégorie </option>
+                        <option value="1">Feraille et Trésor</option>
+                        <option value="2">Bon pour le musée</option>
+                        <option value="3">Accessoire VIP</option>
+                    </select>
+                </div>
+                <div class="Achat">
+                    <select style="min-width : 170px">
+                        <option hidden> Achat </option>
+                        <option value="1"> Enchère</option>
+                        <option value="2">Achat immédiat</option>
+                        <option value="3">Meilleur offre</option>
+                    </select>
+                </div>
+                <div>
+                    <p>Hello, <b><?php echo htmlspecialchars($_SESSION["email"]); ?></b></p>
+                    <p>
+                        <a href="../../BackEnd/Auth/logout.php" class="btn btn-danger">Sign Out of Your Account</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="listItems">
+            <div class="row list" style="margin-left:0%">
+            </div>
+        </div>
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    </body>
 
 
 </html>
