@@ -8,7 +8,6 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
 <!doctype html>
 <html lang="en">
-
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -20,51 +19,44 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     <title>EceBay</title>
     <link href="accueil.css" rel="stylesheet" media="all" type="text/css">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </head>
 
 <?php
-include '../../BackEnd/Acheteur/getAllitems.php';
-include '../../BackEnd/Items/trieItems.php';
-
+    include '../../BackEnd/Acheteur/getItemPanier.php'
 ?>
 
 <?php
-$url = $_SERVER['REQUEST_URI'];
-$myUrl = explode("?", $url);
-if (!empty($myUrl[1])) {
-    $macategorie = explode("=", explode("&", parse_url($url)["query"])[0])[1];
-    $monTypeAchat = explode("=", explode("&", parse_url($url)["query"])[1])[1];
-    $itemsToSell = trieItems($macategorie,$monTypeAchat);
+   
+    $itemsPanier = getItemPanier();
     
-} else {
-    $itemsToSell = getAllitems();
-}
 ?>
 
 <script type="text/javascript">
-    var itemsToSell = <?php echo json_encode($itemsToSell); ?>;
-    console.log(itemsToSell);
+    var itemsPanier = <?php echo json_encode($itemsPanier); ?>;
+    console.log(itemsPanier);
     insertItems = function() {
         var parent = document.getElementsByClassName("row list")[0];
-        itemsToSell.forEach(function(e) {
+        itemsPanier.forEach(function(e) {
             var link = document.createElement('a');
-            link.setAttribute('href', '../Items/FicheItems.php' + '?item=' + e[0].title + '?vendor=' + e[0].email_vendor);
+            link.setAttribute('href', '../Items/FicheItems.php' + '?item=' + e[0][1] + '?vendor=' + e[0][2]);
             var col = document.createElement('div');
             col.className = 'col-sm-4';
             var title = document.createElement('p');
             title.className = 'titleItem';
-            var span_text = document.createTextNode(e[0].title);
+            var span_text = document.createTextNode(e[0][1]);
             title.appendChild(span_text);
             var img = document.createElement('img');
-            img.setAttribute('src', '../../BackEnd/IMG/' + e[0].img)
+            img.setAttribute('src', '../../BackEnd/IMG/' + e[0][4])
             var divImgTit = document.createElement('div');
             divImgTit.className = 'divImgTit';
             img.className = 'imgItem';
             var conta = document.createElement('div');
             var descri = document.createElement('span');
             descri.className = 'badge badge-success'
-            var span_prix = document.createTextNode(e[0].prix + '€');
+            var span_prix = document.createTextNode(e[0][3] + '€');
             descri.appendChild(span_prix);
             conta.className = 'conta';
             divImgTit.appendChild(img);
@@ -77,9 +69,10 @@ if (!empty($myUrl[1])) {
         });
     }
     window.onload = insertItems
-</script>
+</script> 
 
 <body>
+    
      <nav class="navbar fixed-top navbar-expand-lg navbar-light" style="border-bottom: 1px solid grey; background-color: whitesmoke;">
         <a class="navbar-brand" href="HomeAcheteur.php"> <img src="logo.png" alt="" width="60" height="30"> </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -99,10 +92,10 @@ if (!empty($myUrl[1])) {
                 <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Rechercher</button>
             </form>
         </div>
-    </nav> 
+    </nav>  
     <div class="Wrapper-VM">
         <div class="vertical-menu">
-            <a href="#" class="active">Accueil</a>
+            <a href="#" class="active">Mon Panier</a>
             <form>
                 <div class="Categorie">
                     <select style="min-width : 170px" name="categorie">
@@ -127,47 +120,16 @@ if (!empty($myUrl[1])) {
                 <p>
                     <a href="../../BackEnd/Auth/logout.php" class="btn btn-danger">Sign Out of Your Account</a>
                 </p>
-                <a href="../Panier/panierAcheteur.php">panier</a>
             </div>
         </div>
     </div>
     <div class="listItems">
-    <div class="alert alert-warning alert-dismissible fade show" role="alert" id="monalert">
-            <strong>Attention!</strong> Vous avez deja ajouté cet item à votre panier.
-                <button type="button" class="close" aria-label="Close" onclick="window.location.href='/FrontEnd/HomePage/HomeAcheteur.php'">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-        </div>
-        <script>
-            if (window.location.href === "http://piscineeceebay.loc/FrontEnd/HomePage/HomeAcheteur.php??") {
-                document.getElementById('monalert').style.display = "block";
-            } else {
-                document.getElementById('monalert').style.display = "none";
-            }
-        </script>
-        <div class="alert alert-success alert-dismissible fade show" role="alert" id="alertAdd">
-            <strong>Felicitations!</strong> Vous avez ajouté cet item à votre panier.
-                <button type="button" class="close" aria-label="Close" onclick="window.location.href='/FrontEnd/HomePage/HomeAcheteur.php'">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-        </div>
-        <script>
-            if (window.location.href === "http://piscineeceebay.loc/FrontEnd/HomePage/HomeAcheteur.php???") {
-                document.getElementById('alertAdd').style.display = "block";
-            } else {
-                document.getElementById('alertAdd').style.display = "none";
-            }
-        </script>
         <div class="row list" style="margin-left:0%">
         </div>
     </div>
+ 
 
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-</body>
+    
+   </body>
 
 </html>

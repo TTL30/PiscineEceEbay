@@ -1,47 +1,124 @@
-#conteneur{
-    height: 500px;
+html,body{
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
 }
+
+#conteneur{
+    background-color: white;
+    width: 100vw;
+    height: 100vh;
+    padding-top: 60px;
+    position: relative;
+
+}
+
+#wrapper{
+    background-color: transparent;
+    width: 80%;
+    height: 70%;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+#Produit{
+    background-color: whitesmoke;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+#photo{
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
+    white-space: nowrap;
+    text-align: center;
+
+}
+.helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+#img{
+    width: 100%;
+    height: auto;
+    border-radius: 25px;
+    box-shadow:  0px 0px 20px rgba(34, 33, 33, 0.623) ;
+    vertical-align: middle;
+    padding: 10px;
+    margin-left: -2%;
+    background-color: rgb(35, 148, 182);
+
+}
+
+#info{
+    background-color: whitesmoke;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+#test{
+    margin-top: 5%;
+    height: 80%;
+    background-color: whitesmoke;
+}
+
+#descript{
+    background-color: rgba(214, 208, 208, 0.288);
+    box-shadow:  0px 0px 20px rgba(34, 33, 33, 0.623) ;
+    border-radius: 20px;
+    width: 100%;
+    height: 85%;
+    margin:0
+}
+#madesc{
+    background-color:transparent;height:10%;text-align:center;margin-top:5%
+}
+
+#text{
+    background-color:whitesmoke;
+    height:30%;
+    margin-top:5%;
+    padding-right: 5px;
+    border-radius: 20px;
+    overflow: hidden;
+
+}
+/* .badge{
+    height: 30px;
+    width: 20%;
+    font-size: large;
+    margin: auto;
+    margin-top: -10%;
+} */
+
 .logo{
     position: absolute;
     right: 10px;
 }
-#img{
-    margin-top: 40%;
-    width: 100%;
-}
 
-#photo{
-    background-color: gold;
-    width: 100%;
-    height: 100%;
-}
+
+
+
 
 .info{
-    margin-left: 40%;
-    margin-top: 5%;
+   
     height: 313px;
     background-color: blue;
     height: 75%;
     margin-top: 5%;
 
 }
-#info{
-    background-color: whitesmoke;
-    max-height: 500px;
-}
 
-#Produit{
-    margin-top:  7%;
-    width: 100%;
-    height: 100%;
-    background-color: whitesmoke;
-}
 
-.tab{
-    background-color: whitesmoke;
-    border-collapse: collapse;
-    border-spacing: 5px 10px;
-}
+
+
 .tabModal{
     position: relative;
     border-collapse: collapse;
@@ -55,7 +132,7 @@
     margin-left: 40%;
 }
 #boutons{
-    background-color: whitesmoke;
+    background-color: transparent;
     width: 100%;
     height: 37px;
 }
@@ -69,9 +146,4 @@
 }
 td{
     border-color: black;
-}
-#test{
-    margin-top: 5%;
-    height: 80%;
-    background-color: whitesmoke;
 }

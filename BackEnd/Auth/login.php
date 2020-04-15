@@ -35,7 +35,7 @@ if (isset($_POST['Submit'])) {
                                 $_SESSION["type"] = $row["type"];
                                 if (mysqli_num_rows($result) == 1) {
                                     $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-                                    
+                                    $_SESSION["type"] = $row["type"];
                                     if($row["type"] == 2)
                                     {
                                         header("Location: ../../FrontEnd/HomePage/HomeVendeur.php");
