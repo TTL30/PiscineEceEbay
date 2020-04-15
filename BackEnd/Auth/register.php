@@ -63,6 +63,25 @@ if(isset($_POST['Submit'])){
                         echo 'Erros Syste';
                     }
                 }
+                else if($type == 3){
+                    $msql = "INSERT INTO acheteur (email, panier) VALUES (?, ?)";
+                    if($mstmt = $mysqli->prepare($msql)){
+                        $mstmt->bind_param("ss", $param_email,$param_panier);
+                        $param_email = $email;
+                        $param_panier = '';
+                        if($mstmt->execute()){
+                            header("location: ../../FrontEnd/Auth/login.php");
+                        }
+                        else{
+                            echo "Erros syst";
+                        }
+                        $mstmt->close();
+
+                    }
+                    else{
+                        echo 'Erros Syste';
+                    }
+                }
 
             } else{
                 echo "Erreur Systeme";
