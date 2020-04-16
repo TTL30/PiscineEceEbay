@@ -87,17 +87,29 @@ if (!empty($myUrl[1])) {
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <div class="logo">
-                <a href="../Profils/ProfilGene.php"><svg class="profil" width="2em" height="2em" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="padding-right: 5px;margin-right: 0px">
-                        <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 008 15a6.987 6.987 0 005.468-2.63z" />
-                        <path fill-rule="evenodd" d="M8 9a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
-                        <path fill-rule="evenodd" d="M8 1a7 7 0 100 14A7 7 0 008 1zM0 8a8 8 0 1116 0A8 8 0 010 8z" clip-rule="evenodd" />
-                    </svg></a>
-            </div>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Item, vendeur...." aria-label="Search">
-                <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Rechercher</button>
-            </form>
+            <div class="container">
+                      <div class="logo dropleft">
+                        <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="menu1" data-toggle="dropdown" >
+
+                            <a href="../Profils/ProfilVendeur.php"><svg class="dropdown toggle" width="2em" height="2em" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="padding-right: 5px;margin-right: 0px">
+                                <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 008 15a6.987 6.987 0 005.468-2.63z"/>
+                                <path fill-rule="evenodd" d="M8 9a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/>
+                                <path fill-rule="evenodd" d="M8 1a7 7 0 100 14A7 7 0 008 1zM0 8a8 8 0 1116 0A8 8 0 010 8z" clip-rule="evenodd"/>
+                                </svg></a>
+                            <span class="caret"></span>
+                        </button>
+                        <div class="dropdown-menu" style="text-align:center">
+                            <a class="dropdown-item" href="../Panier/panierAcheteur.php">Mon panier</a>
+                            <a class="dropdown-item" href="../Profils/ProfilGene.php">Mon profil</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="../../BackEnd/Auth/logout.php" class="btn btn-sm btn-outline-danger">Déconnexion</a>
+                        </div>
+                    </div>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Item, vendeur...." aria-label="Search">
+                    <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Rechercher</button>
+                </form>
+                </div>
         </div>
     </nav> 
     <div class="Wrapper-VM">
@@ -120,15 +132,8 @@ if (!empty($myUrl[1])) {
                         <option value="offre">Meilleur offre</option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary" style="margin-top:10% ">Valider</button>
             </form>
-            <div>
-                <p>Hello, <b><?php echo htmlspecialchars($_SESSION["email"]); ?></b></p>
-                <p>
-                    <a href="../../BackEnd/Auth/logout.php" class="btn btn-danger">Sign Out of Your Account</a>
-                </p>
-                <a href="../Panier/panierAcheteur.php">panier</a>
-            </div>
         </div>
     </div>
     <div class="listItems">

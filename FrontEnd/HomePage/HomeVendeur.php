@@ -29,6 +29,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 <?php
 include '../../BackEnd/Vendor/getDataVendor.php';
 include '../../BackEnd/Items/trieItemsVendor.php';
+include '../../BackEnd/Achat/Enchere/checkEnchere.php';
 $url = $_SERVER['REQUEST_URI'];
 $myUrl = explode("?", $url);
 if (!empty($myUrl[1])) {
@@ -38,6 +39,19 @@ if (!empty($myUrl[1])) {
 } else {
     $itemsToSell = getDBData();
 }
+    $date = new  DateTime();
+    $dteStart = new DateTime();
+    $dteEnd   = date_add($date, date_interval_create_from_date_string('0 days'));
+    $dteDiff  = $dteStart->diff($dteEnd);    
+    $json =  @json_encode($dteDiff->format("%D:%H:%I:%S"));
+    print "<script>console.log($json);</script>";
+    if(strcmp($dteDiff->format("%D:%H:%I:%S"),"00:00:00:00") == 0 )
+    {
+        $json =  @json_encode("oui");
+        print "<script>console.log($json);</script>";
+    }
+
+    checkEnchere();
 ?>
 
 <script type="text/javascript">
@@ -80,7 +94,7 @@ if (!empty($myUrl[1])) {
 
 
 <body>
-    <nav class="navbar fixed-top navbar-expand-lg navbar-light" style="border-bottom: 1px solid grey; background-color: whitesmoke;">
+     <nav class="navbar fixed-top navbar-expand-lg navbar-light" style="border-bottom: 1px solid grey; background-color: whitesmoke;">
         <a class="navbar-brand" href="HomeVendeur.php"> <img src="logo.png" alt="" width="60" height="30"> </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -99,8 +113,7 @@ if (!empty($myUrl[1])) {
                             <span class="caret"></span>
                         </button>
                         <div class="dropdown-menu" style="text-align:center">
-                            <a class="dropdown-item" href="#">Mon panier</a>
-                            <a class="dropdown-item" href="#">Mon profil</a>
+                            <a class="dropdown-item" href="../Profils/ProfilVendeur.php">Mon profil</a>
                             <div class="dropdown-divider"></div>
                             <a href="../../BackEnd/Auth/logout.php" class="btn btn-sm btn-outline-danger">Déconnexion</a>
                         </div>
@@ -111,10 +124,10 @@ if (!empty($myUrl[1])) {
                 </form>
                 </div>
         </div>
-    </nav>
+    </nav> 
     <div class="Wrapper-VM">
         <div class="vertical-menu">
-            <a href="#" class="active">Accueil</a>
+            <a href="#" class="active">Vos Items</a>
             <form>
                 <div class="Categorie">
                     <select style="min-width : 170px" name="categorie">
@@ -132,14 +145,8 @@ if (!empty($myUrl[1])) {
                         <option value="offre">Meilleur offre</option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary" style="margin-top:10% ">Valider</button>
             </form>
-            <div>
-                <p>Hello, <b><?php echo htmlspecialchars($_SESSION["email"]); ?></b></p>
-                <p>
-                    <a href="../../BackEnd/Auth/logout.php" class="btn btn-danger">Sign Out of Your Account</a>
-                </p>
-            </div>
         </div>
     </div>
 

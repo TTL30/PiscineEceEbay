@@ -43,13 +43,11 @@ if(isset($_POST['Submit'])){
             $param_type = $type;
             
             if($stmt->execute()){
-                header("location: ../../FrontEnd/Auth/login.php");
                 if($type == 2){
-                    $msql = "INSERT INTO vendeur (email, items) VALUES (?, ?)";
+                    $msql = "INSERT INTO vendeur (email,photoProfil,photoCouverture) VALUES (?,'','')";
                     if($mstmt = $mysqli->prepare($msql)){
-                        $mstmt->bind_param("ss", $param_email,$param_items);
+                        $mstmt->bind_param("s", $param_email);
                         $param_email = $email;
-                        $param_items = '';
                         if($mstmt->execute()){
                             header("location: ../../FrontEnd/Auth/login.php");
                         }
@@ -63,14 +61,15 @@ if(isset($_POST['Submit'])){
                         echo 'Erros Syste';
                     }
                 }
+
                 else if($type == 3){
-                    $msql = "INSERT INTO acheteur (email, panier) VALUES (?, ?)";
+                    $msql = "INSERT INTO acheteur (email, panier,addresse,ville,code_postal,carte,name_carte,num_carte,expi_carte,cvv,solde,activated) VALUES (?,'', '', '', '0', '', '', '', '2020-04-01', '0', '0', '0')";
                     if($mstmt = $mysqli->prepare($msql)){
-                        $mstmt->bind_param("ss", $param_email,$param_panier);
+                        $mstmt->bind_param("s", $param_email);
                         $param_email = $email;
-                        $param_panier = '';
                         if($mstmt->execute()){
                             header("location: ../../FrontEnd/Auth/login.php");
+                            exit();
                         }
                         else{
                             echo "Erros syst";

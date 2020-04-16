@@ -12,7 +12,7 @@
             die("ERROR: Could not connect. " . $db->connect_error);
         }
 
-        $sql = "SELECT id,title,email_vendor,prix,img FROM items";
+        $sql = "SELECT id,title,email_vendor,prix,img FROM items WHERE sold = 0";
         if($stmt = $db->prepare($sql)){
             if($stmt->execute()){
                 $result = mysqli_stmt_get_result($stmt);
