@@ -24,9 +24,8 @@ if (isset($_POST['Submit'])) {
             if ($stmt->num_rows == 1) {
                 header("Location: ../../FrontEnd/HomePage/HomeVendeur.php??");
                 exit();
-
             } else {
-                $sql = "INSERT INTO items (email_vendor, title,description,categorie,typeAchat,prix,img) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                $sql = "INSERT INTO items (email_vendor,title,description,categorie,typeAchat,prix,img,sold) VALUES (?, ?, ?, ?, ?, ?, ?,0)";
                 if($mystmt = $mysqli->prepare($sql)){
                     $mystmt->bind_param("sssssis", $param_email, $param_title,$param_description,$param_categorie,$param_typeAchat,$param_prix,$param_img);
                     $param_email = $email;
@@ -37,9 +36,31 @@ if (isset($_POST['Submit'])) {
                     $param_prix = $prix;
                     $param_img = $img;
                     if($mystmt->execute()){
+                        $lastId=$mysqli->insert_id;
+                        $sql = "INSERT INTO enchere (id_item,title,email_vendor,typeAchat,offre_actuelle,email_acheteur_actuel,fin) VALUES (?,?, ?, ?, ?, '',24)";
+                        if($lestmt = $mysqli->prepare($sql)){
+                            $lestmt->bind_param("isssi", $param_id_item,$param_title, $param__email_vendor,$param_type_achat,$param_offre_actuelle);
+                            $param_id_item = $lastId;
+                            $param_title= $title;
+                            $param__email_vendor = $email;
+                            $param_type_achat = $typeAchat;
+                            $param_offre_actuelle =$prix;
+                            if($lestmt->execute()){
+                                $json =  @json_encode("add to enchere");
+                                print "<script>console.log($json);</script>";
+                            }
+                            else{
+                                $json =  @json_encode("not add to enchere");
+                                print "<script>console.log($json);</script>";
+                            }
+
+                            $lestmt->close();
+
+                        }
                         header("Location: ../../FrontEnd/HomePage/HomeVendeur.php");
                     }
                     else{
+                        
                         $json =  @json_encode("aillllle");
                         print "<script>console.log($json);</script>";
                     }
@@ -54,6 +75,9 @@ if (isset($_POST['Submit'])) {
         // Close statement
         $stmt->close();
     }
+
+    
+    
 
 
     // Close connection

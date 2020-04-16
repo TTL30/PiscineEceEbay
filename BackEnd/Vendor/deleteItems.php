@@ -2,8 +2,6 @@
 
 
     function deleteItems($item,$email_vendor){
-        $json =  @json_encode("test");
-        print "<script>console.log($json);</script>";
         $db = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
         $email=$_SESSION["email"];
         $stack = array();
@@ -11,18 +9,27 @@
         if($db === false){
             die("ERROR: Could not connect. " . $db->connect_error);
         }
-        $sql = "DELETE FROM items WHERE title = ? AND email_vendor = ? ";
+        $sql = "DELETE FROM items WHERE title = ? AND email_vendor = ?";
         if($stmt = $db->prepare($sql)){
             $stmt->bind_param("ss", $param_title,$param_email_vendor);
                 $param_title = $item;
                 $param_email_vendor = $email_vendor;
                 if($stmt->execute()){
-                    $result = mysqli_stmt_get_result($stmt);
+                    $sql = "DELETE FROM enchere WHERE title = ? AND email_vendor = ?";
+                    if($mystmt = $db->prepare($sql)){
+                        $mystmt->bind_param("ss", $param_title,$param_email_vendor);
+                            $param_title = $item;
+                            $param_email_vendor = $email_vendor;
+                            if($mystmt->execute()){
+                            }
+                            $mystmt->close();
+                        }
                     header("Location: ../../FrontEnd/HomePage/HomeVendeur.php");
                     exit();
                 }
                 $stmt->close();
             }
+        
 
             $sql = "SELECT panier FROM acheteur";
             if ($stmt = $db->prepare($sql)) {
@@ -48,6 +55,7 @@
                 }
                 $stmt->close();
             }
+
+            
             $db->close();
     }
-?>

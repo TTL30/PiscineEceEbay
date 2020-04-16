@@ -22,7 +22,7 @@
     background-color: whitesmoke;
 }
 .container{
-    height:600px;
+    height:650px;
     width: 700px;
     margin-top:  6%;
     padding: 12px;
@@ -46,7 +46,4 @@
     background-color: whitesmoke;
     height: 63%;
     margin: 0;
-}
-body {
-
 }
