@@ -56,3 +56,9 @@
 .Type select:focus {
     outline: none;
 }
+.badge{
+    background-color: rgba(250, 15, 0, 0.5);
+}
+.bouton{
+   margin-top: 5%;
+}

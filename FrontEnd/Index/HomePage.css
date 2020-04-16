@@ -1,0 +1,117 @@
+@font-face{
+    font-family: "sunset";
+    src: url("sunset.otf");
+}
+#conteneur{
+    position: absolute;
+    height: 100vh;
+    width: 100%;
+    margin-top: 3%;
+}
+#row{
+    height: 100vh;
+    width: 100wh;
+    background-color: rgba(0,0,0,0.7);
+}
+#col1{
+
+    background-image: url(statue.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.7;
+}
+#col2{
+    background-color: rgba(0,0,0,0.7);
+
+
+}
+.top{
+    background-color: rgba(0,0,0,0.7);
+    height: 50%;
+}
+.bot{
+    height: 50%;
+
+}
+#col21{
+    float: left;
+    height: 100%;
+    background-image: url(guitare.JPG);
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.8;
+
+}
+#col22{
+    float: right;
+    height: 100%;
+    background-image: url(montres.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.8;
+
+}
+#col23{
+    float: left;
+    height: 100%;
+    background-image: url(voiture.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.8;
+
+}
+#col24{
+    float: right;
+    height: 100%;
+    background-image: url(tableau.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.8;
+
+}
+body{
+    overflow: hidden;
+}
+#texte{
+    position: absolute;
+    height: 500px;
+    text-align: center;
+    margin-top: 20%;
+    font-family:"sunset";
+}
+#inscription{
+    background: linear-gradient(90deg, #c20404, #e46d04, #8c04c6);
+    background-size: 400% 400%;
+    animation: gradient 5s ease infinite;
+    color: white;
+    border-color: transparent;
+    margin-right:10%;
+}
+#inscription:hover{
+    background-color: #081D5B;
+}
+#connexion{
+    background: linear-gradient(90deg,#8c04c6, #e46d04,#c20404);
+    background-size: 400% 400%;
+    animation: gradient 5s ease infinite;
+    color: white;
+    border-color: transparent;
+    margin-left: 10%;
+}
+#connexion:hover{
+    background-color: #2E7C32;
+}
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+.boutons{
+    margin-top: 5%;
+}
