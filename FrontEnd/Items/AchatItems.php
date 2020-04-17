@@ -21,43 +21,35 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 </head>
 
 <?php
-include '../../BackEnd/Items/getDataCurrentItem.php';
-include '../../BackEnd/Achat/Enchere/getDataEnchere.php';
-$url = $_SERVER['REQUEST_URI'];
-$myUrl = explode("?", $url);
-$monitem = explode("=", $myUrl[1])[1];
-$monvendor = explode("=", $myUrl[2])[1];
-$infoItem = getDataCurrentItem($monitem, $monvendor);
-$infoEnchere = getDataEnchere($monitem, $monvendor);
-if ($monvendor == $_SESSION['email']) {
-    $showBut = 'block';
-    $showButAddPanier = 'none';
-} else {
-    $showBut = 'none';
-    $showButAddPanier = 'block';
-}
-
-
-
-
-
-if ($_SESSION['type'] === 3) {
-    $home = 'HomeAcheteur.php';
-    $profil = 'ProfilGene.php';
-} else if ($_SESSION['type'] === 2) {
-    $home = 'HomeVendeur.php';
-    $profil = 'ProfilVendeur.php';
-}
-
-$maDate = new  DateTime();date_add($maDate, date_interval_create_from_date_string("2 hours"));
-            $debut = new  DateTime($infoEnchere["debut"]);
-            $duree = strval($infoEnchere["fin"]);
-            $duree .= " hours";
-            $maDateFin   = date_add($debut, date_interval_create_from_date_string($duree));
-            $dteDiff  = $maDate->diff($maDateFin);
-            $json =  @json_encode($dteDiff->format("%D:%H:%I:%S"));
-            print "<script>console.log($json);</script>";
-
+    include '../../BackEnd/Items/getDataCurrentItem.php';
+    include '../../BackEnd/Achat/Enchere/getDataEnchere.php';
+    $url = $_SERVER['REQUEST_URI'];
+    $myUrl = explode("?", $url);
+    $monitem = explode("=", $myUrl[1])[1];
+    $monvendor = explode("=", $myUrl[2])[1];
+    $infoItem = getDataCurrentItem($monitem, $monvendor);
+    $infoEnchere = getDataEnchere($monitem, $monvendor);
+    $json =  @json_encode($infoItem);
+    print "<script>console.log($json);</script>";
+    $ench = "no";
+    if(strcmp($infoItem[4],"enchere")===0){
+        $display = 'yes';
+        $prix = $infoEnchere["offre_actuelle"];
+        $ench = "yes";
+    }else{
+        $display = 'none';
+        $prix = $infoItem[5];
+    }
+    if(strcmp($infoItem[4],"immediat")===0){
+        $displayImme = 'yes';
+    }else{
+        $displayImme = 'none';
+    }
+    if(strcmp($infoItem[4],"offre")===0){
+        $displayNego = 'yes';
+    }else{
+        $displayNego = 'none';
+    }
 ?>
 
 <script>
@@ -82,12 +74,22 @@ $maDate = new  DateTime();date_add($maDate, date_interval_create_from_date_strin
             " <strong>" + i_restantes + " minutes</strong> et <strong>" + s_restantes + "s</strong>.";
         document.getElementById("affichage").innerHTML = texte;
     }
-    setInterval(CompteARebours, 1000); 
+    var ench =<?php echo @json_encode($ench) ?>
+   
+    function rebours(ench){
+        if( ench === "yes"){
+        setInterval(CompteARebours, 1000); 
+    }
+    }
+    rebours(ench)
+
+    
+
 </script>
 
 <body>
     <nav class="navbar fixed-top navbar-expand-lg navbar-light" style="border-bottom: 1px solid grey; background-color: whitesmoke;">
-        <a class="navbar-brand" href="../HomePage/<?php echo $home ?>"> <img src="logo.png" alt="" width="60" height="30"> </a>
+        <a class="navbar-brand" href="../HomePage/HomeAcheteur.php"> <img src="logo.png" alt="" width="60" height="30"> </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -105,8 +107,8 @@ $maDate = new  DateTime();date_add($maDate, date_interval_create_from_date_strin
                         <span class="caret"></span>
                     </button>
                     <div class="dropdown-menu" style="text-align:center">
-                        <a class="dropdown-item" href="../Panier/panierAcheteur.php" style="display : <?php echo $showButAddPanier ?>">Mon panier</a>
-                        <a class="dropdown-item" href="../Profils/<?php echo $profil ?>">Mon profil</a>
+                        <a class="dropdown-item" href="../Panier/panierAcheteur.php">Mon panier</a>
+                        <a class="dropdown-item" href="../Profils/ProfilGene.php">Mon profil</a>
                         <div class="dropdown-divider"></div>
                         <a href="../../BackEnd/Auth/logout.php" class="btn btn-sm btn-outline-danger">Déconnexion</a>
                     </div>
@@ -117,13 +119,38 @@ $maDate = new  DateTime();date_add($maDate, date_interval_create_from_date_strin
     </nav>
     <div id="conteneur">
         <div id="wrapper">
+        <div class="alert alert-warning alert-dismissible fade show" role="alert" id="monalert">
+            <strong>Attention!</strong> Vous n'avez pas assez d'argent sur votre compte pour acheter.
+                <button type="button" class="close" aria-label="Close" onclick="location='http://piscineeceebay.loc/FrontEnd/Items/AchatItems.php?item=<?php echo $monitem ?>?vendor=<?php echo $monvendor ?>'">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+        </div>
+        <div class="alert alert-warning alert-dismissible fade show" role="alert" id="2alert">
+            <strong>Attention!</strong> Vous proposez deja la meilleure enchere.
+                <button type="button" class="close" aria-label="Close" onclick="location='http://piscineeceebay.loc/FrontEnd/Items/AchatItems.php?item=<?php echo $monitem ?>?vendor=<?php echo $monvendor ?>'">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+        </div>
+        <script>
+            if (window.location.href === "http://piscineeceebay.loc/FrontEnd/Items/AchatItems.php?item=<?php echo $monitem ?>?vendor=test@test.fr?") {
+                document.getElementById('monalert').style.display = "block";
+            } else {
+                document.getElementById('monalert').style.display = "none";
+            }
+
+            if (window.location.href === "http://piscineeceebay.loc/FrontEnd/Items/AchatItems.php?item=<?php echo $monitem ?>?vendor=test@test.fr??") {
+                document.getElementById('2alert').style.display = "block";
+            } else {
+                document.getElementById('2alert').style.display = "none";
+            }
+        </script>
             <div class="row" id="Produit">
                 <div class="col-sm-4" id="photo">
                     <span class="helper"></span> <img id="img" src="../../BackEnd/IMG/<?php echo $infoItem[1] ?>">
                 </div>
                 <div class="col-sm-8" id="info">
                     <div id="test">
-                        <p id="affichage"></p>
+                        <p id="affichage" style= "display : <?php echo $display ?>"></p>
                         <h1 style="text-align: center;"><?php echo $infoItem[1] ?></h1>
                         <div class="row" id="descript">
                             <div class="col-sm-3" id="madesc">
@@ -145,15 +172,52 @@ $maDate = new  DateTime();date_add($maDate, date_interval_create_from_date_strin
                                 <p><?php echo $infoItem[4] ?></p>
                             </div>
                             <div class="col-sm-12" style="height:10%;text-align:center">
-                                <h2><span class="badge badge-success"><?php echo $infoEnchere["offre_actuelle"] ?>€</span></h2>
+                                <h2><span class="badge badge-success"><?php echo $prix ?>€</span></h2>
+                                <form action="../../BackEnd/Achat/Immediat/achatImmediat.php" method="POST"  style="display:<?php echo $displayImme ?>">
+                                    <div class="form-group mx-sm-3 mb-2">
+                                        <input type="number" class="form-control" name="id_item" value="<?php echo $infoItem[0] ?>" style="display : none">
+                                        <input type="number" class="form-control" name="prix" value="<?php echo $infoItem[5] ?>" style="display : none">
+                                    </div>
+                                    <button type="submit" name="submit" class="btn btn-primary mb-2">Acheter</button>
+                                </form>
 
-                                <form class="form-inline" action="../../BackEnd/Achat/Enchere/encherir.php" method="POST">
+
+                                <form class="form-inline" action="../../BackEnd/Achat/Enchere/encherir.php" method="POST" style= "display : <?php echo $display ?>">
                                     <div class="form-group mx-sm-3 mb-2">
                                         <input type="number" class="form-control" id="inputEnchere" name="id_item" value="<?php echo $infoEnchere["id_item"] ?>" style="display : none">
                                         <input type="number" class="form-control" id="inputEnchere" name="offre" placeholder="€" required="" min=<?php echo $infoEnchere["offre_actuelle"] + 1 ?>>         
                                     </div>
                                     <button type="submit" name="submit" class="btn btn-primary mb-2">Enchérir</button>
                                 </form>
+
+                                <form class="form-inline" action="../../BackEnd/Achat/Enchere/offreAuto.php" method="POST" style= "display : <?php echo $display ?>">
+                                    <div class="form-group mx-sm-3 mb-2">
+                                        <input type="number" class="form-control" id="inputEnchere" name="id_item" value="<?php echo $infoEnchere["id_item"] ?>" style="display : none">
+                                        <input type="number" class="form-control" id="inputEnchere" name="offre" placeholder="€" required="" min=<?php echo $infoEnchere["offre_actuelle"] + 1 ?>>
+                                    </div>
+                                    <button type="submit" name="submit" class="btn btn-primary mb-2">Offre automatique</button>
+                                </form>
+
+
+
+
+
+                                <form class="form-inline" action="../../BackEnd/Achat/Nego/acceptPropAcheteur.php" method="POST" style= "display : <?php echo $displayNego ?>">
+                                    <div class="form-group mx-sm-3 mb-2">
+                                        <input type="number" class="form-control" id="inputEnchere" name="id_item" value="<?php echo $infoItem[0] ?>" style="display : none">
+                                        <input type="number" class="form-control" id="inputEnchere" name="offreVendeur" value="<?php echo $infoItem[5] ?>" >
+                                    </div>
+                                    <button type="submit" name="submit" class="btn btn-primary mb-2">Accepter OFFRE</button>
+                                </form>
+                                
+                                <form class="form-inline" action="../../BackEnd/Achat/Nego/contreProposition.php" method="POST" style= "display : <?php echo $displayNego ?>">
+                                    <div class="form-group mx-sm-3 mb-2">
+                                        <input type="number" class="form-control" id="inputEnchere" name="id_item" value="<?php echo $infoItem[0] ?>" style="display : none">
+                                        <input type="number" class="form-control" id="inputEnchere" name="offreAcheteur" placeholder="€" required="" >
+                                    </div>
+                                    <button type="submit" name="submit" class="btn btn-primary mb-2">Contre proposition</button>
+                                </form>
+
                             </div>
                         </div>
 

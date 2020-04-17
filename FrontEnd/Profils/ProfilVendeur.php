@@ -92,12 +92,10 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
                     </div>
 
-                </fieldset>
-            </form>
-            <div class="col-sm-12" id="boutons">
-                <button type="submit" class="btn" data-toggle="modal" data-target="#ModalProfil" style="background-color:#f1959b">Modifier mon profil</button>
-                <button type="submit" class="btn" data-toggle="modal" data-target="#exampleModal" style="float:right;background-color:#f1959b">Mes objets vendus</button>
-            </div>
+            </fieldset>
+        </form>
+        <div class="col-sm-12" id="boutons" style="text-align:center">
+            <button type="submit" class="btn btn-outline-success" data-toggle="modal" data-target="#ModalProfil">Modifier mon profil</button>
         </div>
 <!-- Modal -->
         <div class="modal fade" id="ModalProfil" aria-hidden="true">

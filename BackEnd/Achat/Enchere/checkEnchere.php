@@ -3,6 +3,7 @@
     function checkEnchere(){
         $db = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
         $email=$_SESSION["email"];
+        $stack = array();
         if($db === false){
             die("ERROR: Could not connect. " . $db->connect_error);
         }
@@ -36,30 +37,59 @@
             $duree .= " hours";
             $maDateFin   = date_add($debut, date_interval_create_from_date_string($duree));
             $dteDiff  = $maDate->diff($maDateFin);
-            $json =  @json_encode($dteDiff->format("%D:%H:%I:%S"));
-            print "<script>console.log($json);</script>";
+
             if(strcmp($dteDiff->format("%D:%H:%I:%S"),"00:00:00:00") == 0 )
             {
-                $json =  @json_encode("oui");
-                print "<script>console.log($json);</script>";
                 $sql = "UPDATE items SET sold = 1 WHERE id = ?";
                 if ($stmt = $db->prepare($sql)) {
                     $stmt->bind_param("i",$param_id_item);
                     $param_id_item = $it["id_item"];
-                    $json =  @json_encode($param_id_item);
-                    print "<script>console.log($json);</script>";
                     if ($stmt->execute()) {
                         $json =  @json_encode("Sold");
                         print "<script>console.log($json);</script>";
+                        $sql = "INSERT INTO vente (id_item,title, email_vendor,typeAchat,prix_final,email_acheteur_final) VALUES (?,?, ?, ?, ?, ?)";
+                        if ($mystmt = $db->prepare($sql)) {
+                            $mystmt->bind_param("isssis",$param_id_item,$param_title,$param_email_vendor,$param_typeAchat,$param_prix,$param_email_acheteur);
+                            $param_id_item = $it["id_item"];
+                            $param_title = $it["title"];
+                            $param_email_vendor = $it["email_vendor"];
+                            $param_typeAchat = $it["typeAchat"];
+                            $param_prix = $it["offre_actuelle"];
+                            $param_email_acheteur = $it["email_acheteur_actuel"];
+                            if ($mystmt->execute()) {
+                                $json =  @json_encode("add to vente");
+                                print "<script>console.log($json);</script>";
+                                $sql = "DELETE FROM items WHERE title = ? AND email_vendor = ?";
+                                if($lestmt = $db->prepare($sql)){
+                                    $lestmt->bind_param("ss", $param_title,$param_email_vendor);
+                                    $param_title = $it["title"];
+                                    $param_email_vendor = $it["email_vendor"];
+                                    if($lestmt->execute()){
+                                        $sql = "DELETE FROM enchere WHERE title = ? AND email_vendor = ?";
+                                        if($mstmt = $db->prepare($sql)){
+                                            $mstmt->bind_param("ss", $param_title,$param_email_vendor);
+                                            $param_title = $it["title"];
+                                    $param_email_vendor = $it["email_vendor"];
+                            if($mstmt->execute()){
+                            }
+                            $mstmt->close();
+                        }
+                    header("Location: ../../FrontEnd/HomePage/HomeVendeur.php");
+                    exit();
+                }
+                $lestmt->close();
+            }
+                            }
+                            $mystmt->close();
+                        }
                     }
                     else{
                         $json =  @json_encode("ailleouille");
                         print "<script>console.log($json);</script>";
                     }
 
-        $stmt->close();
-
-    }
+            $stmt->close();
+        }
             }
         }
         $db->close();

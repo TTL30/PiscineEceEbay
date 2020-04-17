@@ -113,6 +113,9 @@ if (!empty($myUrl[1])) {
                             <span class="caret"></span>
                         </button>
                         <div class="dropdown-menu" style="text-align:center">
+                        <a class="dropdown-item" href="../Panier/itemVenduVendor.php">Mes Ventes</a>
+                        <a class="dropdown-item" href="../Panier/negociation.php">Mes NEGOS</a>
+
                             <a class="dropdown-item" href="../Profils/ProfilVendeur.php">Mon profil</a>
                             <div class="dropdown-divider"></div>
                             <a href="../../BackEnd/Auth/logout.php" class="btn btn-sm btn-outline-danger">Déconnexion</a>
@@ -124,7 +127,7 @@ if (!empty($myUrl[1])) {
                 </form>
                 </div>
         </div>
-    </nav> 
+    </nav>  
     <div class="Wrapper-VM">
         <div class="vertical-menu">
             <a href="#" class="active">Vos Items</a>
@@ -162,6 +165,11 @@ if (!empty($myUrl[1])) {
                 document.getElementById('monalert').style.display = "block";
             } else {
                 document.getElementById('monalert').style.display = "none";
+            }
+
+            function showDiv(divId, element)
+            {
+                document.getElementById(divId).style.display = element.value == 'enchere' ? 'block' : 'none';
             }
         </script>
         <div class="row list" style="margin-left:0%">
@@ -203,11 +211,12 @@ if (!empty($myUrl[1])) {
                             </div>
                             <div class="form-group">
                                 <label for="Type Achat">Type d'achat:</label>
-                                <select class="form-control" name="typeAchat" required="">
-                                    <option value="enchere"> Enchère</option>
+                                <select class="form-control" name="typeAchat" required="" onchange="showDiv('hidden_div', this)">
+                                    <option value="enchere">Enchère (24 heures)</option>
                                     <option value="immediat">Achat immédiat</option>
                                     <option value="offre">Meilleur offre</option>
                                 </select>
+                                
                             </div>
                             <div class="form-group">
                                 <label for="Price">Prix:</label>

@@ -89,10 +89,12 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                             <a href="../../BackEnd/Auth/logout.php" class="btn btn-sm btn-outline-danger">Déconnexion</a>
                         </div>
                     </div>
-
+               
                 </div>
-            </div>
-        </nav>
+        </div>
+    </nav>
+   
+
         <div id="conteneur">
             <div id="wrapper">
                 <div class="row" id="Produit">
