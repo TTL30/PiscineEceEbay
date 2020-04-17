@@ -18,7 +18,8 @@
     <?php
     $myUrl = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
     ?>
-    <body class="text-center">
+    <body class="text-center" style="background: rgb(241,149,155);
+                                     background: linear-gradient(0deg, rgba(241,149,155,1) 0%, rgba(179,172,182,1) 50%, rgba(44,66,131,1) 100%);">
         <div class="formulaire">
             <form class="form-signin" action="../../BackEnd/Auth/login.php" method="POST">
                 <img class="mb-4" src="logo.png" alt="" width="200" height="100">

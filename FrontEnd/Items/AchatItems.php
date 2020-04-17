@@ -172,8 +172,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                 <p><?php echo $infoItem[4] ?></p>
                             </div>
                             <div class="col-sm-12" style="height:10%;text-align:center">
-                                <h2><span class="badge badge-success"><?php echo $prix ?>€</h2>
-
+                                <h2><span class="badge badge-success"><?php echo $prix ?>€</span></h2>
                                 <form action="../../BackEnd/Achat/Immediat/achatImmediat.php" method="POST"  style="display:<?php echo $displayImme ?>">
                                     <div class="form-group mx-sm-3 mb-2">
                                         <input type="number" class="form-control" name="id_item" value="<?php echo $infoItem[0] ?>" style="display : none">
@@ -186,10 +185,11 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                 <form class="form-inline" action="../../BackEnd/Achat/Enchere/encherir.php" method="POST" style= "display : <?php echo $display ?>">
                                     <div class="form-group mx-sm-3 mb-2">
                                         <input type="number" class="form-control" id="inputEnchere" name="id_item" value="<?php echo $infoEnchere["id_item"] ?>" style="display : none">
-                                        <input type="number" class="form-control" id="inputEnchere" name="offre" placeholder="€" required="" min=<?php echo $infoEnchere["offre_actuelle"] + 1 ?>>
+                                        <input type="number" class="form-control" id="inputEnchere" name="offre" placeholder="€" required="" min=<?php echo $infoEnchere["offre_actuelle"] + 1 ?>>         
                                     </div>
-                                    <button type="submit" name="submit" class="btn btn-primary mb-2">Encherir</button>
+                                    <button type="submit" name="submit" class="btn btn-primary mb-2">Enchérir</button>
                                 </form>
+
                                 <form class="form-inline" action="../../BackEnd/Achat/Enchere/offreAuto.php" method="POST" style= "display : <?php echo $display ?>">
                                     <div class="form-group mx-sm-3 mb-2">
                                         <input type="number" class="form-control" id="inputEnchere" name="id_item" value="<?php echo $infoEnchere["id_item"] ?>" style="display : none">

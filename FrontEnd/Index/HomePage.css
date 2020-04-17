@@ -80,7 +80,7 @@ body{
     font-family:"sunset";
 }
 #inscription{
-    background: linear-gradient(90deg, #c20404, #e46d04, #8c04c6);
+    background: linear-gradient(270deg, #082d4e, #faada3);
     background-size: 400% 400%;
     animation: gradient 5s ease infinite;
     color: white;
@@ -91,7 +91,7 @@ body{
     background-color: #081D5B;
 }
 #connexion{
-    background: linear-gradient(90deg,#8c04c6, #e46d04,#c20404);
+    background: linear-gradient(270deg, #faada3, #082d4e);
     background-size: 400% 400%;
     animation: gradient 5s ease infinite;
     color: white;
@@ -114,4 +114,5 @@ body{
 }
 .boutons{
     margin-top: 5%;
+    
 }

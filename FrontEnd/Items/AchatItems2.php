@@ -147,16 +147,14 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                 </div>
                                 <div class="col-sm-12" style="height:10%;text-align:center">
                                     <h2><span class="badge badge-success"><?php echo $infoEnchere["offre_actuelle"] ?>€</span></h2>
-                                    <div class="achat">
-                                        <form class="form-inline" action="../../BackEnd/Achat/Enchere/encherir.php" method="POST">
-                                            <div class="form-group mx-sm-3 mb-2">
-                                                <input type="number" class="form-control" id="inputEnchere" name="id_item" value="<?php echo $infoEnchere["id_item"] ?>" style="display : none">
-                                                <input type="number" class="form-control" id="inputEnchere" name="offre" placeholder="Faites votre offre" required="" min=<?php echo $infoEnchere["offre_actuelle"] + 1 ?>>
-                                            </div>
-                                            <button type="submit" name="submit" class="btn mb-2" style="background-color:#dddfe6">Faire une offre</button>
-                                            <button type="submit" name="submit" disabled="disabled" class="btn mb-2" style="margin-left:10%; background-color:#dddfe6">Achat immédiat</button>
-                                        </form>
-                                    </div>
+
+                                    <form class="form-inline" action="../../BackEnd/Achat/Enchere/encherir.php" method="POST">
+                                        <div class="form-group mx-sm-3 mb-2">
+                                            <input type="number" class="form-control" id="inputEnchere" name="id_item" value="<?php echo $infoEnchere["id_item"] ?>" style="display : none">
+                                            <input type="number" class="form-control" id="inputEnchere" name="offre" placeholder="€" required="" min=<?php echo $infoEnchere["offre_actuelle"] + 1 ?>>         
+                                        </div>
+                                        <button type="submit" name="submit" class="btn mb-2" style="background-color:#dddfe6">Enchérir</button>
+                                    </form>
                                 </div>
                             </div>
 
@@ -164,7 +162,9 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
                     </div>
                 </div>
+
             </div>
+
         </div>
         <footer class="footer mt-auto py-3" id="pied">
             <div class="container" style="text-align:center" >
@@ -181,4 +181,5 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
     </body>
+
 </html>

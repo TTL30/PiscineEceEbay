@@ -128,7 +128,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                             <h1 style="text-align: center;"><?php echo $infoItem[1] ?></h1>
                             <div class="row" id="descript">
                                 <div class="col-sm-3" id="madesc">
-                                    <h2><span class="badge badge-secondary">Description:</span></h2>
+                                    <h2><span class="badge ">Description:</span></h2>
                                 </div>
                                 <div class="col-sm-9" id="text">
                                     <p><?php echo $infoItem[2] ?></p>
@@ -151,10 +151,10 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                         <form class="form-inline" action="../../BackEnd/Achat/Enchere/encherir.php" method="POST">
                                             <div class="form-group mx-sm-3 mb-2">
                                                 <input type="number" class="form-control" id="inputEnchere" name="id_item" value="<?php echo $infoEnchere["id_item"] ?>" style="display : none">
-                                                <input type="number" class="form-control" id="inputEnchere" name="offre" placeholder="Faites votre offre" required="" min=<?php echo $infoEnchere["offre_actuelle"] + 1 ?>>
+                                                <input type="number"  disabled="disabled" class="form-control" id="inputEnchere" name="offre" placeholder="Faites votre offre" required="" min=<?php echo $infoEnchere["offre_actuelle"] + 1 ?>>
                                             </div>
-                                            <button type="submit" name="submit" class="btn mb-2" style="background-color:#dddfe6">Faire une offre</button>
-                                            <button type="submit" name="submit" disabled="disabled" class="btn mb-2" style="margin-left:10%; background-color:#dddfe6">Achat immédiat</button>
+                                            <button id ="btn" type="submit" name="submit" disabled="disabled" class="btn mb-2" style="background-color:#dddfe6">Faire une offre</button>
+                                            <button id ="btn" type="submit" name="submit" class="btn mb-2" style="margin-left:10%;background-color:#dddfe6">Achat immédiat</button>
                                         </form>
                                     </div>
                                 </div>

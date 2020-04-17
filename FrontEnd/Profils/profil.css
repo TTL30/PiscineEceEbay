@@ -21,14 +21,15 @@
     height: 8%;
     background-color: whitesmoke;
 }
-.container{
+#conteneur{
     height:650px;
     width: 700px;
-    margin-top:  6%;
+    margin-top:  7%;
+    margin-bottom: 6%;
     padding: 12px;
-    background: linear-gradient(270deg, #fc0505, #fcf005, #00cf30, #3d9b78, #0102f5);
+    background: linear-gradient(270deg, #f1959b, #fafafa);
     background-size: 400% 400%;
-    animation: gradient 15s ease infinite;
+    animation: gradient 13s ease infinite;
 }
 
 @keyframes gradient {
@@ -46,4 +47,7 @@
     background-color: whitesmoke;
     height: 63%;
     margin: 0;
+}
+#pied{
+    background-color: #252c41;
 }
