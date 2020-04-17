@@ -145,16 +145,15 @@ $maDate = new  DateTime();date_add($maDate, date_interval_create_from_date_strin
                                 <p><?php echo $infoItem[4] ?></p>
                             </div>
                             <div class="col-sm-12" style="height:10%;text-align:center">
-                                <h2><span class="badge badge-success"><?php echo $infoEnchere["offre_actuelle"] ?>€</h2>
+                                <h2><span class="badge badge-success"><?php echo $infoEnchere["offre_actuelle"] ?>€</span></h2>
 
                                 <form class="form-inline" action="../../BackEnd/Achat/Enchere/encherir.php" method="POST">
                                     <div class="form-group mx-sm-3 mb-2">
                                         <input type="number" class="form-control" id="inputEnchere" name="id_item" value="<?php echo $infoEnchere["id_item"] ?>" style="display : none">
-                                        <input type="number" class="form-control" id="inputEnchere" name="offre" placeholder="€" required="" min=<?php echo $infoEnchere["offre_actuelle"] + 1 ?>>
+                                        <input type="number" class="form-control" id="inputEnchere" name="offre" placeholder="€" required="" min=<?php echo $infoEnchere["offre_actuelle"] + 1 ?>>         
                                     </div>
-                                    <button type="submit" name="submit" class="btn btn-primary mb-2">Encherir</button>
+                                    <button type="submit" name="submit" class="btn btn-primary mb-2">Enchérir</button>
                                 </form>
-
                             </div>
                         </div>
 
