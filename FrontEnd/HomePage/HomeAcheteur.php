@@ -99,6 +99,8 @@ if (!empty($myUrl[1])) {
                             <span class="caret"></span>
                         </button>
                         <div class="dropdown-menu" style="text-align:center">
+                        <a class="dropdown-item" href="../Panier/mesAchats.php">Mes Achats</a>
+
                             <a class="dropdown-item" href="../Panier/panierAcheteur.php">Mon panier</a>
                             <a class="dropdown-item" href="../Profils/ProfilGene.php">Mon profil</a>
                             <div class="dropdown-divider"></div>

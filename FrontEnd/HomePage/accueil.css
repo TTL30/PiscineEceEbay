@@ -102,3 +102,7 @@ html, body{
     margin-top: 1%;
     font-size: large;
 }
+
+#hidden_div {
+    display: none;
+}

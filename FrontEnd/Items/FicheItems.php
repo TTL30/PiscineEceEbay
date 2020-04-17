@@ -92,14 +92,7 @@ if ($_SESSION['type'] === 3) {
                 </div>
         </div>
     </nav>
-    <div id="conteneur">
-        <div id="wrapper">
-            <div class="row" id="Produit">
-                <div class="col-sm-4" id="photo">
-                    <span class="helper"></span> <img id="img" src="../../BackEnd/IMG/<?php echo $infoItem[1] ?>">
-                </div>
-            </div>
-        </nav>
+   
         <div id="conteneur">
             <div id="wrapper">
                 <div class="row" id="Produit">

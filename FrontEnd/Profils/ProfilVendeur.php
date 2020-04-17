@@ -93,9 +93,8 @@ else{
 
             </fieldset>
         </form>
-        <div class="col-sm-12" id="boutons">
+        <div class="col-sm-12" id="boutons" style="text-align:center">
             <button type="submit" class="btn btn-outline-success" data-toggle="modal" data-target="#ModalProfil">Modifier mon profil</button>
-            <button type="submit" class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModal" style="float:right">Mes objets vendus</button>
         </div>
     </div>
 

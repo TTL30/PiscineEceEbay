@@ -36,29 +36,80 @@ if (isset($_POST['Submit'])) {
                     $param_prix = $prix;
                     $param_img = $img;
                     if($mystmt->execute()){
-                        $lastId=$mysqli->insert_id;
-                        $sql = "INSERT INTO enchere (id_item,title,email_vendor,typeAchat,offre_actuelle,email_acheteur_actuel,fin) VALUES (?,?, ?, ?, ?, '',24)";
-                        if($lestmt = $mysqli->prepare($sql)){
-                            $lestmt->bind_param("isssi", $param_id_item,$param_title, $param__email_vendor,$param_type_achat,$param_offre_actuelle);
-                            $param_id_item = $lastId;
-                            $param_title= $title;
-                            $param__email_vendor = $email;
-                            $param_type_achat = $typeAchat;
-                            $param_offre_actuelle =$prix;
-                            if($lestmt->execute()){
-                                $json =  @json_encode("add to enchere");
-                                print "<script>console.log($json);</script>";
+                        if(strcmp($typeAchat,"enchere")===0){
+                            $lastId=$mysqli->insert_id;
+                            $sql = "INSERT INTO enchere (id_item,title,email_vendor,typeAchat,offre_actuelle,email_acheteur_actuel,fin,offre_auto,email_acheteur_offre_auto) VALUES (?,?, ?, ?, ?, '',24,0,'')";
+                            if($lestmt = $mysqli->prepare($sql)){
+                                $lestmt->bind_param("isssi", $param_id_item,$param_title, $param__email_vendor,$param_type_achat,$param_offre_actuelle);
+                                $param_id_item = $lastId;
+                                $param_title= $title;
+                                $param__email_vendor = $email;
+                                $param_type_achat = $typeAchat;
+                                $param_offre_actuelle =$prix;
+                                if($lestmt->execute()){
+                                    $json =  @json_encode("add to enchere");
+                                    print "<script>console.log($json);</script>";
+                                }
+                                else{
+                                    $json =  @json_encode("not add to enchere");
+                                    print "<script>console.log($json);</script>";
+                                }
+    
+                                $lestmt->close();
+    
                             }
-                            else{
-                                $json =  @json_encode("not add to enchere");
-                                print "<script>console.log($json);</script>";
-                            }
-
-                            $lestmt->close();
-
+                            header("Location: ../../FrontEnd/HomePage/HomeVendeur.php");
                         }
-                        header("Location: ../../FrontEnd/HomePage/HomeVendeur.php");
-                    }
+                        else if(strcmp($typeAchat,"immediat")===0){
+                            $lastId=$mysqli->insert_id;
+                            $sql = "INSERT INTO immediat (id_item,title,email_vendor,typeAchat,prix,email_acheteur) VALUES (?,?, ?, ?, ?,'')";
+                            if($lestmt = $mysqli->prepare($sql)){
+                                $lestmt->bind_param("isssi", $param_id_item,$param_title, $param__email_vendor,$param_type_achat,$param_offre_actuelle);
+                                $param_id_item = $lastId;
+                                $param_title= $title;
+                                $param__email_vendor = $email;
+                                $param_type_achat = $typeAchat;
+                                $param_offre_actuelle =$prix;
+                                if($lestmt->execute()){
+                                    $json =  @json_encode("add to immediat");
+                                    print "<script>console.log($json);</script>";
+                                }
+                                else{
+                                    $json =  @json_encode("not add to eimmediat");
+                                    print "<script>console.log($json);</script>";
+                                }
+    
+                                $lestmt->close();
+    
+                            }
+                            header("Location: ../../FrontEnd/HomePage/HomeVendeur.php");
+                        }
+                        else if(strcmp($typeAchat,"offre")===0){
+                            $lastId=$mysqli->insert_id;
+                            $sql = "INSERT INTO nego (id_item,title,email_vendor,typeAchat,offre_vendeur,offre_acheteur,email_acheteur,last_offer,nb) VALUES (?,?, ?, ?, ?,0,'',0,0)";
+                            if($lestmt = $mysqli->prepare($sql)){
+                                $lestmt->bind_param("isssi", $param_id_item,$param_title, $param__email_vendor,$param_type_achat,$param_offre_actuelle);
+                                $param_id_item = $lastId;
+                                $param_title= $title;
+                                $param__email_vendor = $email;
+                                $param_type_achat = $typeAchat;
+                                $param_offre_actuelle =$prix;
+                                if($lestmt->execute()){
+                                    $json =  @json_encode("add to nego");
+                                    print "<script>console.log($json);</script>";
+                                }
+                                else{
+                                    $json =  @json_encode("not add to nego");
+                                    print "<script>console.log($json);</script>";
+                                }
+    
+                                $lestmt->close();
+    
+                            }
+                            header("Location: ../../FrontEnd/HomePage/HomeVendeur.php");
+                        }
+                        }
+                        
                     else{
                         
                         $json =  @json_encode("aillllle");

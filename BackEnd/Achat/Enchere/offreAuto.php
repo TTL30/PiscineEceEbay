@@ -23,7 +23,21 @@ if (isset($_POST['submit'])) {
                 header("Location: {$_SERVER['HTTP_REFERER']}?");
                 exit();
             }else{
-                        $sql = "SELECT offre_actuelle, email_acheteur_actuel,offre_auto,email_acheteur_offre_auto FROM enchere WHERE id_item = ?";
+                $sql = "SELECT offre_auto, email_acheteur_offre_auto FROM enchere WHERE id_item = ?";
+                if ($ouimonst = $mysqli->prepare($sql)) {
+                    $ouimonst->bind_param("i",$param_id_item);
+                    $param_id_item = $idItem;
+                    if ($ouimonst->execute()) {
+                        $result = mysqli_stmt_get_result($ouimonst);
+                        $lerow = mysqli_fetch_row($result);
+                        if($lerow[0]>$offre){
+                            $json =  @json_encode("MIEUX DEJA better");
+                             print "<script>console.log($json);</script>";
+                             header("Location: {$_SERVER['HTTP_REFERER']}???");                
+                             exit();
+                        }
+                        else{
+                            $sql = "SELECT offre_actuelle, email_acheteur_actuel FROM enchere WHERE id_item = ?";
                         if ($unstat = $mysqli->prepare($sql)) {
                             $unstat->bind_param("i",$param_id_item);
                             $param_id_item = $idItem;
@@ -33,25 +47,9 @@ if (isset($_POST['submit'])) {
                                 if($email === $row[1]){
                                     $json =  @json_encode("already better");
                                      print "<script>console.log($json);</script>";
-                                     header("Location: {$_SERVER['HTTP_REFERER']}??");                
-                                     exit();  
-                                }
-                                else if($row[0]<$row[2]){
-                                    $sql = "UPDATE enchere SET offre_actuelle = ? WHERE id_item = ?";
-                                    if ($encorestmt = $mysqli->prepare($sql)) {
-                                        $encorestmt->bind_param("ii", $param_offre_actuelle,$param_id_item);
-                                        $param_offre_actuelle = $offre+1;
-                                        $param_id_item = $idItem;
-                                        if ($encorestmt->execute()) {
-                                            header('Location: ' . $_SERVER['HTTP_REFERER']);            exit();
-                                        }
-                                        $encorestmt->close();
-                                
-                                    }
-
-                                }
-                                
-                                else if(($row[0]>$row[2])){
+                                     header("Location: {$_SERVER['HTTP_REFERER']}????");                
+                                     exit();
+                                }else{
                                     $sql = "UPDATE acheteur SET solde = ? WHERE email = ?";
                                     if ($lestmt = $mysqli->prepare($sql)) {
                                         $lestmt->bind_param("is",$param_solde,$param_email);
@@ -68,19 +66,20 @@ if (isset($_POST['submit'])) {
                                             $sql = "UPDATE acheteur SET solde = ? WHERE email = ?";
                                             if ($encorestat = $mysqli->prepare($sql)) {
                                                 $encorestat->bind_param("is",$param_solde,$param_email);
-                                                if(strcmp($row[0],$row[3])){
-                                                    $param_solde = $lesolde[0] + $row[2];
+                                                if(strcmp($row[1],$lerow[1])===0){
+                                                    $param_solde = $lesolde[0] + $lerow[0];
                                                 }else{
                                                     $param_solde = $lesolde[0] + $row[0];
-
                                                 }
                                                 $param_email = $row[1];
                                                 if ($encorestat->execute()) {
-                                                    $sql = "UPDATE enchere SET offre_actuelle = ?, email_acheteur_actuel = ? WHERE id_item = ?";
+                                                    $sql = "UPDATE enchere SET offre_actuelle = ?, email_acheteur_actuel = ?,offre_auto = ?, email_acheteur_offre_auto = ? WHERE id_item = ?";
                                                     if ($ouistmt = $mysqli->prepare($sql)) {
-                                                        $ouistmt->bind_param("isi", $param_offre_actuelle,$param_email,$param_id_item);
-                                                        $param_offre_actuelle = $offre;
+                                                        $ouistmt->bind_param("isisi", $param_offre_actuelle,$param_email,$param_offre_auto,$param_email_auto,$param_id_item);
+                                                        $param_offre_actuelle = $row[0]+1;
                                                         $param_email = $email;
+                                                        $param_offre_auto = $offre;
+                                                        $param_email_auto = $email;
                                                         $param_id_item = $idItem;
                                                         if ($ouistmt->execute()) {
                                                             header('Location: ' . $_SERVER['HTTP_REFERER']);            exit();
@@ -106,6 +105,17 @@ if (isset($_POST['submit'])) {
 
                         }
                         $unstat->close();
+
+                        }
+                    }
+
+
+
+                }
+                $ouimonst->close();
+
+
+                        
             }
         }
         $mystmt->close();
