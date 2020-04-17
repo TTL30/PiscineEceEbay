@@ -20,7 +20,8 @@
     </head>
 
     <body>
-        <nav class="navbar fixed-top navbar-expand-lg navbar-light" style="border-bottom: 1px solid grey; background-color: whitesmoke;">
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light" style="border-bottom: 1px solid grey; background: rgb(221,223,230);
+                                                                           background: linear-gradient(320deg, rgba(221,223,230,1) 0%, rgba(241,149,155,1) 46%, rgba(37,44,65,1) 100%);">
             <a class="navbar-brand" href="HomeVendeur.php"> <img src="logo.png" alt="" width="60" height="30"> </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -49,8 +50,8 @@
         <div class ="col-12" id="texte">
             <h1 style="color:whitesmoke;"> Venez vous aussi trouver vos trésors sur EceEbay</h1>
             <div class="col-12" id="boutons">
-                <button class="btn  btn-lg my-2 my-sm-0" id="inscription" type="submit">Inscription</button>
-                <button class="btn  btn-lg my-2 my-sm" id="connexion" type="Connexion">Connexion</button>
+                <a href="#" class="s3"><button class="btn  btn-lg my-2 my-sm-0" id="inscription" type="submit" style="box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);">Inscription</button></a>
+                <button class="btn  btn-lg my-2 my-sm" id="connexion" type="Connexion" style="box-shadow: 0 8px 16px 0 rgba(0,0,0,0.7), 0 6px 20px 0 rgba(0,0,0,0.19);">Connexion</button>
             </div>
         </div>
     </body>
