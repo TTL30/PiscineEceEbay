@@ -48,7 +48,7 @@ $itemsAcheter = getItemsAchete();
                 acheteur = "Pas d'acheteur";
             }else{
                 tr.style='background-color:green';
-                acheteur = e['email_acheteur_final'];
+                acheteur = e['email_vendor'];
                 total += e["prix_final"];
 
             }
@@ -132,7 +132,7 @@ $itemsAcheter = getItemsAchete();
                     <th scope="col">Intitulé</th>
                     <th scope="col">Type achat</th>
                     <th scope="col">Prix final</th>
-                    <th scope="col">Email acheteur</th>
+                    <th scope="col">Email vendeur</th>
 
                 </tr>
             </thead>

@@ -39,17 +39,7 @@ if (!empty($myUrl[1])) {
 } else {
     $itemsToSell = getDBData();
 }
-    $date = new  DateTime();
-    $dteStart = new DateTime();
-    $dteEnd   = date_add($date, date_interval_create_from_date_string('0 days'));
-    $dteDiff  = $dteStart->diff($dteEnd);    
-    $json =  @json_encode($dteDiff->format("%D:%H:%I:%S"));
-    print "<script>console.log($json);</script>";
-    if(strcmp($dteDiff->format("%D:%H:%I:%S"),"00:00:00:00") == 0 )
-    {
-        $json =  @json_encode("oui");
-        print "<script>console.log($json);</script>";
-    }
+   
 
     checkEnchere();
 ?>
@@ -62,7 +52,7 @@ if (!empty($myUrl[1])) {
         var parent = document.getElementsByClassName("row list")[0];
         itemsToSell.forEach(function(e) {
             var link = document.createElement('a');
-            link.setAttribute('href', '../Items/FicheItems.php' + '?item=' + e[0].title + '?vendor=' + e[0].email_vendor);
+            link.setAttribute('href', '../Items/FicheItems.php' + '?item=' + e[0].id + '?vendor=' + e[0].email_vendor);
             var col = document.createElement('div');
             col.className = 'col-sm-4';
             var title = document.createElement('p');
@@ -91,6 +81,24 @@ if (!empty($myUrl[1])) {
     }
     window.onload = insertItems
 </script>
+<script>
+
+function achat2(){
+    if(document.getElementById('achat1').value == "enchere") {
+        document.getElementById('immed').disabled =true;
+        document.getElementById('offer').disabled =true
+     }
+     if(document.getElementById('achat1').value == "offre") {
+        document.getElementById('immed').disabled =false;
+        document.getElementById('offer').disabled =true
+     }
+     if(document.getElementById('achat1').value == "immediat") {
+        document.getElementById('immed').disabled =true;
+        document.getElementById('offer').disabled =false;
+     }
+}
+</script>
+
 
 
 <body>
@@ -211,10 +219,19 @@ if (!empty($myUrl[1])) {
                             </div>
                             <div class="form-group">
                                 <label for="Type Achat">Type d'achat:</label>
-                                <select class="form-control" name="typeAchat" required="" onchange="showDiv('hidden_div', this)">
-                                    <option value="enchere">Enchère (24 heures)</option>
+                                <select class="form-control" name="typeAchat" required="" onchange="achat2()" id="achat1">
                                     <option value="immediat">Achat immédiat</option>
                                     <option value="offre">Meilleur offre</option>
+                                    <option value="enchere">Enchère (24 heures)</option>
+
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="Type Achat 2">Type d'achat secondaire:</label>
+                                <select class="form-control" name="typeAchat2" required="">
+                                    <option value="aucun" >Aucun</option>
+                                    <option value="immediat" id = "immed">Achat immédiat</option>
+                                    <option value="offre" id = "offer">Meilleur offre</option>
                                 </select>
                                 
                             </div>

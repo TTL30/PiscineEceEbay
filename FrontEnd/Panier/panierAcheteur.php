@@ -8,6 +8,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
 <!doctype html>
 <html lang="en">
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -27,18 +28,36 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
 
 <?php
-    include '../../BackEnd/Acheteur/getDataAcheteur.php';
-    include '../../BackEnd/Acheteur/getItemPanier.php';
-    $itemsPanier = getItemPanier();
+include '../../BackEnd/Acheteur/getDataAcheteur.php';
+include '../../BackEnd/Acheteur/getItemPanier.php';
+$itemsPanier = getItemPanier();
 
-    $mesBanq = getAdresseAcheteur();
-    if ($mesBanq[4] === 0) {
-        $solde = " Ajouter vos informations bancaires dans votre profil afin de profiter pleinement de EbayEce!";
-    } else {
-        $solde = $mesBanq[3];
-    }
-    
+$mesBanq = getAdresseAcheteur();
+if ($mesBanq[4] === 0) {
+    $solde = " Ajouter vos informations bancaires dans votre profil afin de profiter pleinement de EbayEce!";
+} else {
+    $solde = $mesBanq[3];
+}
+
+$tot=0;
+foreach($itemsPanier as &$it){
+    $tot += $it[0][3];
+}
+
 ?>
+
+<script>
+    var mesdata = <?php echo json_encode($mesBanq); ?>;
+    if (mesdata[4] === 0) {
+        $(document).ready(function() {
+            $("#lit").css('display', 'none')
+        });
+    } else {
+        $(document).ready(function() {
+            $("#all").css('display', 'none')
+        });
+    }
+</script>
 
 
 <script type="text/javascript">
@@ -46,9 +65,11 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     console.log(itemsPanier);
     insertItems = function() {
         var parent = document.getElementsByClassName("row list")[0];
+        var Total = document.getElementsByClassName("tableM")[0];
+
         itemsPanier.forEach(function(e) {
             var link = document.createElement('a');
-            link.setAttribute('href', '../Items/AchatItems.php' + '?item=' + e[0][1] + '?vendor=' + e[0][2]);
+            link.setAttribute('href', '../Items/AchatItems.php' + '?item=' + e[0][0] + '?vendor=' + e[0][2]);
             var col = document.createElement('div');
             col.className = 'col-sm-4';
             var title = document.createElement('p');
@@ -73,63 +94,89 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             link.appendChild(conta)
             col.appendChild(link)
             parent.appendChild(col);
+
+            var pani = document.createElement('tr');
+            var titre = document.createElement('td');
+            titre.innerHTML = e[0][1];
+            var prix = document.createElement('td');
+            prix.innerHTML=e[0][3]+'€';
+            pani.appendChild(titre);
+            pani.appendChild(prix);
+            Total.appendChild(pani);
         });
+      
     }
     window.onload = insertItems
-</script> 
+</script>
 
 <body>
-    
-     <nav class="navbar fixed-top navbar-expand-lg navbar-light" style="border-bottom: 1px solid grey; background-color: whitesmoke;">
+
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light" style="border-bottom: 1px solid grey; background-color: whitesmoke;">
         <a class="navbar-brand" href="../HomePage/HomeAcheteur.php"> <img src="logo.png" alt="" width="60" height="30"> </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <div class="container">
-                      <div class="logo dropleft">
-                        <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="menu1" data-toggle="dropdown" >
+            <div class="container">
+                <div class="logo dropleft">
+                    <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">
 
-                            <a href="../Profils/ProfilVendeur.php"><svg class="dropdown toggle" width="2em" height="2em" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="padding-right: 5px;margin-right: 0px">
-                                <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 008 15a6.987 6.987 0 005.468-2.63z"/>
-                                <path fill-rule="evenodd" d="M8 9a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/>
-                                <path fill-rule="evenodd" d="M8 1a7 7 0 100 14A7 7 0 008 1zM0 8a8 8 0 1116 0A8 8 0 010 8z" clip-rule="evenodd"/>
-                                </svg></a>
-                            <span class="caret"></span>
-                        </button>
-                        <div class="dropdown-menu" style="text-align:center">
-                            <a class="dropdown-item" href="panierAcheteur.php">Mon panier</a>
-                            <a class="dropdown-item" href="../Profils/ProfilGene.php">Mon profil</a>
-                            <div class="dropdown-divider"></div>
-                            <a href="../../BackEnd/Auth/logout.php" class="btn btn-sm btn-outline-danger">Déconnexion</a>
-                        </div>
+                        <a href="../Profils/ProfilVendeur.php"><svg class="dropdown toggle" width="2em" height="2em" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="padding-right: 5px;margin-right: 0px">
+                                <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 008 15a6.987 6.987 0 005.468-2.63z" />
+                                <path fill-rule="evenodd" d="M8 9a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
+                                <path fill-rule="evenodd" d="M8 1a7 7 0 100 14A7 7 0 008 1zM0 8a8 8 0 1116 0A8 8 0 010 8z" clip-rule="evenodd" />
+                            </svg></a>
+                        <span class="caret"></span>
+                    </button>
+                    <div class="dropdown-menu" style="text-align:center">
+                        <a class="dropdown-item" href="panierAcheteur.php">Mon panier</a>
+                        <a class="dropdown-item" href="../Profils/ProfilGene.php">Mon profil</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="../../BackEnd/Auth/logout.php" class="btn btn-sm btn-outline-danger">Déconnexion</a>
                     </div>
+                </div>
                 <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="search" placeholder="Item, vendeur...." aria-label="Search">
                     <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Rechercher</button>
                 </form>
-                </div>
+            </div>
         </div>
-    </nav> 
+    </nav>
     <div class="Wrapper-VM">
         <div class="vertical-menu">
             <a href="#" class="active">Mon Panier</a>
-            
+
             <div>
                 <p>Hello, <b><?php echo htmlspecialchars($_SESSION["email"]); ?></b></p>
                 <p>Votre solde actuel est de: <b><?php echo $solde ?>€</b></p>
+                <table class="table">
+                    <tbody class="tableM">
+                
+                    </tbody>
+                </table>
+                <hr class="my-2 " style="background-color: red">
+                <tr>
+                    <td>Total</td>
+                    <td><?php echo $tot ?>€</td>
+                </tr>
 
             </div>
-        </div>
-    </div>
-    <div class="listItems">
-        <div class="row list" style="margin-left:0%">
-        </div>
-    </div>
- 
 
-    
-   </body>
+        </div>
+    </div>
+    </div>
+
+    <div class="listItems">
+        <div class="alert alert-warning" role="alert" style="margin-top:20%;text-align:center" id="all">
+            Merci de remplir vos coordonées bancaires aisni que d'accepter la clause afin de pouvoir profiter de votre panier.
+        </div>
+        <div class="row list" style="margin-left:0%" id="lit">
+        </div>
+    </div>
+
+
+
+</body>
 
 </html>

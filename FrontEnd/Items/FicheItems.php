@@ -40,7 +40,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     }
 
     if (isset($_POST['delete'])) {
-        deleteItems($infoItem[1], $infoItem[7]);
+        deleteItems($infoItem[0], $infoItem[7]);
     }
     if (isset($_POST['add'])) {
 
@@ -99,7 +99,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             <div id="wrapper">
                 <div class="row" id="Produit">
                     <div class="col-sm-4" id="photo">
-                        <span class="helper"></span> <img id="img" src="../../BackEnd/IMG/<?php echo $infoItem[1] ?>">
+                        <span class="helper"></span> <img id="img" src="../../BackEnd/IMG/<?php echo $infoItem[6] ?>">
                     </div>
                     <div class="col-sm-8" id="info">
                         <div id="test">

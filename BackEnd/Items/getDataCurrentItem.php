@@ -14,10 +14,10 @@
             die("ERROR: Could not connect. " . $db->connect_error);
         }
 
-        $sql = "SELECT * FROM items WHERE email_vendor = ? AND title = ?";
+        $sql = "SELECT * FROM items WHERE email_vendor = ? AND id = ?";
         if($stmt = $db->prepare($sql)){
 
-            $stmt->bind_param("ss", $param_email_vendor,$param_item);
+            $stmt->bind_param("si", $param_email_vendor,$param_item);
             $param_email_vendor = $vendor;
             $param_item = $item;
             if($stmt->execute()){

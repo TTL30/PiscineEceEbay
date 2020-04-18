@@ -29,9 +29,6 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 include '../../BackEnd/Items/getDataCurrentItem.php';
 include '../../BackEnd/Achat/Enchere/getDataEnchere.php';
 include '../../BackEnd/Achat/Nego/getDataNegocia.php';
-include '../../BackEnd/Acheteur/delete.php';
-
-
 $url = $_SERVER['REQUEST_URI'];
 $myUrl = explode("?", $url);
 $monitem = explode("=", $myUrl[1])[1];
@@ -39,7 +36,16 @@ $monvendor = explode("=", $myUrl[2])[1];
 $infoItem = getDataCurrentItem($monitem, $monvendor);
 $json =  @json_encode($infoItem);
 print "<script>console.log($json);</script>";
+$ench = "no";
 
+/* if (strcmp($infoItem[4], "enchere") === 0) {
+    $display = 'yes';
+    $prix = $infoEnchere["offre_actuelle"];
+    $ench = "yes";
+} else {
+    $display = 'none';
+    $prix = $infoItem[5];
+} */
 
 
 
@@ -58,20 +64,14 @@ if (strcmp($infoItem[4], "enchere") === 0) {
         $typeItem = 3;
     }
 }
-$prix = $infoItem[5];
 
-
+//ENCHERE
 if ($typeItem === 1) {
     $infoEnchere = getDataEnchere($monitem, $monvendor);
-    $prix = $infoEnchere["offre_actuelle"];
-} else if ($typeItem === 3) {
+}else if($typeItem === 3){
     $infoNego = getDataNegocia($monitem, $monvendor);
-} else if ($typeItem === 4) {
+}else if($typeItem === 4){
     $infoNego = getDataNegocia($monitem, $monvendor);
-}
-
-if (isset($_POST['delete'])) {
-    delete($infoItem[0], $infoItem[7]);
 }
 
 ?>
@@ -80,13 +80,11 @@ if (isset($_POST['delete'])) {
 <script>
     var type = <?php echo json_encode($typeItem) ?>;
     if (type === 3) {
-        var infoneg = <?php echo json_encode($infoNego); ?>;
-
         $(document).ready(function() {
-            $("#nego").css('display', 'block')
-            $("#ofreVend").val(infoneg['offre_vendeur'])
-        });
+                $("#nego").css('display', 'block')
+            });
 
+        var infoneg = <?php echo json_encode($infoNego); ?>;
 
         if (infoneg.length === 0) {
             $(document).ready(function() {
@@ -111,7 +109,6 @@ if (isset($_POST['delete'])) {
                 $("#contreProInp").attr("placeholder", "votre offre est de " + infoneg["offre_acheteur"] + " €");
             });
         }
-
         function contrePro() {
             var val = document.getElementById('contreProInp').value;
             alert("Vous avez fait une contre proposition de " + val + " €");
@@ -128,14 +125,12 @@ if (isset($_POST['delete'])) {
 <script>
     var type = <?php echo json_encode($typeItem) ?>;
     if (type === 4) {
-        var infoneg = <?php echo json_encode($infoNego); ?>;
-
         $(document).ready(function() {
-            $("#nego").css('display', 'block')
-            $("#immediat").css('display', 'block')
-            $("#ofreVend").val(infoneg['offre_vendeur'])
+                $("#nego").css('display', 'block')
+                $("#immediat").css('display', 'block')
+            });
 
-        });
+        var infoneg = <?php echo json_encode($infoNego); ?>;
 
         if (infoneg.length === 0) {
             $(document).ready(function() {
@@ -160,7 +155,6 @@ if (isset($_POST['delete'])) {
                 $("#contreProInp").attr("placeholder", "votre offre est de " + infoneg["offre_acheteur"] + " €");
             });
         }
-
         function contrePro() {
             var val = document.getElementById('contreProInp').value;
             alert("Vous avez fait une contre proposition de " + val + " €");
@@ -177,8 +171,8 @@ if (isset($_POST['delete'])) {
     var type = <?php echo json_encode($typeItem) ?>;
     if (type === 2) {
         $(document).ready(function() {
-            $("#immediat").css('display', 'block')
-        });
+                $("#immediat").css('display', 'block')
+            });
     }
 </script>
 
@@ -186,53 +180,59 @@ if (isset($_POST['delete'])) {
 <script>
     var type = <?php echo json_encode($typeItem) ?>;
     if (type === 1) {
-        var infoench = <?php echo json_encode($infoEnchere); ?>;
-        console.log(infoench['id_item']);
-
         $(document).ready(function() {
-            $("#enchere").css('display', 'block')
-            $("#inputEnchere1").val(infoench['id_item'])
-            $("#inputEnchere2").attr({"min" : infoench['offre_actuelle']+1})
-            $("#inputEnchere3").val(infoench['id_item'])
-            $("#inputEnchere4").attr({"min" : infoench['offre_actuelle']+1})
-        });
-        var user = <?php echo json_encode($_SESSION['email']); ?>;
-        if (infoench["email_acheteur_actuel"].localeCompare(user) === 0) {
-            $(document).ready(function() {
-                $("#enche :input").prop("disabled", true);
-                $("#encheBut").html('Vous etes actuellement la meilleure enchere')
+                $("#enchere").css('display', 'block')
             });
-        }
-
-        function CompteARebours() {
-            var date_actuelle = new Date();
-            var debutEnchere = <?php echo @json_encode($infoEnchere["debut"]) ?>;
-            var finEnchere = <?php echo @json_encode($infoEnchere["fin"]) ?>;
-            var days = debutEnchere.split(' ')[0].split('-');
-            var hours = debutEnchere.split(' ')[1].split(':');
-            var datBegin = new Date(parseInt(days[0]), parseInt(days[1]) - 1, parseInt(days[2]), parseInt(hours[0]), parseInt(hours[1]), parseInt(hours[2]));
-            var datEnd = new Date(parseInt(days[0]), parseInt(days[1]) - 1, parseInt(days[2]), parseInt(hours[0]) + parseInt(finEnchere), parseInt(hours[1]), parseInt(hours[2]));
-            var tps_restant = datEnd.getTime() - date_actuelle.getTime();
-            var s_restantes = tps_restant / 1000;
-            var i_restantes = s_restantes / 60;
-            var H_restantes = i_restantes / 60;
-            var d_restants = H_restantes / 24;
-            s_restantes = Math.floor(s_restantes % 60);
-            i_restantes = Math.floor(i_restantes % 60);
-            H_restantes = Math.floor(H_restantes % 24);
-            d_restants = Math.floor(d_restants);
-            var texte = "Il reste exactement <strong>" + d_restants + " jours</strong>, <strong>" + H_restantes + " heures</strong>," +
-                " <strong>" + i_restantes + " minutes</strong> et <strong>" + s_restantes + "s</strong>.";
-            document.getElementById("affichage").innerHTML = texte;
-        }
-        setInterval(CompteARebours, 1000);
     }
 </script>
 
 
+<script>
+    function CompteARebours() {
+        var date_actuelle = new Date();
+        var debutEnchere = <?php echo @json_encode($infoEnchere["debut"]) ?>;
+        var finEnchere = <?php echo @json_encode($infoEnchere["fin"]) ?>;
+        var days = debutEnchere.split(' ')[0].split('-');
+        var hours = debutEnchere.split(' ')[1].split(':');
+        var datBegin = new Date(parseInt(days[0]), parseInt(days[1]) - 1, parseInt(days[2]), parseInt(hours[0]), parseInt(hours[1]), parseInt(hours[2]));
+        var datEnd = new Date(parseInt(days[0]), parseInt(days[1]) - 1, parseInt(days[2]), parseInt(hours[0]) + parseInt(finEnchere), parseInt(hours[1]), parseInt(hours[2]));
+        var tps_restant = datEnd.getTime() - date_actuelle.getTime();
+        var s_restantes = tps_restant / 1000;
+        var i_restantes = s_restantes / 60;
+        var H_restantes = i_restantes / 60;
+        var d_restants = H_restantes / 24;
+        s_restantes = Math.floor(s_restantes % 60);
+        i_restantes = Math.floor(i_restantes % 60);
+        H_restantes = Math.floor(H_restantes % 24);
+        d_restants = Math.floor(d_restants);
+        var texte = "Il reste exactement <strong>" + d_restants + " jours</strong>, <strong>" + H_restantes + " heures</strong>," +
+            " <strong>" + i_restantes + " minutes</strong> et <strong>" + s_restantes + "s</strong>.";
+        document.getElementById("affichage").innerHTML = texte;
+    }
+    var ench = <?php echo @json_encode($ench) ?>
+
+    function rebours(ench) {
+        if (ench === "yes") {
+            setInterval(CompteARebours, 1000);
+        }
+    }
+    rebours(ench)
+</script>
+
+<script>
+    var infoench = <?php echo json_encode($infoEnchere); ?>;
+    var user = <?php echo json_encode($_SESSION['email']); ?>;
+    if (infoench["email_acheteur_actuel"].localeCompare(user) === 0) {
+        $(document).ready(function() {
+            $("#enche :input").prop("disabled", true);
+            $("#encheBut").html('Vous etes actuellement la meilleure enchere')
+        });
+    }
+</script>
+
 
 <body>
-    <nav class="navbar fixed-top navbar-expand-lg navbar-light" style="border-bottom: 1px solid grey; background-color: whitesmoke;">
+    <!-- <nav class="navbar fixed-top navbar-expand-lg navbar-light" style="border-bottom: 1px solid grey; background-color: whitesmoke;">
         <a class="navbar-brand" href="../HomePage/HomeAcheteur.php"> <img src="logo.png" alt="" width="60" height="30"> </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -260,7 +260,7 @@ if (isset($_POST['delete'])) {
 
             </div>
         </div>
-    </nav>
+    </nav> -->
     <div id="conteneur">
         <div id="wrapper">
             <div class="alert alert-warning alert-dismissible fade show" role="alert" id="monalert">
@@ -294,7 +294,7 @@ if (isset($_POST['delete'])) {
                 </div>
                 <div class="col-sm-8" id="info">
                     <div id="test">
-
+                        <p id="affichage" style="display : <?php echo $display ?>"></p>
                         <h1 style="text-align: center;"><?php echo $infoItem[1] ?></h1>
                         <div class="row" id="descript">
                             <div class="col-sm-3" id="madesc">
@@ -316,51 +316,48 @@ if (isset($_POST['delete'])) {
                                 <p><?php echo $infoItem[4] ?></p>
                             </div>
                             <div class="col-sm-12" style="height:10%;text-align:center">
-                                <h2><span class="badge badge-success"><?php echo $prix ?> €</span></h2>
+                                <h2><span class="badge badge-success"><?php echo $prix ?>€</span></h2>
 
-                                
                                 <div id="immediat" style="display:none">
-                                    <form action="../../BackEnd/Achat/Immediat/achatImmediat.php" method="POST" onsubmit="acceptProp()">
-                                        <div class="form-group mx-sm-3 mb-2">
-                                            <input type="number" class="form-control" name="id_item" value="<?php echo $infoItem[0] ?>" style="display : none">
-                                            <input type="number" class="form-control" name="prix" value="<?php echo $infoItem[5] ?>" style="display : none">
-                                        </div>
-                                        <button type="submit" name="submit" class="btn btn-primary mb-2">Acheter</button>
-                                    </form>
+                                <form action="../../BackEnd/Achat/Immediat/achatImmediat.php" method="POST"  onsubmit="acceptProp()">
+                                    <div class="form-group mx-sm-3 mb-2">
+                                        <input type="number" class="form-control" name="id_item" value="<?php echo $infoItem[0] ?>" style="display : none">
+                                        <input type="number" class="form-control" name="prix" value="<?php echo $infoItem[5] ?>" style="display : none">
+                                    </div>
+                                    <button type="submit" name="submit" class="btn btn-primary mb-2">Acheter</button>
+                                </form>
                                 </div>
+                                
 
-
-                                <div id="enchere" style="display: none">
-                                    <p id="affichage" style="color : white"></p>
-
-                                    <form class="form-inline" action="../../BackEnd/Achat/Enchere/encherir.php" method="POST" id='enche'>
-                                        <div class="form-group mx-sm-3 mb-2">
-                                            <input type="number" class="form-control" id="inputEnchere1" name="id_item" style="display : none">
-                                            <input type="number" class="form-control" id="inputEnchere2" name="offre" placeholder="€" required="">
-                                        </div>
-                                        <button type="submit" name="submit" class="btn btn-primary mb-2" id="encheBut">Enchérir</button>
-                                    </form>
-                                    <form class="form-inline" action="../../BackEnd/Achat/Enchere/offreAuto.php" method="POST">
-                                        <div class="form-group mx-sm-3 mb-2">
-                                            <input type="number" class="form-control" id="inputEnchere3" name="id_item" style="display : none">
-                                            <input type="number" class="form-control" id="inputEnchere4" name="offre" placeholder="€" required="">
-                                        </div>
-                                        <button type="submit" name="submit" class="btn btn-primary mb-2">Offre automatique</button>
-                                    </form>
+                                <div id = "enchere" style="display: none">
+                                <form class="form-inline" action="../../BackEnd/Achat/Enchere/encherir.php" method="POST" style="display : <?php echo $display ?>" id='enche'>
+                                    <div class="form-group mx-sm-3 mb-2">
+                                        <input type="number" class="form-control" id="inputEnchere" name="id_item1" value="<?php echo $infoEnchere["id_item"] ?>" style="display : none">
+                                        <input type="number" class="form-control" id="inputEnchere" name="offre" placeholder="€" required="" min=<?php echo $infoEnchere["offre_actuelle"] + 1 ?>>
+                                    </div>
+                                    <button type="submit" name="submit" class="btn btn-primary mb-2" id="encheBut">Enchérir</button>
+                                </form>
+                                <form class="form-inline" action="../../BackEnd/Achat/Enchere/offreAuto.php" method="POST" style="display : <?php echo $display ?>">
+                                    <div class="form-group mx-sm-3 mb-2">
+                                        <input type="number" class="form-control" id="inputEnchere" name="id_item" value="<?php echo $infoEnchere["id_item"] ?>" style="display : none">
+                                        <input type="number" class="form-control" id="inputEnchere" name="offre" placeholder="€" required="" min=<?php echo $infoEnchere["offre_actuelle"] + 1 ?>>
+                                    </div>
+                                    <button type="submit" name="submit" class="btn btn-primary mb-2">Offre automatique</button>
+                                </form>
                                 </div>
-
+                                
 
 
                                 <div id="nego" style="display: none">
-                                    <form class="form-inline" action="../../BackEnd/Achat/Nego/acceptPropAcheteur.php" method="POST" onsubmit="acceptProp()" id="accepter">
+                                    <form class="form-inline" action="../../BackEnd/Achat/Nego/acceptPropAcheteur.php" method="POST"  onsubmit="acceptProp()" id="accepter">
                                         <div class="form-group mx-sm-3 mb-2">
                                             <input type="number" class="form-control" id="inputEnchere" name="id_item" value="<?php echo $infoItem[0] ?>" style="display : none">
-                                            <input type="number" class="form-control" id="ofreVend" name="offreVendeur">
+                                            <input type="number" class="form-control" id="inputEnchere" name="offreVendeur" value="<?php echo $infoNego['offre_vendeur'] ?>">
                                         </div>
                                         <button type="submit" name="submit" class="btn btn-primary mb-2">Accepter OFFRE</button>
                                     </form>
 
-                                    <form class="form-inline" action="../../BackEnd/Achat/Nego/contreProposition.php" method="POST" id="contrePro" onsubmit="contrePro()">
+                                    <form class="form-inline" action="../../BackEnd/Achat/Nego/contreProposition.php" method="POST"  id="contrePro" onsubmit="contrePro()">
                                         <div class="form-group mx-sm-3 mb-2">
                                             <input type="number" class="form-control" id="inputEnchere" name="id_item" value="<?php echo $infoItem[0] ?>" style="display : none">
                                             <input type="number" class="form-control" id="contreProInp" name="offreAcheteur" placeholder="€" required="">
@@ -368,7 +365,7 @@ if (isset($_POST['delete'])) {
                                         <button type="submit" name="submit" id="contreProBut" class="btn btn-primary mb-2">Contre proposition</button>
                                     </form>
                                 </div>
-
+                                
 
 
                             </div>
@@ -378,10 +375,6 @@ if (isset($_POST['delete'])) {
 
                 </div>
             </div>
-            <form method="post">
-
-            <button type="submit" class="btn btn-danger" style="display: float:right;float:bottom;margin-right:1%" name="delete" value="delete">Supprimer</button>
-            </form>
 
         </div>
 

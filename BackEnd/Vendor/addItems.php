@@ -13,6 +13,7 @@ if (isset($_POST['Submit'])) {
     $typeAchat = $_POST['typeAchat'];
     $prix = $_POST['prix'];
     $img = $_POST['img'];
+    $typeAchat2 = $_POST['typeAchat2'];
 
     $sql = "SELECT title, email_vendor FROM items WHERE email_vendor = ? AND title = ?";
     if ($stmt = $mysqli->prepare($sql)) {
@@ -22,12 +23,12 @@ if (isset($_POST['Submit'])) {
         if ($stmt->execute()) {
             $stmt->store_result();
             if ($stmt->num_rows == 1) {
-                header("Location: ../../FrontEnd/HomePage/HomeVendeur.php??");
-                exit();
+               header("Location: ../../FrontEnd/HomePage/HomeVendeur.php??");
+               exit();
             } else {
-                $sql = "INSERT INTO items (email_vendor,title,description,categorie,typeAchat,prix,img,sold) VALUES (?, ?, ?, ?, ?, ?, ?,0)";
+                $sql = "INSERT INTO items (email_vendor,title,description,categorie,typeAchat,prix,img,sold,typeAchat2) VALUES (?, ?, ?, ?, ?, ?, ?,0,?)";
                 if($mystmt = $mysqli->prepare($sql)){
-                    $mystmt->bind_param("sssssis", $param_email, $param_title,$param_description,$param_categorie,$param_typeAchat,$param_prix,$param_img);
+                    $mystmt->bind_param("sssssiss", $param_email, $param_title,$param_description,$param_categorie,$param_typeAchat,$param_prix,$param_img,$param_typeAchat2);
                     $param_email = $email;
                     $param_title= $title;
                     $param_description = $description;
@@ -35,6 +36,7 @@ if (isset($_POST['Submit'])) {
                     $param_typeAchat = $typeAchat;
                     $param_prix = $prix;
                     $param_img = $img;
+                    $param_typeAchat2 = $typeAchat2;
                     if($mystmt->execute()){
                         if(strcmp($typeAchat,"enchere")===0){
                             $lastId=$mysqli->insert_id;
@@ -71,6 +73,29 @@ if (isset($_POST['Submit'])) {
                                 $param_type_achat = $typeAchat;
                                 $param_offre_actuelle =$prix;
                                 if($lestmt->execute()){
+                                    if(strcmp($typeAchat2,"offre")===0){
+                                        $sql = "INSERT INTO nego (id_item,title,email_vendor,typeAchat,offre_vendeur,offre_acheteur,email_acheteur,last_offer,nb) VALUES (?,?, ?, ?, ?,0,'',0,0)";
+                            if($azeza = $mysqli->prepare($sql)){
+                                $azeza->bind_param("isssi", $param_id_item,$param_title, $param__email_vendor,$param_type_achat,$param_offre_actuelle);
+                                $param_id_item = $lastId;
+                                $param_title= $title;
+                                $param__email_vendor = $email;
+                                $param_type_achat = $typeAchat2;
+                                $param_offre_actuelle =$prix;
+                                if($azeza->execute()){
+                                    $json =  @json_encode("add to nego");
+                                    print "<script>console.log($json);</script>";
+                                }
+                                else{
+                                    $json =  @json_encode("not add to nego");
+                                    print "<script>console.log($json);</script>";
+                                }
+    
+                                $azeza->close();
+    
+                            }
+                                        
+                                    }
                                     $json =  @json_encode("add to immediat");
                                     print "<script>console.log($json);</script>";
                                 }
@@ -95,6 +120,29 @@ if (isset($_POST['Submit'])) {
                                 $param_type_achat = $typeAchat;
                                 $param_offre_actuelle =$prix;
                                 if($lestmt->execute()){
+                                    if(strcmp($typeAchat2,"immediat")===0){
+                                        $sql = "INSERT INTO immediat (id_item,title,email_vendor,typeAchat,prix,email_acheteur) VALUES (?,?, ?, ?, ?,'')";
+                                        if($dzd = $mysqli->prepare($sql)){
+                                            $dzd->bind_param("isssi", $param_id_item,$param_title, $param__email_vendor,$param_type_achat,$param_offre_actuelle);
+                                            $param_id_item = $lastId;
+                                            $param_title= $title;
+                                            $param__email_vendor = $email;
+                                            $param_type_achat = $typeAchat2;
+                                            $param_offre_actuelle =$prix;
+                                            if($dzd->execute()){
+
+                                        $json =  @json_encode("add to immediat");
+                                    print "<script>console.log($json);</script>";
+                                }
+                                else{
+                                    $json =  @json_encode("not add to eimmediat");
+                                    print "<script>console.log($json);</script>";
+                                }
+    
+                                $dzd->close();
+    
+                            }
+                                    }
                                     $json =  @json_encode("add to nego");
                                     print "<script>console.log($json);</script>";
                                 }
@@ -105,6 +153,8 @@ if (isset($_POST['Submit'])) {
     
                                 $lestmt->close();
     
+                            }else{
+                                echo "aille";
                             }
                             header("Location: ../../FrontEnd/HomePage/HomeVendeur.php");
                         }

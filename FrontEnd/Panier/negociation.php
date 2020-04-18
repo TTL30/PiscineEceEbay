@@ -30,20 +30,26 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 <?php
 include '../../BackEnd/Achat/Nego/getDataNego.php';
 $itemNego = getDataNego();
-
-
 ?>
 
 <script type="text/javascript">
     var itemsPanier = <?php echo json_encode($itemNego); ?>;
     console.log(itemsPanier);
+    var etat = "";
+  
+
     var acheteur = "";
     var total = 0;
     insertItems = function() {
+
         var parent = document.getElementsByClassName("list")[0];
         itemsPanier.forEach(function(e) {
+            if(e["email_acheteur"] != ""){
+
+            
             var tr = document.createElement('tr');
-   
+            tr.id= e["id"]+"tr"
+
             var vente = document.createElement('th');
             vente.setAttribute('scope', 'row');
             vente.innerHTML = e["id"];
@@ -51,35 +57,47 @@ $itemNego = getDataNego();
             iditem.innerHTML = e["id_item"];
             var title = document.createElement('td');
             title.innerHTML = e["title"];
+            var etat = document.createElement('td');
+            etat.id=e["id"]+"state"
 
             var offre = document.createElement('td');
             var forA = document.createElement('form');
-            forA.className='form-inline';
-            forA.action='../../BackEnd/Achat/Nego/acceptPropVendeur.php';
-            forA.method='POST';
-        
+            forA.className = 'form-inline';
+            forA.action = '../../BackEnd/Achat/Nego/acceptPropVendeur.php';
+            forA.method = 'POST';
+            forA.id = e["id"]+'formA';
+            forA.onsubmit=function(){alert("Felicitations vous avez conclu une transaction retrouvez la dans vos ventes");};
+
             var det = document.createElement('div');
-            det.className='form-group mx-sm-3 mb-2';
+            det.className = 'form-group mx-sm-1 mb-2';
             var iditemform1 = document.createElement('input');
-            iditemform1.type='number';
-            iditemform1.name='id_item';
-            iditemform1.value=e.id_item;
-            iditemform1.style='display:none';
+            iditemform1.type = 'number';
+            iditemform1.name = 'id_item';
+            iditemform1.value = e["id_item"];
+            iditemform1.style = 'display:none';
+
+            var emailachet3 = document.createElement('input');
+            emailachet3.type = 'text';
+            emailachet3.name = 'email_acheteur';
+            emailachet3.value = e.email_acheteur;
+            emailachet3.style = 'display:none';
 
             var achtoffre = document.createElement('input');
-            achtoffre.className='form-control';
-            achtoffre.type='number';
-            achtoffre.name='offreAcheteur';
-            achtoffre.readOnly='yes';
-            achtoffre.value=e.offre_acheteur;
+            achtoffre.className = 'form-control';
+            achtoffre.type = 'number';
+            achtoffre.name = 'offreAcheteur';
+            achtoffre.readOnly = 'yes';
+            achtoffre.value = e.offre_acheteur;
+            achtoffre.style=('max-width:80px')
 
             var subaccept = document.createElement('button');
-            subaccept.type='submit';
-            subaccept.name='submit';
-            subaccept.className="btn btn-primary mb-2";
-            subaccept.innerHTML="V"
+            subaccept.type = 'submit';
+            subaccept.name = 'submit';
+            subaccept.className = "btn btn-primary mb-2";
+            subaccept.innerHTML = "Accepter";
 
             det.appendChild(iditemform1);
+            det.appendChild(emailachet3)
             det.appendChild(achtoffre);
             forA.appendChild(det);
             forA.appendChild(subaccept);
@@ -87,29 +105,57 @@ $itemNego = getDataNego();
 
             var prop = document.createElement('td');
             var forB = document.createElement('form');
-            forB.className='form-inline';
+            forB.className = 'form-inline';
+            forB.action = '../../BackEnd/Achat/Nego/contrePropositionVendeur.php';
+            forB.method = 'POST';
+            forB.id = e["id"]+"formB";
+            forB.onsubmit=function(){alert("Vous avez fait une contre proposition de "+Veneuroffre.value+"€");};
+
             var detB = document.createElement('div');
-            detB.className='form-group mx-sm-3 mb-2';
+            detB.className = 'form-group mx-sm-3 mb-2';
 
             var iditemform2 = document.createElement('input');
-            iditemform2.type='number';
-            iditemform2.name='id_item';
-            iditemform2.value=e.id_item;
-            iditemform2.style='display:none';
+            iditemform2.type = 'number';
+            iditemform2.name = 'id_item';
+            iditemform2.value = e.id_item;
+            iditemform2.style = 'display:none';
+
+            var emailachet2 = document.createElement('input');
+            emailachet2.type = 'text';
+            emailachet2.name = 'email_acheteur';
+            emailachet2.value = e["email_acheteur"];
+            emailachet2.style = 'display:none';
 
             var Veneuroffre = document.createElement('input');
-            Veneuroffre.className='form-control';
-            Veneuroffre.type='number';
-            Veneuroffre.name='offreVendeur';
+            Veneuroffre.className = 'form-control';
+            Veneuroffre.type = 'number';
+            Veneuroffre.name = 'offreVendeur';
+            Veneuroffre.style=('max-width:80px');
+            Veneuroffre.required= true;
 
             var subaccept2 = document.createElement('button');
-            subaccept2.type='submit';
-            subaccept2.name='submit';
-            subaccept2.className="btn btn-primary mb-2";
-            subaccept2.innerHTML="V"
-            
+            subaccept2.type = 'submit';
+            subaccept2.name = 'submit';
+            subaccept2.className = "btn btn-primary mb-2";
+            subaccept2.innerHTML = "Contre"
+
+            if (e['last_offer'] == 0) {
+                $(document).ready(function() {
+                    $("#"+e["id"]+"formA"+" :input").prop("disabled", true);
+                    $("#"+e["id"]+"formB"+" :input").prop("disabled", true);
+                    $("#"+e["id"]+"tr"+"").css("background-color","yellow");
+                    $("#"+e["id"]+"state"+"").html("en attente de l'acheteur");
+                });
+            }else{
+                $(document).ready(function() {
+                    $("#"+e["id"]+"tr"+"").css("background-color","green");
+                    $("#"+e["id"]+"state"+"").html("en attente de votre reponse");
+
+                });
+            }
 
             detB.appendChild(iditemform2);
+            detB.appendChild(emailachet2);
             detB.appendChild(Veneuroffre);
             forB.appendChild(detB);
             forB.appendChild(subaccept2);
@@ -122,13 +168,14 @@ $itemNego = getDataNego();
             tr.appendChild(title)
             tr.appendChild(offre)
             tr.appendChild(prop)
+            tr.appendChild(etat);
             parent.appendChild(tr);
 
-           // document.getElementById('argent').innerHTML = "Vous deja avez gagné <strong>" + total + "€</strong>"
+            // document.getElementById('argent').innerHTML = "Vous deja avez gagné <strong>" + total + "€</strong>"
 
-        });
+        }});
     }
-    window.onload = insertItems  
+    window.onload = insertItems
 </script>
 
 <body>
@@ -180,11 +227,12 @@ $itemNego = getDataNego();
                     <th scope="col">Id item</th>
                     <th scope="col">Intitulé</th>
                     <th scope="col">offre Acheteur</th>
-                    <th scope="col">Contre_offre</th>
+                    <th scope="col">Contre Proposition</th>
+                    <th scope="col">Etat</th>
                 </tr>
             </thead>
-            <tbody class="list">
-       
+            <tbody class="list" >
+
 
             </tbody>
         </table>

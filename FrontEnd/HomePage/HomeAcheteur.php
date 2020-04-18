@@ -49,7 +49,7 @@ if (!empty($myUrl[1])) {
         var parent = document.getElementsByClassName("row list")[0];
         itemsToSell.forEach(function(e) {
             var link = document.createElement('a');
-            link.setAttribute('href', '../Items/FicheItems.php' + '?item=' + e[0].title + '?vendor=' + e[0].email_vendor);
+            link.setAttribute('href', '../Items/FicheItems.php' + '?item=' + e[0].id + '?vendor=' + e[0].email_vendor);
             var col = document.createElement('div');
             col.className = 'col-sm-4';
             var title = document.createElement('p');
