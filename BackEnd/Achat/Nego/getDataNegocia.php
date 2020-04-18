@@ -1,6 +1,6 @@
 <?php
   
-    function getDataEnchere($item,$vendor){
+    function getDataNegocia($item,$vendor){
         $db = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
         $email=$_SESSION["email"];
         $stack = array();
@@ -18,10 +18,11 @@
             if($stmt->execute()){
                 $result = mysqli_stmt_get_result($stmt);
                 $id_item = mysqli_fetch_row($result);
-                $sql = "SELECT * FROM enchere WHERE id_item = ?";
+                $sql = "SELECT * FROM nego WHERE id_item = ? AND email_acheteur = ?";
                 if($mystmt = $db->prepare($sql)){
-                    $mystmt->bind_param("i", $param_id_item);
+                    $mystmt->bind_param("is", $param_id_item,$param_email);
                     $param_id_item = $id_item[0];
+                    $param_email = $email;
                     if($mystmt->execute()){
                         $result = mysqli_stmt_get_result($mystmt);
                         $stack = array();

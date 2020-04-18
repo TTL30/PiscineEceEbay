@@ -57,7 +57,18 @@ if (isset($_POST['submit'])) {
                                             $mstmt->bind_param("i", $param_id_item);
                                             $param_id_item = $myrow[1];
                             if($mstmt->execute()){
+                                $sql = "DELETE FROM nego WHERE id_item = ?";
+                                        if($dz = $db->prepare($sql)){
+                                            $dz->bind_param("i", $param_id_item);
+                                            $param_id_item = $myrow[1];
+                            if($dz->execute()){
                             }
+                            $dz->close();
+                        }
+                    header("Location: ../../../FrontEnd/Panier/mesAchats.php");
+                    exit();
+                }
+                            
                             $mstmt->close();
                         }
                     header("Location: ../../../FrontEnd/Panier/mesAchats.php");

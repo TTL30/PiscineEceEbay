@@ -100,6 +100,7 @@ html, body{
     font-size: large;
 }
 
+
 #hidden_div {
     display: none;
 }
@@ -121,3 +122,4 @@ html, body{
     color: black;
     background-color: whitesmoke;
 }
+

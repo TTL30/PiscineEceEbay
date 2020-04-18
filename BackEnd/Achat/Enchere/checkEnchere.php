@@ -47,6 +47,35 @@
                     if ($stmt->execute()) {
                         $json =  @json_encode("Sold");
                         print "<script>console.log($json);</script>";
+                        if(strcmp($it["email_acheteur_actuel"],$it["email_acheteur_offre_auto"])===0){
+                            $diff = $it["offre_auto"] - $it["offre_actuelle"];
+                           $sql= "SELECT solde from acheteur where email =?";
+                           if ($enrstmt = $db->prepare($sql)) {
+                                 $enrstmt->bind_param("s",$param_email);
+                                 $param_email = $it["email_acheteur_actuel"];
+                                 if ($enrstmt->execute()) {
+                                    $result = mysqli_stmt_get_result($enrstmt);
+                                    $row = mysqli_fetch_row($result);
+                                    $sql = "UPDATE acheteur SET solde = ? WHERE email = ?";
+                                    if ($oostmt = $db->prepare($sql)) {
+                                        $oostmt->bind_param("is",$param_solde,$param_email);
+                                        $param_solde = $row[0] + $diff;
+                                        $param_email = $it["email_acheteur_actuel"];
+                                        if ($oostmt->execute()) {
+                                            $json =  @json_encode("good");
+                                            print "<script>console.log($json);</script>";
+                                        }
+                                        $oostmt->close();
+                                    }
+                                 }
+
+                            $enrstmt->close();
+                           }
+                        }
+                        
+
+
+
                         $sql = "INSERT INTO vente (id_item,title, email_vendor,typeAchat,prix_final,email_acheteur_final) VALUES (?,?, ?, ?, ?, ?)";
                         if ($mystmt = $db->prepare($sql)) {
                             $mystmt->bind_param("isssis",$param_id_item,$param_title,$param_email_vendor,$param_typeAchat,$param_prix,$param_email_acheteur);
@@ -73,9 +102,12 @@
                             if($mstmt->execute()){
                             }
                             $mstmt->close();
+                        }else{
+                            $json =  @json_encode("ouille");
+                        print "<script>console.log($json);</script>";
                         }
-                    header("Location: ../../FrontEnd/HomePage/HomeVendeur.php");
-                    exit();
+                    //header("Location: ../../FrontEnd/HomePage/HomeVendeur.php");
+                    //exit();
                 }
                 $lestmt->close();
             }

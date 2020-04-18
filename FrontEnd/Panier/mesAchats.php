@@ -9,7 +9,8 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 <!doctype html>
 <html lang="en">
 
-    <head>
+
+<head>
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -28,62 +29,62 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
 
 
-    <?php
-    include '../../BackEnd/Acheteur/getItemsAchete.php';
-    $itemsAcheter = getItemsAchete();
+<?php
+include '../../BackEnd/Acheteur/getItemsAchete.php';
+$itemsAcheter = getItemsAchete();
 
 
-    ?>
+?>
 
-    <script type="text/javascript">
-        var itemsPanier = <?php echo json_encode($itemsAcheter); ?>;
-        console.log(itemsPanier);
-        var acheteur = "";
-        var total = 0;
-        insertItems = function() {
-            var parent = document.getElementsByClassName("list")[0];
-            itemsPanier.forEach(function(e) {
-                var tr = document.createElement('tr');
-                if(e['email_acheteur_final']===""){
-                    tr.style='background-color:red';
-                    acheteur = "Pas d'acheteur";
-                }else{
-                    tr.style='background-color:green';
-                    acheteur = e['email_acheteur_final'];
-                    total += e["prix_final"];
+<script type="text/javascript">
+    var itemsPanier = <?php echo json_encode($itemsAcheter); ?>;
+    console.log(itemsPanier);
+    var acheteur = "";
+    var total = 0;
+    insertItems = function() {
+        var parent = document.getElementsByClassName("list")[0];
+        itemsPanier.forEach(function(e) {
+            var tr = document.createElement('tr');
+            if(e['email_acheteur_final']===""){
+                tr.style='background-color:red';
+                acheteur = "Pas d'acheteur";
+            }else{
+                tr.style='background-color:green';
+                acheteur = e['email_vendor'];
+                total += e["prix_final"];
 
-                }
-                var vente = document.createElement('th');
-                vente.setAttribute('scope','row');
-                vente.innerHTML = e["id"];
-                var iditem = document.createElement('td');
-                iditem.innerHTML=e["id_item"];
-                var title = document.createElement('td');
-                title.innerHTML=e["title"];
-                var achat = document.createElement('td');
-                achat.innerHTML=e["typeAchat"];
-                var prix = document.createElement('td');
-                prix.innerHTML=e["prix_final"]+"€";
-                var email = document.createElement('td');
-                email.innerHTML=acheteur;
-                tr.appendChild(vente)
-                tr.appendChild(iditem)
-                tr.appendChild(title)
-                tr.appendChild(achat)
-                tr.appendChild(prix)
-                tr.appendChild(email)
-                parent.appendChild(tr);
+            }
+            var vente = document.createElement('th');
+            vente.setAttribute('scope','row');
+            vente.innerHTML = e["id"];
+            var iditem = document.createElement('td');
+            iditem.innerHTML=e["id_item"];
+            var title = document.createElement('td');
+            title.innerHTML=e["title"];
+            var achat = document.createElement('td');
+            achat.innerHTML=e["typeAchat"];
+            var prix = document.createElement('td');
+            prix.innerHTML=e["prix_final"]+"€";
+            var email = document.createElement('td');
+            email.innerHTML=acheteur;
+            tr.appendChild(vente)
+            tr.appendChild(iditem)
+            tr.appendChild(title)
+            tr.appendChild(achat)
+            tr.appendChild(prix)
+            tr.appendChild(email)
+            parent.appendChild(tr);
+         
+            document.getElementById('argent').innerHTML = "Prix total <strong>"+total+"€</strong>"
+            
+        });
+    }
+    window.onload = insertItems  
+</script>
 
-                document.getElementById('argent').innerHTML = "Prix total <strong>"+total+"€</strong>"
+<body>
 
-            });
-        }
-        window.onload = insertItems  
-    </script>
-
-    <body>
-
-        <nav class="navbar fixed-top navbar-expand-lg navbar-light" style="border-bottom: 1px solid grey;background: rgb(221,223,230);
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light" style="border-bottom: 1px solid grey;background: rgb(221,223,230);
                                                                            background: linear-gradient(320deg, rgba(221,223,230,1) 0%, rgba(241,149,155,1) 46%, rgba(37,44,65,1) 100%);">
             <a class="navbar-brand" href="../HomePage/HomeAcheteur.php"> <img src="logo.png" alt="" width="60" height="30"> </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -125,26 +126,28 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 </div>
             </div>
         </div>
-        <div class="listItems">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">n° de vente</th>
-                        <th scope="col">Id item</th>
-                        <th scope="col">Intitulé</th>
-                        <th scope="col">Type achat</th>
-                        <th scope="col">Prix final</th>
-                        <th scope="col">Email acheteur</th>
 
-                    </tr>
-                </thead>
-                <tbody class="list">
+    
+    <div class="listItems">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">n° de vente</th>
+                    <th scope="col">Id item</th>
+                    <th scope="col">Intitulé</th>
+                    <th scope="col">Type achat</th>
+                    <th scope="col">Prix final</th>
+                    <th scope="col">Email vendeur</th>
 
-                </tbody>
-            </table>
-        </div>
+                </tr>
+            </thead>
+            <tbody class="list">
+              
+            </tbody>
+        </table>
+    </div>
 
-        <footer class="footer mt-auto py-3" id="pied">
+  <footer class="footer mt-auto py-3" id="pied">
             <div class="container" style="text-align:center" >
                 <span class="text-muted">Nous contacter <a href="#"> eceebay@sav.fr </a></span>
             </div>
@@ -153,6 +156,8 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             </div>
         </footer>
 
-    </body>
+
+</body>
+
 
 </html>

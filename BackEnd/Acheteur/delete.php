@@ -1,7 +1,7 @@
 <?php
 
 
-    function deleteItems($item,$email_vendor){
+    function delete($item,$email_vendor){
         $db = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
         $email=$_SESSION["email"];
         $stack = array();
@@ -9,7 +9,9 @@
         if($db === false){
             die("ERROR: Could not connect. " . $db->connect_error);
         }
-        $sql = "DELETE FROM items WHERE id = ? AND email_vendor = ?";
+        $json =  @json_encode('dellll');
+        print "<script>console.log($json);</script>";
+        /* $sql = "DELETE FROM items WHERE id = ? AND email_vendor = ?";
         if($stmt = $db->prepare($sql)){
             $stmt->bind_param("is", $param_title,$param_email_vendor);
                 $param_title = $item;
@@ -75,7 +77,7 @@
                     }
                 }
                 $stmt->close();
-            }
+            } */
 
             
             $db->close();

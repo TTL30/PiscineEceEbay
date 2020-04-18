@@ -57,6 +57,18 @@ if (isset($_POST['submit'])) {
                                             $mstmt->bind_param("i", $param_id_item);
                                             $param_id_item = $myrow[1];
                             if($mstmt->execute()){
+                                $sql = "DELETE FROM immediat WHERE id_item = ?";
+                                        if($dsd = $db->prepare($sql)){
+                                            $dsd->bind_param("i", $param_id_item);
+                                            $param_id_item = $myrow[1];
+                            if($dsd->execute()){
+                               
+                    header("Location: ../../../FrontEnd/Panier/mesAchats.php");
+                    exit();
+                }
+                            
+                            $dsd->close();
+                        }
                             }
                             $mstmt->close();
                         }

@@ -37,45 +37,45 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         $macategorie = explode("=", explode("&", parse_url($url)["query"])[0])[1];
         $monTypeAchat = explode("=", explode("&", parse_url($url)["query"])[1])[1];
         $itemsToSell = trieItems($macategorie,$monTypeAchat);
-
-    } else {
+      } else {
         $itemsToSell = getAllitems();
-    }
+       }
     ?>
+
 
     <script type="text/javascript">
         var itemsToSell = <?php echo json_encode($itemsToSell); ?>;
-        console.log(itemsToSell);
-        insertItems = function() {
-            var parent = document.getElementsByClassName("row list")[0];
-            itemsToSell.forEach(function(e) {
-                var link = document.createElement('a');
-                link.setAttribute('href', '../Items/FicheItems.php' + '?item=' + e[0].title + '?vendor=' + e[0].email_vendor);
-                var col = document.createElement('div');
-                col.className = 'col-sm-4';
-                var title = document.createElement('p');
-                title.className = 'titleItem';
-                var span_text = document.createTextNode(e[0].title);
-                title.appendChild(span_text);
-                var img = document.createElement('img');
-                img.setAttribute('src', '../../BackEnd/IMG/' + e[0].img)
-                var divImgTit = document.createElement('div');
-                divImgTit.className = 'divImgTit';
-                img.className = 'imgItem';
-                var conta = document.createElement('div');
-                var descri = document.createElement('span');
-                descri.className = 'badge badge-success'
-                var span_prix = document.createTextNode(e[0].prix + '€');
-                descri.appendChild(span_prix);
-                conta.className = 'conta';
-                divImgTit.appendChild(img);
-                conta.appendChild(title);
-                conta.appendChild(divImgTit)
-                conta.appendChild(descri)
-                link.appendChild(conta)
-                col.appendChild(link)
-                parent.appendChild(col);
-            });
+    console.log(itemsToSell);
+    insertItems = function() {
+        var parent = document.getElementsByClassName("row list")[0];
+        itemsToSell.forEach(function(e) {
+            var link = document.createElement('a');
+            link.setAttribute('href', '../Items/FicheItems.php' + '?item=' + e[0].id + '?vendor=' + e[0].email_vendor);
+            var col = document.createElement('div');
+            col.className = 'col-sm-4';
+            var title = document.createElement('p');
+            title.className = 'titleItem';
+            var span_text = document.createTextNode(e[0].title);
+            title.appendChild(span_text);
+            var img = document.createElement('img');
+            img.setAttribute('src', '../../BackEnd/IMG/' + e[0].img)
+            var divImgTit = document.createElement('div');
+            divImgTit.className = 'divImgTit';
+            img.className = 'imgItem';
+            var conta = document.createElement('div');
+            var descri = document.createElement('span');
+            descri.className = 'badge badge-success'
+            var span_prix = document.createTextNode(e[0].prix + '€');
+            descri.appendChild(span_prix);
+            conta.className = 'conta';
+            divImgTit.appendChild(img);
+            conta.appendChild(title);
+            conta.appendChild(divImgTit)
+            conta.appendChild(descri)
+            link.appendChild(conta)
+            col.appendChild(link)
+            parent.appendChild(col);
+        });
         }
         window.onload = insertItems
     </script>

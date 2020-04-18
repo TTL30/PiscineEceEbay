@@ -17,6 +17,8 @@ if (isset($_POST['submit'])) {
             $result = mysqli_stmt_get_result($mystmt);
             $row = mysqli_fetch_row($result);
             $diff=$row[0] - $offre;
+    
+        
             if($diff<0){
                 $json =  @json_encode("negatif");
                 print "<script>console.log($json);</script>";
@@ -44,12 +46,7 @@ if (isset($_POST['submit'])) {
                             if ($unstat->execute()) {
                                 $result = mysqli_stmt_get_result($unstat);
                                 $row = mysqli_fetch_row($result);
-                                if($email === $row[1]){
-                                    $json =  @json_encode("already better");
-                                     print "<script>console.log($json);</script>";
-                                     header("Location: {$_SERVER['HTTP_REFERER']}????");                
-                                     exit();
-                                }else{
+                
                                     $sql = "UPDATE acheteur SET solde = ? WHERE email = ?";
                                     if ($lestmt = $mysqli->prepare($sql)) {
                                         $lestmt->bind_param("is",$param_solde,$param_email);
@@ -76,13 +73,19 @@ if (isset($_POST['submit'])) {
                                                     $sql = "UPDATE enchere SET offre_actuelle = ?, email_acheteur_actuel = ?,offre_auto = ?, email_acheteur_offre_auto = ? WHERE id_item = ?";
                                                     if ($ouistmt = $mysqli->prepare($sql)) {
                                                         $ouistmt->bind_param("isisi", $param_offre_actuelle,$param_email,$param_offre_auto,$param_email_auto,$param_id_item);
-                                                        $param_offre_actuelle = $row[0]+1;
+                                                        if(strcmp($email,$row[1])===0){
+                                                    
+                                                            $param_offre_actuelle = $row[0];
+
+                                                        }else{
+                                                            $param_offre_actuelle = $row[0]+1;
+                                                        }
                                                         $param_email = $email;
                                                         $param_offre_auto = $offre;
                                                         $param_email_auto = $email;
                                                         $param_id_item = $idItem;
                                                         if ($ouistmt->execute()) {
-                                                            header('Location: ' . $_SERVER['HTTP_REFERER']);            exit();
+                                                           header('Location: ' . $_SERVER['HTTP_REFERER']);            exit();
                                                         }
                                                         $ouistmt->close();
                                                 
@@ -99,8 +102,7 @@ if (isset($_POST['submit'])) {
                                             
                                         }
                                     }
-                                    $lestmt -> close();                                    
-                                }
+                                    $lestmt -> close();                                     
                             }
 
                         }
@@ -109,12 +111,8 @@ if (isset($_POST['submit'])) {
                         }
                     }
 
-
-
                 }
                 $ouimonst->close();
-
-
                         
             }
         }
