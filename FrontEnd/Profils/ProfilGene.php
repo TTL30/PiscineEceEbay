@@ -19,6 +19,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
         <title>EceBay</title>
         <link href="profil.css" rel="stylesheet" media="all" type="text/css">
+         <script src="https://kit.fontawesome.com/6569843510.js" crossorigin="anonymous"></script>
     </head>
 
     <?php
@@ -35,12 +36,16 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     <body>
         <nav class="navbar fixed-top navbar-expand-lg navbar-light" style="border-bottom: 1px solid grey; background: rgb(221,223,230);
                                                                            background: linear-gradient(320deg, rgba(221,223,230,1) 0%, rgba(241,149,155,1) 46%, rgba(37,44,65,1) 100%);">
-            <a class="navbar-brand" href="../HomePage/HomeVendeur.php"> <img src="logo.png" alt="" width="60" height="30"> </a>
+            <a class="navbar-brand" href="../HomePage/HomeAcheteur.php"> <img src="logo.png" alt="" width="60" height="30"> </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <nav class="nav" style="margin-left:6%">
+                    <a id="lien" class="nav-link" href="../Panier/mesAchats.php">Mes achats</a>
+                    <a id="lien" class="nav-link" href="../Panier/panierAcheteur.php"><i class="fas fa-shopping-cart"></i></a>
+                </nav>
                 <div class="container">
                     <div class="logo dropleft">
                         <button class="btn btn-sm  dropdown-toggle" type="button" id="menu1" data-toggle="dropdown" style="background-color:#f1404b">

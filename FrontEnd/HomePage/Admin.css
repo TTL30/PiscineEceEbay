@@ -3,16 +3,39 @@ html, body{
     width: 100%;
     overflow-x: hidden;
 }
+.btn-top{
+    width: 100%;
+}
+.text{
+    text-align: center;
+    margin-top: 20%;
+}
+#admin{
+    background: linear-gradient(270deg, #fcebec, #efefef, #dee3ff);
+    background-size: 600% 600%;
+    animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
 .vertical-menu {
     width: 100%; /* Set a width if you like */
     height: 100vh;
     background-color: rgba(37,44,65,0.8);
     border-right: 1px solid #f1959b;
-
 }
 
 .vertical-menu a {
-    background-color: rgba(241,149,155,0.8); /* Grey background color */
+    background-color:  rgba(241,149,155,0.8); /* Grey background color */
     color: black; /* Black text color */
     display: block; /* Make the links appear whlow each other */
     padding: 12px; /* Add some padding */
@@ -23,12 +46,11 @@ html, body{
     background-color:  rgba(241,149,155,0.9); /* Dark grey background on mouse-over */
 }
 
-
 .Wrapper-VM{
     width : 200px;
-    background-color :rgba(37,44,65,0.3);
+    background-color : rgba(37,44,65,0.3);
     height:100vh;
-    margin-top:60px;
+    margin-top:55px;
     position:fixed;
     text-align: center;
 }
@@ -107,7 +129,7 @@ html, body{
     background-color: #252c41;
 }
 #lien {
-    color: black;
+    color: whitesmoke;
 }
 #lien:visited {
     color: white;

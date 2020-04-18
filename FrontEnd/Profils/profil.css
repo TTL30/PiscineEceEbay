@@ -51,3 +51,18 @@
 #pied{
     background-color: #252c41;
 }
+#lien {
+    color: whitesmoke;
+}
+#lien:visited {
+    color: white;
+}
+#lien:hover, #lien:focus, #lien:active {
+    text-decoration: none;
+    color: black;
+    background: whitesmoke;
+}
+#lien.active {
+    color: black;
+    background-color: whitesmoke;
+}

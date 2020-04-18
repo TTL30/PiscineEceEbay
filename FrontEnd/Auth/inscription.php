@@ -12,16 +12,18 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/j s/bootstrap.min.j s"> </script>
         <title>EceBay</title>
         <link href="InscriptionConnexion.css" rel="stylesheet" media="all" type="text/css">
+        <link href="/docs/4.4/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     </head>
 
     <?php
     $myUrl = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
     ?>
 
-    <body class="text-center">
+    <body class="text-center" style="background: rgb(255,255,255);
+background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(233,187,187,1) 80%, rgba(37,44,65,1) 100%);">
         <div class="formulaire">
             <form class="form-signin" action="../../BackEnd/Auth/register.php" method="POST">
-                <img class="mb-4" src="logo.png" alt="" width="200" height="110">
+                <img class="mb-4" src="logo.png" alt="" width="200" height="100">
                 <h1 class="h3 mb-3 font-weight-normal">Inscription</h1>
                 <h5> Veuillez renseigner les champs suivants</h5>
                 <?php
@@ -44,8 +46,8 @@
                     </select>
                 </div>
                 <div class="bouton">
-                    <button class="btn btn-lg btn-primary btn-block" type="submit" name="Submit">Inscription</button>
-                    <button class="btn btn-primary btn-lg " type="reset" value="BouttonReset" name="ResetChamps"> Vider les champs</button>
+                    <button class="btn btn-lg btn-warning btn-block" type="submit" name="Submit">Inscription</button>
+                    <button class="btn btn-warning btn-lg " type="reset" value="BouttonReset" name="ResetChamps"> Vider les champs</button>
                 </div>
             </form>
         </div>
