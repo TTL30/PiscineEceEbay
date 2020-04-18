@@ -50,8 +50,8 @@
         <div class ="col-12" id="texte">
             <h1 style="color:whitesmoke;"> Venez vous aussi trouver vos trésors sur EceEbay</h1>
             <div class="col-12" id="boutons">
-                <a href="#" class="s3"><button class="btn  btn-lg my-2 my-sm-0" id="inscription" type="submit" style="box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);">Inscription</button></a>
-                <button class="btn  btn-lg my-2 my-sm" id="connexion" type="Connexion" style="box-shadow: 0 8px 16px 0 rgba(0,0,0,0.7), 0 6px 20px 0 rgba(0,0,0,0.19);">Connexion</button>
+                <a href="../Auth/inscription.php" class="s3"><button class="btn  btn-lg my-2 my-sm-0" id="inscription" type="submit" style="box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);">Inscription</button></a>
+                <a href="../Auth/login.php" class="s3"><button class="btn  btn-lg my-2 my-sm" id="connexion" type="Connexion" style="box-shadow: 0 8px 16px 0 rgba(0,0,0,0.7), 0 6px 20px 0 rgba(0,0,0,0.19);">Connexion</button></a>
             </div>
         </div>
     </body>
