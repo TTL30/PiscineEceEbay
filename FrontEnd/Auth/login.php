@@ -18,8 +18,8 @@
     <?php
     $myUrl = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
     ?>
-    <body class="text-center" style="background: rgb(241,149,155);
-                                     background: linear-gradient(0deg, rgba(241,149,155,1) 0%, rgba(179,172,182,1) 50%, rgba(44,66,131,1) 100%);">
+    <body class="text-center" style="background: rgb(255,255,255);
+                                     background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(233,187,187,1) 50%, rgba(37,44,65,1) 100%);">
         <div class="formulaire">
             <form class="form-signin" action="../../BackEnd/Auth/login.php" method="POST">
                 <img class="mb-4" src="logo.png" alt="" width="200" height="100">
@@ -34,8 +34,9 @@
                 <label for="inputPassword" class="sr-only">Mot de passe</label>
                 <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="" name="password">
 
-                <button class="btn btn-lg btn-primary btn-block" type="submit" name="Submit">Connexion</button>
+                <button class="btn btn-lg btn-warning btn-block" type="submit" name="Submit">Connexion</button>
                 <a href =inscription.php><h4> Inscivez-vous !</h4></a>
+
 
             </form>
         </div>

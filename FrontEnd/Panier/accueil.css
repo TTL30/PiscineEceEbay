@@ -6,13 +6,13 @@ html, body{
 .vertical-menu {
     width: 100%; /* Set a width if you like */
     height: 100vh;
-    background-color: whitesmoke;
-    border-right: 1px solid grey;
+    background-color: rgba(37,44,65,0.8);
+    border-right: 1px solid #f1959b;
 
 }
 
 .vertical-menu a {
-    background-color: whitesmoke; /* Grey background color */
+    background-color: rgba(241,149,155,0.8); /* Grey background color */
     color: black; /* Black text color */
     display: block; /* Make the links appear whlow each other */
     padding: 12px; /* Add some padding */
@@ -20,16 +20,13 @@ html, body{
 }
 
 .vertical-menu a:hover {
-    background-color: rgba(210,78,78,0.45); /* Dark grey background on mouse-over */
+    background-color:  rgba(241,149,155,0.9); /* Dark grey background on mouse-over */
 }
 
-.vertical-menu a.active {
-    background-color: #D24E4E; /* Add a green color to the "active/current" link */
-    color: white;
-}
+
 .Wrapper-VM{
     width : 200px;
-    background-color : whitesmoke;
+    background-color :rgba(37,44,65,0.3);
     height:100vh;
     margin-top:60px;
     position:fixed;
@@ -101,5 +98,28 @@ html, body{
     margin-left: 35%;
     margin-top: 1%;
     font-size: large;
+}
+
+
+#hidden_div {
+    display: none;
+}
+#pied{
+    background-color: #252c41;
+}
+#lien {
+    color: black;
+}
+#lien:visited {
+    color: white;
+}
+#lien:hover, #lien:focus, #lien:active {
+    text-decoration: none;
+    color: black;
+    background: whitesmoke;
+}
+#lien.active {
+    color: black;
+    background-color: whitesmoke;
 }
 

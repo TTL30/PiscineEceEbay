@@ -19,6 +19,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
         <title>EceBay</title>
         <link href="FicheItems.css" rel="stylesheet" media="all" type="text/css">
+        <script src="https://kit.fontawesome.com/6569843510.js" crossorigin="anonymous"></script>
     </head>
 
     <?php
@@ -71,9 +72,13 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <nav class="nav" style="margin-left:6%">
+                    <a id="lien" class="nav-link" href="../Panier/mesAchats.php">Mes achats</a>
+                    <a id="lien" class="nav-link" href="../Panier/panierAcheteur.php"><i class="fas fa-shopping-cart"></i></a>
+                </nav>
                 <div class="container">
                     <div class="logo dropleft">
-                        <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="menu1" data-toggle="dropdown" style="background-color:#f1404b" >
+                        <button class="btn btn-sm dropdown-toggle" type="button" id="menu1" data-toggle="dropdown" style="background-color:#f1404b" >
 
                             <a href="../Profils/ProfilVendeur.php"><svg class="dropdown toggle" width="2em" height="2em" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="padding-right: 5px;margin-right: 0px">
                                 <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 008 15a6.987 6.987 0 005.468-2.63z"/>
@@ -83,17 +88,16 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                             <span class="caret"></span>
                         </button>
                         <div class="dropdown-menu" style="text-align:center">
-                            <a class="dropdown-item" href="../Panier/panierAcheteur.php" style = "display : <?php echo $showButAddPanier ?>">Mon panier</a>
                             <a class="dropdown-item" href="../Profils/<?php echo $profil ?>">Mon profil</a>
                             <div class="dropdown-divider"></div>
                             <a href="../../BackEnd/Auth/logout.php" class="btn btn-sm btn-outline-danger">Déconnexion</a>
                         </div>
                     </div>
-               
+
                 </div>
-        </div>
-    </nav>
-   
+            </div>
+        </nav>
+
 
         <div id="conteneur">
             <div id="wrapper">
@@ -102,7 +106,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                         <span class="helper"></span> <img id="img" src="../../BackEnd/IMG/<?php echo $infoItem[6] ?>">
                     </div>
                     <div class="col-sm-8" id="info">
-                        <div id="test">
+                        <div id="test" style="color:whitesmoke">
                             <h1 style="text-align: center;"><?php echo $infoItem[1] ?></h1>
                             <div class="row" id="descript">
                                 <div class="col-sm-3" id="madesc">
