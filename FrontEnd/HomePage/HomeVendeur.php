@@ -20,6 +20,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/6569843510.js" crossorigin="anonymous"></script>
 
 
         <title>EceBay</title>
@@ -27,78 +28,78 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
 
 
-<?php
-include '../../BackEnd/Vendor/getDataVendor.php';
-include '../../BackEnd/Items/trieItemsVendor.php';
-include '../../BackEnd/Achat/Enchere/checkEnchere.php';
-$url = $_SERVER['REQUEST_URI'];
-$myUrl = explode("?", $url);
-if (!empty($myUrl[1])) {
-    $macategorie = explode("=", explode("&", parse_url($url)["query"])[0])[1];
-    $monTypeAchat = explode("=", explode("&", parse_url($url)["query"])[1])[1];
-    $itemsToSell = trieItemsVendor($macategorie, $monTypeAchat);
-} else {
-    $itemsToSell = getDBData();
-}
+    <?php
+    include '../../BackEnd/Vendor/getDataVendor.php';
+    include '../../BackEnd/Items/trieItemsVendor.php';
+    include '../../BackEnd/Achat/Enchere/checkEnchere.php';
+    $url = $_SERVER['REQUEST_URI'];
+    $myUrl = explode("?", $url);
+    if (!empty($myUrl[1])) {
+        $macategorie = explode("=", explode("&", parse_url($url)["query"])[0])[1];
+        $monTypeAchat = explode("=", explode("&", parse_url($url)["query"])[1])[1];
+        $itemsToSell = trieItemsVendor($macategorie, $monTypeAchat);
+    } else {
+        $itemsToSell = getDBData();
+    }
 
     checkEnchere();
     ?>
 
 
-<script type="text/javascript">
-    var itemsToSell = <?php echo json_encode($itemsToSell); ?>;
-    console.log(itemsToSell);
+    <script type="text/javascript">
+        var itemsToSell = <?php echo json_encode($itemsToSell); ?>;
+        console.log(itemsToSell);
 
-    insertItems = function() {
-        var parent = document.getElementsByClassName("row list")[0];
-        itemsToSell.forEach(function(e) {
-            var link = document.createElement('a');
-            link.setAttribute('href', '../Items/FicheItems.php' + '?item=' + e[0].id + '?vendor=' + e[0].email_vendor);
-            var col = document.createElement('div');
-            col.className = 'col-sm-4';
-            var title = document.createElement('p');
-            title.className = 'titleItem';
-            var span_text = document.createTextNode(e[0].title);
-            title.appendChild(span_text);
-            var img = document.createElement('img');
-            img.setAttribute('src', '../../BackEnd/IMG/' + e[0].img)
-            var divImgTit = document.createElement('div');
-            divImgTit.className = 'divImgTit';
-            img.className = 'imgItem';
-            var conta = document.createElement('div');
-            var descri = document.createElement('span');
-            descri.className = 'badge badge-success'
-            var span_prix = document.createTextNode(e[0].prix + '€');
-            descri.appendChild(span_prix);
-            conta.className = 'conta';
-            divImgTit.appendChild(img);
-            conta.appendChild(title);
-            conta.appendChild(divImgTit)
-            conta.appendChild(descri)
-            link.appendChild(conta)
-            col.appendChild(link)
-            parent.appendChild(col);
-        });
-    }
-    window.onload = insertItems
-</script>
-<script>
+        insertItems = function() {
+            var parent = document.getElementsByClassName("row list")[0];
+            itemsToSell.forEach(function(e) {
+                var link = document.createElement('a');
+                link.setAttribute('href', '../Items/FicheItems.php' + '?item=' + e[0].id + '?vendor=' + e[0].email_vendor);
+                var col = document.createElement('div');
+                col.className = 'col-sm-4';
+                var title = document.createElement('p');
+                title.className = 'titleItem';
+                var span_text = document.createTextNode(e[0].title);
+                title.appendChild(span_text);
+                var img = document.createElement('img');
+                img.setAttribute('src', '../../BackEnd/IMG/' + e[0].img)
+                var divImgTit = document.createElement('div');
+                divImgTit.className = 'divImgTit';
+                img.className = 'imgItem';
+                var conta = document.createElement('div');
+                var descri = document.createElement('span');
+                descri.className = 'badge badge-success'
+                var span_prix = document.createTextNode(e[0].prix + '€');
+                descri.appendChild(span_prix);
+                conta.className = 'conta';
+                divImgTit.appendChild(img);
+                conta.appendChild(title);
+                conta.appendChild(divImgTit)
+                conta.appendChild(descri)
+                link.appendChild(conta)
+                col.appendChild(link)
+                parent.appendChild(col);
+            });
+        }
+        window.onload = insertItems
+    </script>
+    <script>
 
-function achat2(){
-    if(document.getElementById('achat1').value == "enchere") {
-        document.getElementById('immed').disabled =true;
-        document.getElementById('offer').disabled =true
-     }
-     if(document.getElementById('achat1').value == "offre") {
-        document.getElementById('immed').disabled =false;
-        document.getElementById('offer').disabled =true
-     }
-     if(document.getElementById('achat1').value == "immediat") {
-        document.getElementById('immed').disabled =true;
-        document.getElementById('offer').disabled =false;
-     }
-}
-</script>
+        function achat2(){
+            if(document.getElementById('achat1').value == "enchere") {
+                document.getElementById('immed').disabled =true;
+                document.getElementById('offer').disabled =true
+            }
+            if(document.getElementById('achat1').value == "offre") {
+                document.getElementById('immed').disabled =false;
+                document.getElementById('offer').disabled =true
+            }
+            if(document.getElementById('achat1').value == "immediat") {
+                document.getElementById('immed').disabled =true;
+                document.getElementById('offer').disabled =false;
+            }
+        }
+    </script>
 
 
 
@@ -112,6 +113,10 @@ function achat2(){
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <nav class="nav" style="margin-left:6%;width:100%">
+                    <a id="lien" class="nav-link" href="../Panier/itemVenduVendor.php">Mes ventes</a>
+                    <a id="lien" class="nav-link" href="../Panier/negociation.php">Mes negos</a>
+                </nav>
                 <div class="container">
                     <div class="logo dropleft">
                         <button class="btn btn-sm dropdown-toggle" type="button" id="menu1" data-toggle="dropdown" style="background-color:#f1404b" >
@@ -124,18 +129,11 @@ function achat2(){
                             <span class="caret"></span>
                         </button>
                         <div class="dropdown-menu" style="text-align:center">
-                            <a class="dropdown-item" href="../Panier/itemVenduVendor.php">Mes Ventes</a>
-                            <a class="dropdown-item" href="../Panier/negociation.php">Mes NEGOS</a>
-
                             <a class="dropdown-item" href="../Profils/ProfilVendeur.php">Mon profil</a>
                             <div class="dropdown-divider"></div>
                             <a href="../../BackEnd/Auth/logout.php" class="btn btn-sm btn-outline-danger">Déconnexion</a>
                         </div>
                     </div>
-                    <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Item, vendeur...." aria-label="Search">
-                        <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Rechercher</button>
-                    </form>
                 </div>
             </div>
         </nav>  
@@ -177,8 +175,8 @@ function achat2(){
                 } else {
                     document.getElementById('monalert').style.display = "none";
                 }
-               </script>
-          <div class="row list" style="margin-left:0%">
+            </script>
+            <div class="row list" style="margin-left:0%">
             </div>
             <div class="col-sm-4">
                 <div style="height : 200px;text-align : center;border-radius: 5px;">
@@ -189,88 +187,88 @@ function achat2(){
             </div>
 
 
-        <div class="modal fade" id="ModalAjout" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Ajouter un item</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <form action="../../BackEnd/Vendor/addItems.php" method="POST">
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label for="Title">Intitulé:</label>
-                                <input type="text" class="form-control" placeholder="Entrer l'intitulé de votre item" name="title" required="">
-                            </div>
-                            <div class="form-group">
-                                <label for="Description">Description:</label>
-                                <textarea class="form-control" name="description" rows="1" required=""></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="Categorie">Catégorie:</label>
-                                <select class="form-control" name="categorie" required="">
-                                    <option value="Feraille_et_Tresor">Feraille et Trésor</option>
-                                    <option value="Bon_pour_le_musee">Bon pour le musée</option>
-                                    <option value="Accesoires_VIP">Accessoire VIP</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="Type Achat">Type d'achat:</label>
-                                <select class="form-control" name="typeAchat" required="" onchange="achat2()" id="achat1">
-                                    <option value="immediat">Achat immédiat</option>
-                                    <option value="offre">Meilleur offre</option>
-                                    <option value="enchere">Enchère (24 heures)</option>
-
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="Type Achat 2">Type d'achat secondaire:</label>
-                                <select class="form-control" name="typeAchat2" required="">
-                                    <option value="aucun" >Aucun</option>
-                                    <option value="immediat" id = "immed">Achat immédiat</option>
-                                    <option value="offre" id = "offer">Meilleur offre</option>
-                                </select>
-                                
-                            </div>
-                            <div class="form-group">
-                                <label for="Price">Prix:</label>
-                                <div class="input-group-text">
-                                    <input type="number" class="form-control" name="prix" required="">
-                                    <div class="€">
-                                        <span>€</span>   
-                                    </div>
+            <div class="modal fade" id="ModalAjout" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Ajouter un item</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form action="../../BackEnd/Vendor/addItems.php" method="POST">
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="Title">Intitulé:</label>
+                                    <input type="text" class="form-control" placeholder="Entrer l'intitulé de votre item" name="title" required="">
                                 </div>
                                 <div class="form-group">
-                                    <label for="Photo">Image:</label>
-                                    <input type="file" class="form-control-file" name="img" required="">
+                                    <label for="Description">Description:</label>
+                                    <textarea class="form-control" name="description" rows="1" required=""></textarea>
                                 </div>
+                                <div class="form-group">
+                                    <label for="Categorie">Catégorie:</label>
+                                    <select class="form-control" name="categorie" required="">
+                                        <option value="Feraille_et_Tresor">Feraille et Trésor</option>
+                                        <option value="Bon_pour_le_musee">Bon pour le musée</option>
+                                        <option value="Accesoires_VIP">Accessoire VIP</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Type Achat">Type d'achat:</label>
+                                    <select class="form-control" name="typeAchat" required="" onchange="achat2()" id="achat1">
+                                        <option value="immediat">Achat immédiat</option>
+                                        <option value="offre">Meilleur offre</option>
+                                        <option value="enchere">Enchère (24 heures)</option>
+
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Type Achat 2">Type d'achat secondaire:</label>
+                                    <select class="form-control" name="typeAchat2" required="">
+                                        <option value="aucun" >Aucun</option>
+                                        <option value="immediat" id = "immed">Achat immédiat</option>
+                                        <option value="offre" id = "offer">Meilleur offre</option>
+                                    </select>
+
+                                </div>
+                                <div class="form-group">
+                                    <label for="Price">Prix:</label>
+                                    <div class="input-group-text">
+                                        <input type="number" class="form-control" name="prix" required="">
+                                        <div class="€">
+                                            <span>€</span>   
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Photo">Image:</label>
+                                        <input type="file" class="form-control-file" name="img" required="">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary" name="Submit">Valider</button>
+                                </div>
+                                </form>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary" name="Submit">Valider</button>
-                            </div>
-                        </form>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- Modal -->
+            <!-- Modal -->
 
 
-        <!-- Optional JavaScript -->
-        <footer class="footer mt-auto py-3" id="pied">
-            <div class="container" style="text-align:center" >
-                <span class="text-muted">Nous contacter <a href="#"> eceebay@sav.fr </a></span>
-            </div>
-            <div class="container" style="text-align:center" >
-                <span class="text-muted"><a href="#"> Besoin d'aide ?</a></span>
-            </div>
-        </footer>
-        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+            <!-- Optional JavaScript -->
+            <footer class="footer mt-auto py-3" id="pied">
+                <div class="container" style="text-align:center" >
+                    <span class="text-muted">Nous contacter <a href="#"> eceebay@sav.fr </a></span>
+                </div>
+                <div class="container" style="text-align:center" >
+                    <span class="text-muted"><a href="#"> Besoin d'aide ?</a></span>
+                </div>
+            </footer>
+            <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
 
-    </body>
+            </body>
 
-</html>
+        </html>

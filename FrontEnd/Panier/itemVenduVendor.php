@@ -90,6 +90,10 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <nav class="nav" style="margin-left:6%;width:100%">
+                    <a id="lien" class="nav-link active" href="../Panier/itemVenduVendor.php">Mes ventes</a>
+                    <a id="lien" class="nav-link" href="../Panier/negociation.php">Mes negos</a>
+                </nav>
                 <div class="container">
                     <div class="logo dropleft">
                         <button class="btn btn-sm btn dropdown-toggle" type="button" id="menu1" data-toggle="dropdown" style="background-color:#f1404b">

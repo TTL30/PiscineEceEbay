@@ -1,3 +1,8 @@
+body{
+    background-image: url(fond.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+}
 .bd-placeholder-img {
     font-size: 1.125rem;
     text-anchor: middle;
