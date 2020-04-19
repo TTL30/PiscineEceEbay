@@ -19,6 +19,7 @@
     <body class="text-center">
     <div class="formulaire">
 
+
             <form class="form-signin" action="../../BackEnd/Auth/register.php" method="POST">
                 <img class="mb-4" src="logo.png" alt="" width="200" height="100">
                 <h1 class="h3 mb-3 font-weight-normal" style="color:white">Inscription</h1>

@@ -11,6 +11,7 @@
 
 <?php
     $myUrl = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+
 ?>
 
 <body class="text-center">
@@ -34,6 +35,7 @@
         </form>
     </div>
     <p class="mt-5 mb-3 text-muted">© 2020 -- MARZE Oscar TEIXEIRA Tiago</p>
+
 
 </body>
 
