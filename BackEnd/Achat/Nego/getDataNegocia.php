@@ -49,4 +49,40 @@
     $db->close();
 
     }
+
+
+
+    function getAllnegouser(){
+        $json =  @json_encode("oui");
+        print "<script>console.log($json);</script>";
+        $db = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+        $email=$_SESSION["email"];
+        $stack = array();
+
+        if($db === false){
+            die("ERROR: Could not connect. " . $db->connect_error);
+        }
+
+                $sql = "SELECT * FROM nego WHERE email_acheteur = ?";
+                if($mystmt = $db->prepare($sql)){
+                    $mystmt->bind_param("s",$param_email);
+                    $param_email = $email;
+                    if($mystmt->execute()){
+                        $result = mysqli_stmt_get_result($mystmt);
+                        $stack = array();
+                        while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)) {
+                            $stack[] = (
+                                $row
+                            );      
+                        }  
+                    }
+                    $mystmt->close();
+                }
+                $json =  @json_encode($stack);
+                print "<script>console.log($json);</script>";
+        return($stack);
+
+    $db->close();
+
+    }
 ?>

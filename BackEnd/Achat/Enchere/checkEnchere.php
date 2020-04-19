@@ -1,6 +1,9 @@
 <?php
-  
+
+
     function checkEnchere(){
+
+
         $db = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
         $email=$_SESSION["email"];
         $stack = array();
@@ -37,8 +40,11 @@
             $duree .= " hours";
             $maDateFin   = date_add($debut, date_interval_create_from_date_string($duree));
             $dteDiff  = $maDate->diff($maDateFin);
-
-            if(strcmp($dteDiff->format("%D:%H:%I:%S"),"00:00:00:00") == 0 )
+            $json =  @json_encode($dteDiff->invert);
+            print "<script>console.log($json);</script>";
+            $json =  @json_encode($dteDiff);
+            print "<script>console.log($json);</script>";
+            if((strcmp($dteDiff->format("%D:%H:%I:%S"),"00:00:00:00") == 0 )||($dteDiff->invert ==1))
             {
                 $sql = "UPDATE items SET sold = 1 WHERE id = ?";
                 if ($stmt = $db->prepare($sql)) {
@@ -100,14 +106,21 @@
                                             $param_title = $it["title"];
                                     $param_email_vendor = $it["email_vendor"];
                             if($mstmt->execute()){
+
+                                if($_SESSION['type']===2){
+                                    header("Location: ../../FrontEnd/HomePage/HomeVendeur.php");
+                                    exit();
+                }else{
+                    header("Location: ../../FrontEnd/HomePage/HomeAcheteur.php");
+                    exit();
+                }
                             }
                             $mstmt->close();
                         }else{
                             $json =  @json_encode("ouille");
                         print "<script>console.log($json);</script>";
                         }
-                    //header("Location: ../../FrontEnd/HomePage/HomeVendeur.php");
-                    //exit();
+                   
                 }
                 $lestmt->close();
             }
@@ -128,4 +141,5 @@
 
 
     }
+
 ?>

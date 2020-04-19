@@ -23,6 +23,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 </head>
 
@@ -203,7 +204,7 @@ if (isset($_POST['delete'])) {
         });
 
         function acceptProp() {
-            alert("Vous avez acheter cette objet felicitatiosn retrouves le dans votre rubrique mes achats");
+            alert("Vous avez acheter cette objet félici retrouves le dans votre rubrique mes achats");
         }
     }
 </script>
@@ -253,11 +254,21 @@ if (isset($_POST['delete'])) {
             i_restantes = Math.floor(i_restantes % 60);
             H_restantes = Math.floor(H_restantes % 24);
             d_restants = Math.floor(d_restants);
+
             var texte = "Fin dans <strong>" + H_restantes + " heures</strong>," +
                 " <strong>" + i_restantes + " minutes</strong> et <strong>" + s_restantes + "s</strong>.";
             document.getElementById("affichage").innerHTML = texte;
+            
+            if(tps_restant<0){
+                clearInterval(refreshIntervalId);
+                $(document).ready(function() {
+                 $("#affichage").html("Fin de l'enchère regarder dans vos achats.");
+                 setTimeout(() => {  window.location.replace("http://piscineeceebay.loc/FrontEnd/HomePage/HomeAcheteur.php"); }, 5000);
+                 
+            });
+            }
         }
-        setInterval(CompteARebours, 1000);
+        var refreshIntervalId  = setInterval(CompteARebours, 1000);
 
         function offreAUTO() {
             var valOfre = document.getElementById('inputEnchere4').value;
@@ -269,6 +280,7 @@ if (isset($_POST['delete'])) {
             alert("Vous avez encheri de " + valOfre2 + " €");
         }
     }
+
 </script>
 
 <script>
@@ -396,16 +408,17 @@ if (isset($_POST['delete'])) {
             </script>
             <div class="row" id="Produit">
                 <div class="col-sm-4" id="photo">
+
                     <span class="helper"></span> <img id="img" src="../../BackEnd/IMG/ITEM/<?php echo $infoItem[6] ?>">
                 </div>
                 <div class="col-sm-8" id="info">
                     <div id="test" style="color:whitesmoke;text-align: center">
-                        <h1 style="text-align: center;max-width:500px;margin:auto"><?php echo $infoItem[1] ?></h1>
+                        <h2 style="text-align: center;max-width:500px;margin:auto"><?php echo $infoItem[1] ?></h2>
+                        <p id="affichage" style="color : #EF5E3B;display: none;font-size:1.3em"></p>
 
                         <div class="container" style="height:90%">
-                            <h3 id="affichage" style="color : #FD0909;display: none"></h3>
 
-                            <div class="row" style="margin-top: -4%">
+                            <div class="row" style="margin-top: -5%">
                                 <div class="col-sm-12" style="text-align:left;margin-top:5%">
                                     <h4 style="max-width:150px;background-color:#083386;border-radius:5px;padding:10px;color:white">Description:</h4>
 
@@ -435,7 +448,6 @@ if (isset($_POST['delete'])) {
 
                                         </div>
 
-
                                     </div>
                                 </div>
 
@@ -445,7 +457,7 @@ if (isset($_POST['delete'])) {
                             <div class="row" style="margin-top:3%">
 
                                 <div class="col-sm-6">
-                                    <h4 style="background-color:#3EC10C;border-radius:5px;color:white;max-width:200px;margin:auto">Prix Initial :<br><strong style="color: #C13B0C"><?php echo $infoItem[5] ?>€</strong></h4>
+                                    <h4 style="background-color:#3EC10C;border-radius:5px;color:white;max-width:200px;margin:auto">Prix Initial :<br><strong><?php echo $infoItem[5] ?>€</strong></h4>
                                     <h4 style="background-color:#CF2F16;border-radius:5px;color:white;max-width:200px;margin:auto;margin-top:2%">Offre Actuelle : <br> <strong style="color: #44CF16"><?php echo $prix ?>€</strong></h4>
                                 </div>
 

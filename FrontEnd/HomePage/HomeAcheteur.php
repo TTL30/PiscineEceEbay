@@ -21,12 +21,19 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         <link href="accueil.css" rel="stylesheet" media="all" type="text/css">
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script src="https://kit.fontawesome.com/6569843510.js" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    
 
     </head>
 
     <?php
     include '../../BackEnd/Acheteur/getAllitems.php';
     include '../../BackEnd/Items/trieItems.php';
+    include '../../BackEnd/Achat/Enchere/checkEnchere.php';
+
+    checkEnchere();
 
     ?>
 
@@ -166,7 +173,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     </script>
 
     <body>
-        <nav class="navbar fixed-top navbar-expand-lg navbar-light" style="border-bottom: 1px solid grey; background: rgb(221,223,230);
+       <!--  <nav class="navbar fixed-top navbar-expand-lg navbar-light" style="border-bottom: 1px solid grey; background: rgb(221,223,230);
                                                                            background: linear-gradient(320deg, rgba(221,223,230,1) 0%, rgba(241,149,155,1) 46%, rgba(37,44,65,1) 100%);">
 
             <a class="navbar-brand" href="HomeAcheteur.php" style="width:170px;text-align:center"> 
@@ -199,7 +206,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                     </div>
                 </div>
             </div> 
-        </nav> 
+        </nav>  -->
         <div class="Wrapper-VM">
             <div class="vertical-menu">
                 <a href="#" class="active"><strong>Objets en Vente</strong></a>
@@ -254,21 +261,19 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             </script>
             <div class="row list" style="margin-left:0%">
             </div>
+            
         </div>
-        <footer class="footer mt-auto py-3" id="pied">
+        
+
+        <!-- Optional JavaScript -->
+        <!-- <footer class="footer mt-auto py-3" id="pied">
             <div class="container" style="text-align:center" >
                 <span class="text-muted">Nous contacter <a href="#"> eceebay@sav.fr </a></span>
             </div>
             <div class="container" style="text-align:center" >
                 <span class="text-muted"><a href="#"> Besoin d'aide ?</a></span>
             </div>
-        </footer>
-
-        <!-- Optional JavaScript -->
-        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        </footer> -->
     </body>
 
 </html>

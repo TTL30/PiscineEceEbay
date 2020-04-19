@@ -211,7 +211,7 @@ if ($_SESSION['type'] === 3) {
                             </div>
                             <div class="row" style="margin-top:3%">
                             <div class="col-sm-6" >
-                                            <h4 style="background-color:#3EC10C;border-radius:5px;padding:10px;color:white;max-width:200px;margin:auto">Prix initial : <strong style="color: #C13B0C"><?php echo $infoItem[5] ?>€</strong></h4>
+                                            <h4 style="background-color:#3EC10C;border-radius:5px;padding:10px;color:white;max-width:200px;margin:auto">Prix initial : <strong><?php echo $infoItem[5] ?>€</strong></h4>
 
                                         </div>
             

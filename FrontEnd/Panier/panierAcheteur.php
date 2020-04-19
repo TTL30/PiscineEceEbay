@@ -52,7 +52,7 @@ foreach($itemsPanier as &$it){
     
 }
 
-
+$infoNego = getAllnegouser();
 
 ?>
 
@@ -76,6 +76,8 @@ foreach($itemsPanier as &$it){
 
 <script type="text/javascript">
     var itemsPanier = <?php echo json_encode($itemsPanier); ?>;
+    var infoNego = <?php echo json_encode($infoNego); ?>;
+
     console.log(itemsPanier);
     insertItems = function() {
         var parent = document.getElementsByClassName("row list")[0];
@@ -145,6 +147,8 @@ foreach($itemsPanier as &$it){
             divImgTit.className = 'divImgTit';
             img.className = 'imgItem';
             var conta = document.createElement('div');
+            conta.id=e[0][0];
+            
 
             var detail = document.createElement('div');
             detail.className="row";
@@ -175,6 +179,7 @@ foreach($itemsPanier as &$it){
 
             var prixItm =document.createTextNode(e[0][3] + '€');
             prix.appendChild(prixItm)
+            prix.id=e[0][0]+'pr';
             prix.style=('text-align:center; background-color:#F35C56;border-radius:5px;padding:10px;color:white')
 
 
@@ -199,11 +204,35 @@ foreach($itemsPanier as &$it){
             link.appendChild(conta)
             col.appendChild(link)
             parent.appendChild(col);
+            
+            if(e[0][5].localeCompare("enchere")==0){
+                conta.style='border:3px solid #09CFFD'
+            }
 
         })};
+        infoNego.forEach(function(it){
+                if(it['last_offer']===1){
+                $(document).ready(function() {
+                    $("#"+it["id_item"]+"").css('border','5px solid green');
+                    $("#"+it["id_item"]+"pr"+"").html(it['offre_acheteur']+"€");
+                    $("#"+it["id_item"]+"pr"+"").css('background-color','#2AB01C');
+
+
+                });
+
+            }else{
+                $(document).ready(function() {
+                    $("#"+it['id_item']+"").css('border','5px solid #F7EC6A');
+                    $("#"+it["id_item"]+"pr"+"").html(it['offre_vendeur']+"€");
+                    $("#"+it["id_item"]+"pr"+"").css('background-color','#D57423');
+                });
+            }
+
+            });
 
       
     }
+    
     window.onload = insertItems
 </script>
 
