@@ -11,7 +11,7 @@
         }
 
         if (strcmp($achat, $catagorie) == 0) {
-            $sql = "SELECT id,title,email_vendor,prix,img FROM items ";
+            $sql = "SELECT id,title,email_vendor,prix,img,typeAchat,categorie FROM items ";
             if($stmt = $db->prepare($sql)){
                 if($stmt->execute()){
                     $result = mysqli_stmt_get_result($stmt);
@@ -27,7 +27,7 @@
         }
 
         else if ((strcmp($catagorie, "all") == 0)&&((strcmp($achat, "all") != 0))) {
-            $sql = "SELECT id,title,email_vendor,prix,img FROM items WHERE typeAchat = ?";
+            $sql = "SELECT id,title,email_vendor,prix,img,typeAchat,categorie FROM items WHERE typeAchat = ?";
             if($stmt = $db->prepare($sql)){
                 $stmt->bind_param("s", $param_achat);
                 $param_achat = $achat;
@@ -46,7 +46,7 @@
 
        
         else if ((strcmp($achat,"all") == 0)&&((strcmp($catagorie,"all") != 0))) {
-            $sql = "SELECT id,title,email_vendor,prix,img FROM items WHERE categorie = ?";
+            $sql = "SELECT id,title,email_vendor,prix,img,typeAchat,categorie FROM items WHERE categorie = ?";
             if($stmt = $db->prepare($sql)){
                 $stmt->bind_param("s", $param_categorie);
                 $param_categorie = $catagorie;
@@ -63,7 +63,7 @@
             }
         }
         else if((strcmp($achat,"all") != 0)&&(strcmp($catagorie, "all") != 0)){
-            $sql = "SELECT id,title,email_vendor,prix,img FROM items WHERE categorie = ? AND typeAchat = ?  ";
+            $sql = "SELECT id,title,email_vendor,prix,img,typeAchat,categorie FROM items WHERE categorie = ? AND typeAchat = ?  ";
             if($stmt = $db->prepare($sql)){
                 $stmt->bind_param("ss", $param_categorie,$param_achat);
                 $param_categorie = $catagorie;

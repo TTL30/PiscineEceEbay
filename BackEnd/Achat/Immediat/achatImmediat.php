@@ -65,13 +65,13 @@ if (isset($_POST['submit'])) {
                             }
                             $dz->close();
                         }
-                    header("Location: ../../../FrontEnd/Panier/mesAchats.php");
+                    header("Location: ../../../FrontEnd/Panier/mesAchats.php?");
                     exit();
                 }
                             
                             $mstmt->close();
                         }
-                    header("Location: ../../../FrontEnd/Panier/mesAchats.php");
+                    header("Location: ../../../FrontEnd/Panier/mesAchats.php?");
                     exit();
                 }
                 $ailestmt->close();

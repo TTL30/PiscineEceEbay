@@ -1,3 +1,8 @@
+body{
+    background-image: url(fond.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+}
 .bd-placeholder-img {
     font-size: 1.125rem;
     text-anchor: middle;
@@ -32,28 +37,14 @@
 }
 .Type select {
     padding: 5px 8px;
-    width: 130%;
+    width: 100%;
     border: none;
     box-shadow: none;
     background-color: aliceblue;
     background-image: none;
     appearance: none;
 }
-.Type:after {
-    top: 50%;
-    left: 85%;
-    border: solid transparent;
-    content: " ";
-    height: 0;
-    width: 0;
-    position: absolute;
-    pointer-events: none;
-    border-color: rgba(0, 0, 0, 0);
-    border-top-color: #337ab7;
-    border-width: 5px;
-    margin-top: -2px;
-    z-index: 100;
-}
+
 .Type select:focus {
     outline: none;
 }

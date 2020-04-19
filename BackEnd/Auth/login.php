@@ -12,11 +12,14 @@ if (isset($_POST['Submit'])) {
     $type = "";
 
     if(strcmp($email,"admin@admin.fr")===0){
-        header("Location: ../../FrontEnd/HomePage/admin.php");
+        session_start();
+                                $_SESSION["loggedin"] = true;
+                                $_SESSION["id"] = $id;
+                                $_SESSION["email"] = $email;
+                                $_SESSION["type"] = 1;
+        header("Location: ../../FrontEnd/HomePage/Homeadmin.php");
         exit();
     }else{
-
-   
     $sql = "SELECT id, email, password FROM users WHERE email = ?";
     if ($stmt = $mysqli->prepare($sql)) {
         $stmt->bind_param("s", $param_email);

@@ -21,7 +21,7 @@ function getItemPanier()
             $row = mysqli_fetch_row($result);
             $monPanier = (explode(',', $row[0]));
             foreach ($monPanier as $it) {
-                $sql = "SELECT id,title,email_vendor,prix,img FROM items WHERE id = ? AND sold = 0";
+                $sql = "SELECT id,title,email_vendor,prix,img,typeAchat,categorie FROM items WHERE id = ? AND sold = 0";
                 if ($mystmt = $db->prepare($sql)) {
                     $mystmt->bind_param("i", $param_id_item);
                     $param_id_item = $it;

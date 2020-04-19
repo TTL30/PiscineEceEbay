@@ -51,34 +51,118 @@ if (!empty($myUrl[1])) {
 
     insertItems = function() {
         var parent = document.getElementsByClassName("row list")[0];
+        var Kt="";
+        var TA="";
+        if(itemsToSell.length===0){
+            console.log("Vide");
+            var vide=document.createElement('div');
+            vide.className='jumbotron'
+            vide.style="margin:auto; margin-top:10%"
+            var txt = document.createElement('h3');
+            txt.innerHTML="Vous n'avez aucun objet en vente";
+            txt.className='my-4';
+            var decr = document.createElement('p');
+            decr.innerHTML='Ajoutez des objets en cliquant sur le bouton <strong>+</strong>';
+            decr.className='lead';
+            vide.appendChild(txt);
+            vide.appendChild(decr);
+            parent.appendChild(vide);            
+        }else{
+
+        
         itemsToSell.forEach(function(e) {
+
+            if(e[0].categorie.localeCompare("Feraille_et_Tresor")==0){
+                Kt = "Trésor";
+            }
+            else if(e[0].categorie.localeCompare("Bon_pour_le_musee")==0){
+                Kt = "Musée";
+            }
+            else if(e[0].categorie.localeCompare("Accesoires_VIP")==0){
+                Kt = "VIP";
+            }
+
+            if(e[0].typeAchat.localeCompare("enchere")==0){
+                TA = "Enchère";
+            }
+            else if(e[0].typeAchat.localeCompare("immediat")==0){
+                TA = "Achat Immediat";
+            }
+            else if(e[0].typeAchat.localeCompare("offre")==0){
+                TA = "Meilleure offre";
+            }
+
             var link = document.createElement('a');
-            link.setAttribute('href', '../Items/FicheItems.php' + '?item=' + e[0].id + '?vendor=' + e[0].email_vendor);
+            link.setAttribute('href', '../Items/FicheItemsVend.php' + '?item=' + e[0].id + '?vendor=' + e[0].email_vendor);
+            link.className='linkItem';
             var col = document.createElement('div');
             col.className = 'col-sm-4';
+            col.id='cont'
             var title = document.createElement('p');
             title.className = 'titleItem';
             var span_text = document.createTextNode(e[0].title);
             title.appendChild(span_text);
             var img = document.createElement('img');
-            img.setAttribute('src', '../../BackEnd/IMG/' + e[0].img)
+            img.setAttribute('src', '../../BackEnd/IMG/ITEM/' + e[0].img)
             var divImgTit = document.createElement('div');
             divImgTit.className = 'divImgTit';
             img.className = 'imgItem';
             var conta = document.createElement('div');
-            var descri = document.createElement('span');
-            descri.className = 'badge badge-success'
-            var span_prix = document.createTextNode(e[0].prix + '€');
-            descri.appendChild(span_prix);
+
+            var detail = document.createElement('div');
+            detail.className="row";
+            detail.style=('margin:0px;margin-top:1%')
+
+            var categorie1= document.createElement('div');
+            categorie1.className="col-sm-4";
+            var categorie= document.createElement('div');
+            categorie.className="col-sm-12";
+            categorie.style=('text-align:center')
+            categorie1.appendChild(categorie);
+
+            var prix1= document.createElement('div');
+            prix1.className="col-sm-3";
+            var prix= document.createElement('div');
+            prix.className="col-sm-12";
+            prix.style=('text-align:center')
+            prix1.appendChild(prix)
+
+
+            var offre1= document.createElement('div');
+            offre1.className="col-sm-5";
+            var offre= document.createElement('div');
+            offre.className="col-sm-12";
+            offre.style=('text-align:center')
+            offre1.appendChild(offre)
+
+
+            var prixItm =document.createTextNode(e[0].prix + '€');
+            prix.appendChild(prixItm)
+            prix.style=('text-align:center; background-color:#F35C56;border-radius:5px;padding:10px;color:white')
+
+
+            var catItem =document.createTextNode(Kt);
+            categorie.appendChild(catItem);
+            categorie.style=('text-align:center; background-color:#A4B4BE;border-radius:5px;padding:10px;color:white')
+
+            var tyAitem =document.createTextNode(TA);
+            offre.appendChild(tyAitem)
+            offre.style=('text-align:center; background-color:#98BBDA;border-radius:5px;padding:10px;color:white')
+
+            detail.appendChild(categorie1)
+            detail.appendChild(prix1)
+            detail.appendChild(offre1)
+
+             
             conta.className = 'conta';
             divImgTit.appendChild(img);
             conta.appendChild(title);
             conta.appendChild(divImgTit)
-            conta.appendChild(descri)
+            conta.appendChild(detail)
             link.appendChild(conta)
             col.appendChild(link)
             parent.appendChild(col);
-        });
+        });}
     }
     window.onload = insertItems
 </script>
@@ -104,14 +188,18 @@ function achat2(){
 
 
     <body>
-        <nav class="navbar fixed-top navbar-expand-lg navbar-light" style="border-bottom: 1px solid grey; background: rgb(221,223,230);
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light" style="border-bottom: 1px solid grey; background: rgb(221,223,230);
                                                                            background: linear-gradient(320deg, rgba(221,223,230,1) 0%, rgba(241,149,155,1) 46%, rgba(37,44,65,1) 100%);">
-            <a class="navbar-brand" href="HomeVendeur.php"> <img src="logo.png" alt="" width="60" height="30"> </a>
+            <a class="navbar-brand" href="HomeVendeur.php" style="width:170px;text-align:center"> <img src="logo.png" alt="" width="65" height="30"> </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <nav class="nav" >
+                    <a id="lien" class="nav-link" href="../Panier/itemVenduVendor.php">Ventes</a>
+                    <a id="lien" class="nav-link" href="../Panier/negociation.php">Offres</a>
+                </nav>
                 <div class="container">
                     <div class="logo dropleft">
                         <button class="btn btn-sm dropdown-toggle" type="button" id="menu1" data-toggle="dropdown" style="background-color:#f1404b" >
@@ -124,27 +212,21 @@ function achat2(){
                             <span class="caret"></span>
                         </button>
                         <div class="dropdown-menu" style="text-align:center">
-                            <a class="dropdown-item" href="../Panier/itemVenduVendor.php">Mes Ventes</a>
-                            <a class="dropdown-item" href="../Panier/negociation.php">Mes NEGOS</a>
-
                             <a class="dropdown-item" href="../Profils/ProfilVendeur.php">Mon profil</a>
                             <div class="dropdown-divider"></div>
                             <a href="../../BackEnd/Auth/logout.php" class="btn btn-sm btn-outline-danger">Déconnexion</a>
                         </div>
                     </div>
-                    <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Item, vendeur...." aria-label="Search">
-                        <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Rechercher</button>
-                    </form>
                 </div>
             </div>
-        </nav>  
+        </nav>    
         <div class="Wrapper-VM">
             <div class="vertical-menu">
-                <a href="#" class="active" style="background-color:#f1959b">Vos Items</a>
+                <a href="#" class="active"><strong>Mes objets</strong></a>
                 <form>
                     <div class="Categorie">
-                        <select style="min-width : 170px" name="categorie">
+                        <label style="color:white">Appliquer des filtres:</label>
+                        <select style="min-width : 170px;margin-top:10%" name="categorie">
                             <option value="all" hidden> Catégorie </option>
                             <option value="Feraille_et_Tresor">Feraille et Trésor</option>
                             <option value="Bon_pour_le_musee">Bon pour le musée</option>
@@ -159,7 +241,7 @@ function achat2(){
                             <option value="offre">Meilleur offre</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-success" style="margin-top:10% ">Valider</button>
+                    <button type="submit" class="btn" style="margin-top:10%;background-color:rgba(241,149,155,0.8);color:white">Valider</button>
                 </form>
             </div>
         </div>
@@ -181,9 +263,9 @@ function achat2(){
           <div class="row list" style="margin-left:0%">
             </div>
             <div class="col-sm-4">
-                <div style="height : 200px;text-align : center;border-radius: 5px;">
+                <div style="height : 350px;text-align : center;border-radius: 5px;margin-top:5%">
                     <a data-toggle="modal" data-target="#ModalAjout">
-                        <i class="fas fa-plus-square fa-7x"></i>
+                        <i class="fas fa-plus-square fa-7x" id="add" style="color:green; margin-top:20%"></i>
                     </a>
                 </div>
             </div>

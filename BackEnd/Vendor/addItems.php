@@ -23,8 +23,13 @@ if (isset($_POST['Submit'])) {
         if ($stmt->execute()) {
             $stmt->store_result();
             if ($stmt->num_rows == 1) {
-               header("Location: ../../FrontEnd/HomePage/HomeVendeur.php??");
-               exit();
+                if($_SESSION['type']===1){
+                    header("Location: ../../FrontEnd/HomePage/AdminItems.php");
+
+                }else{
+                    header("Location: ../../FrontEnd/HomePage/HomeVendeur.php");
+
+                }               exit();
             } else {
                 $sql = "INSERT INTO items (email_vendor,title,description,categorie,typeAchat,prix,img,sold,typeAchat2) VALUES (?, ?, ?, ?, ?, ?, ?,0,?)";
                 if($mystmt = $mysqli->prepare($sql)){
@@ -60,7 +65,13 @@ if (isset($_POST['Submit'])) {
                                 $lestmt->close();
     
                             }
-                            header("Location: ../../FrontEnd/HomePage/HomeVendeur.php");
+                            if($_SESSION['type']===1){
+                                header("Location: ../../FrontEnd/HomePage/AdminItems.php");
+
+                            }else{
+                                header("Location: ../../FrontEnd/HomePage/HomeVendeur.php");
+
+                            }
                         }
                         else if(strcmp($typeAchat,"immediat")===0){
                             $lastId=$mysqli->insert_id;
@@ -107,8 +118,13 @@ if (isset($_POST['Submit'])) {
                                 $lestmt->close();
     
                             }
-                            header("Location: ../../FrontEnd/HomePage/HomeVendeur.php");
-                        }
+                            if($_SESSION['type']===1){
+                                header("Location: ../../FrontEnd/HomePage/AdminItems.php");
+
+                            }else{
+                                header("Location: ../../FrontEnd/HomePage/HomeVendeur.php");
+
+                            }                        }
                         else if(strcmp($typeAchat,"offre")===0){
                             $lastId=$mysqli->insert_id;
                             $sql = "INSERT INTO nego (id_item,title,email_vendor,typeAchat,offre_vendeur,offre_acheteur,email_acheteur,last_offer,nb) VALUES (?,?, ?, ?, ?,0,'',0,0)";
@@ -156,8 +172,13 @@ if (isset($_POST['Submit'])) {
                             }else{
                                 echo "aille";
                             }
-                            header("Location: ../../FrontEnd/HomePage/HomeVendeur.php");
-                        }
+                            if($_SESSION['type']===1){
+                                header("Location: ../../FrontEnd/HomePage/AdminItems.php");
+
+                            }else{
+                                header("Location: ../../FrontEnd/HomePage/HomeVendeur.php");
+
+                            }                        }
                         }
                         
                     else{

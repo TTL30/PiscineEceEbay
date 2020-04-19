@@ -6,7 +6,7 @@ body{
 }
 
 #conteneur{
-    background-color: whitesmoke;
+    background-color: #f2f4f6;
     width: 100vw;
     height: 100vh;
     padding-top: 60px;
@@ -27,13 +27,12 @@ body{
 }
 
 #Produit{
-    background-color: #dddfe6;
+    background-color: transparent;
     width: 100%;
     height: 100%;
     margin: 0;
 }
 #photo{
-    background-color: transparent;
     width: 100%;
     height: 100%;
     white-space: nowrap;
@@ -53,25 +52,29 @@ body{
     vertical-align: middle;
     padding: 10px;
     margin-left: -2%;
-    background-color: #f1959b;
+    background-color: pink;
 
 }
 
 #info{
-    background-color: #dddfe6;
+    background-color: rgba(33, 43, 71, 0.8);
+    box-shadow:  0px 0px 20px rgba(34, 33, 33, 0.623) ;
+    border-radius: 25px;
+
+
     width: 100%;
     height: 100%;
     margin: 0;
 }
 
 #test{
-    margin-top: 5%;
-    height: 80%;
-    background-color: #252c41;
+    margin: auto;
+    margin-top:1%;
+    height: 97%;
+    background-color: transparent;
 }
 
 #descript{
-    background-color: #252c41;
     box-shadow:  0px 0px 20px rgba(34, 33, 33, 0.623) ;
     border-radius: 20px;
     width: 100%;
@@ -79,11 +82,11 @@ body{
     margin:0
 }
 #madesc{
-    background-color:transparent;height:10%;text-align:center;margin-top:5%
+    background-color:yellow;height:10%;text-align:center;margin-top:5%
 }
 
 #text{
-    background-color:whitesmoke;
+    background-color:green;
     height:30%;
     margin-top:5%;
     padding-right: 5px;

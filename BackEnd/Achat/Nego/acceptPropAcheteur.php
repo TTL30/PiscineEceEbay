@@ -63,7 +63,7 @@ if (isset($_POST['submit'])) {
                                             $param_id_item = $myrow[1];
                             if($dsd->execute()){
                                
-                    header("Location: ../../../FrontEnd/Panier/mesAchats.php");
+                    header("Location: ../../../FrontEnd/Panier/mesAchats.php?");
                     exit();
                 }
                             
@@ -72,7 +72,7 @@ if (isset($_POST['submit'])) {
                             }
                             $mstmt->close();
                         }
-                    header("Location: ../../../FrontEnd/Panier/mesAchats.php");
+                    header("Location: ../../../FrontEnd/Panier/mesAchats.php?");
                     exit();
                 }
                 $ailestmt->close();
