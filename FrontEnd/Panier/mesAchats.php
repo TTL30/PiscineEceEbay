@@ -41,19 +41,38 @@ $itemsAcheter = getItemsAchete();
     console.log(itemsPanier);
     var acheteur = "";
     var total = 0;
+  
     insertItems = function() {
         var parent = document.getElementsByClassName("list")[0];
+        var Kt="";
+        var TA="";
         itemsPanier.forEach(function(e) {
             var tr = document.createElement('tr');
-            if(e['email_acheteur_final']===""){
-                tr.style='background-color:red';
-                acheteur = "Pas d'acheteur";
-            }else{
-                tr.style='background-color:green';
-                acheteur = e['email_vendor'];
-                total += e["prix_final"];
+            acheteur = e['email_vendor'];
+            total += e["prix_final"];
+            if(e['typeAchat'].localeCompare("immediat")==0){
 
+                tr.style='background-color:#F6EDBD';
+            }else if((e['typeAchat'].localeCompare("enchere")==0)){
+                tr.style='background-color:#DDF6BD';
             }
+            else if((e['typeAchat'].localeCompare("offre")==0)){
+                tr.style='background-color:#BDD8F6';
+            }
+
+           
+
+            if(e["typeAchat"].localeCompare("enchere")==0){
+                TA = "Enchère";
+            }
+            else if(e["typeAchat"].localeCompare("immediat")==0){
+                TA = "Achat Immediat";
+            }
+            else if(e["typeAchat"].localeCompare("offre")==0){
+                TA = "Meilleure offre";
+            }
+            
+
             var vente = document.createElement('th');
             vente.setAttribute('scope','row');
             vente.innerHTML = e["id"];
@@ -62,9 +81,10 @@ $itemsAcheter = getItemsAchete();
             var title = document.createElement('td');
             title.innerHTML=e["title"];
             var achat = document.createElement('td');
-            achat.innerHTML=e["typeAchat"];
+            achat.innerHTML=TA;
             var prix = document.createElement('td');
             prix.innerHTML=e["prix_final"]+"€";
+            prix.style="color:green; font-size:large"
             var email = document.createElement('td');
             email.innerHTML=acheteur;
             tr.appendChild(vente)
@@ -75,7 +95,7 @@ $itemsAcheter = getItemsAchete();
             tr.appendChild(email)
             parent.appendChild(tr);
          
-            document.getElementById('argent').innerHTML = "Prix total <strong>"+total+"€</strong>"
+            document.getElementById('argent').innerHTML = "Depenses total <strong>"+total+"€</strong>"
             
         });
     }
@@ -86,14 +106,15 @@ $itemsAcheter = getItemsAchete();
 
     <nav class="navbar fixed-top navbar-expand-lg navbar-light" style="border-bottom: 1px solid grey;background: rgb(221,223,230);
                                                                            background: linear-gradient(320deg, rgba(221,223,230,1) 0%, rgba(241,149,155,1) 46%, rgba(37,44,65,1) 100%);">
-            <a class="navbar-brand" href="../HomePage/HomeAcheteur.php"> <img src="logo.png" alt="" width="60" height="30"> </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<a class="navbar-brand" href="../HomePage/HomeAcheteur.php" style="width:170px;text-align:center"> 
+                <img src="logo.png" alt="" width="65" height="30"> 
+            </a>           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <nav class="nav" style="margin-left:6%">
-                    <a id="lien" class="nav-link active" href="../Panier/mesAchats.php">Mes achats</a>
+                <nav class="nav" >
+                    <a id="lien" class="nav-link active" href="mesAchats.php">Mes achats</a>
                     <a id="lien" class="nav-link" href="../Panier/panierAcheteur.php"><i class="fas fa-shopping-cart"></i></a>
                 </nav>
                 <div class="container">
@@ -118,27 +139,42 @@ $itemsAcheter = getItemsAchete();
         </nav>
         <div class="Wrapper-VM">
             <div class="vertical-menu">
-                <a href="#" class="active" style="color:whitesmoke;"><strong>Mes Ventes</strong></a>
+                <a href="#" class="active" style="color:whitesmoke;"><strong>Mes Achats</strong></a>
 
-                <div style="color:whitesmoke">
-                    <p>Hello, <b><?php echo htmlspecialchars($_SESSION["email"]); ?></b></p>
+                <div style="color:whitesmoke;margin-top:20%">
+                    <p style="font-size: 0.8em">Hello, <b><?php echo htmlspecialchars($_SESSION["email"]); ?></b></p>
                     <p id="argent"></p>
                 </div>
             </div>
         </div>
 
-    
+    <div>
     <div class="listItems">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">n° de vente</th>
-                    <th scope="col">Id item</th>
-                    <th scope="col">Intitulé</th>
-                    <th scope="col">Type achat</th>
-                    <th scope="col">Prix final</th>
-                    <th scope="col">Email vendeur</th>
+    <div class="alert alert-success alert-dismissible fade show" role="alert" id="monalert">
+                <strong>Felicitations!</strong> Vous venez d'acheter un item retrouver le dans le recapitulatif de vos achats.
+                <button type="button" class="close" aria-label="Close" onclick="location='http://piscineeceebay.loc/FrontEnd/Panier/mesAchats.php'">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <script>
+                if (window.location.href === "http://piscineeceebay.loc/FrontEnd/Panier/mesAchats.php?") {
+                    document.getElementById('monalert').style.display = "block";
+                } else {
+                    document.getElementById('monalert').style.display = "none";
+                }
+            </script>
 
+
+    <div style="overflow-y: auto; height: 600px;max-width:90%;margin:auto;text-align:center;margin-top:20px">
+        <table class="table" style="border-collapse: collapse; width: 100%;box-shadow: 0px 2px 18px 0px rgba(0,0,0,0.5);">
+            <thead class="thead-light">
+                <tr>
+                    <th style="position: sticky; top: 0" scope="col">n° de vente</th>
+                    <th style="position: sticky; top: 0;" scope="col">Id item</th>
+                    <th style="position: sticky; top: 0;" scope="col">Intitulé</th>
+                    <th style="position: sticky; top: 0;" scope="col">Type achat</th>
+                    <th style="position: sticky; top: 0;" scope="col">Prix final</th>
+                    <th style="position: sticky; top: 0;" scope="col">Email vendeur</th>
                 </tr>
             </thead>
             <tbody class="list">
@@ -146,15 +182,22 @@ $itemsAcheter = getItemsAchete();
             </tbody>
         </table>
     </div>
+    </div>
+    </div>
 
-  <footer class="footer mt-auto py-3" id="pied">
+    <footer class="footer mt-auto py-3" id="pied" style="position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   color: white;
+   text-align: center;">
             <div class="container" style="text-align:center" >
                 <span class="text-muted">Nous contacter <a href="#"> eceebay@sav.fr </a></span>
             </div>
             <div class="container" style="text-align:center" >
                 <span class="text-muted"><a href="#"> Besoin d'aide ?</a></span>
             </div>
-        </footer>
+        </footer> 
 
 
 </body>

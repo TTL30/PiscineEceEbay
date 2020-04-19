@@ -3,16 +3,19 @@ html, body{
     width: 100%;
     overflow-x: hidden;
 }
+.btn-top{
+    width: 100%;
+}
 .vertical-menu {
     width: 100%; /* Set a width if you like */
     height: 100vh;
-    background-color: rgba(37,44,65,0.8);
+    background-color: rgba(37,44,65,0.7);
     border-right: 1px solid #f1959b;
 
 }
 
 .vertical-menu a {
-    background-color: rgba(241,149,155,0.8); /* Grey background color */
+    background-color:  rgba(241,149,155,0.8);; /* Grey background color */
     color: black; /* Black text color */
     display: block; /* Make the links appear whlow each other */
     padding: 12px; /* Add some padding */
@@ -23,10 +26,13 @@ html, body{
     background-color:  rgba(241,149,155,0.9); /* Dark grey background on mouse-over */
 }
 
-
+.vertical-menu a.active {
+    background-color:  rgba(241,149,155,0.45); /* Add a green color to the "active/current" link */
+    color: white;
+}
 .Wrapper-VM{
     width : 200px;
-    background-color :rgba(37,44,65,0.3);
+    background-color : rgba(37,44,65,0.3);
     height:100vh;
     margin-top:60px;
     position:fixed;
@@ -55,17 +61,33 @@ html, body{
     padding-left: 200px;
 }
 
-.col-sm-4{
+#cont{
     height:350px;
+
+}
+
+
+#cont:hover{
+    text-decoration:none;
+    transform: scale(1.05);
+    
+}
+#cont { transition: all .2s ease-in-out; }
+
+.linkItem:hover{
+    text-decoration:none;
 }
 
 .titleItem{
-    background-color : transparent; 
-    text-align:center
+    color :  rgb(40, 52, 87);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.5em;
+    text-align:center;
+    text-shadow: 1px 3px 18px rgba(107,112,136,0.83);
 }
 
 .divImgTit{
-    background-color : rgba(255, 255, 255, 0.603); 
+    background-color : white; 
     height : 200px; 
     text-align : center;
     border-radius: 5px;
@@ -73,7 +95,6 @@ html, body{
 }
 
 .imgItem{
-    background-color : red; 
     max-width: 100%;
     max-height: 100%;
 }
@@ -84,7 +105,6 @@ html, body{
     padding: 10px;
     border-radius: 5px;
     box-shadow:  0px 0px 20px rgba(34, 33, 33, 0.623) ;
-
 }
 .descrItem{
     width: 40%;
@@ -92,12 +112,9 @@ html, body{
     margin-top: 1%;
 }
 
-.badge{
-    height: 30px;
-    width: 30%;
-    margin-left: 35%;
-    margin-top: 1%;
-    font-size: large;
+.prixItem{
+    text-align:center;
+    background-color:green;
 }
 
 
@@ -107,8 +124,8 @@ html, body{
 #pied{
     background-color: #252c41;
 }
-#lien {
-    color: black;
+#lien{
+    color: whitesmoke;
 }
 #lien:visited {
     color: white;
@@ -122,4 +139,3 @@ html, body{
     color: black;
     background-color: whitesmoke;
 }
-

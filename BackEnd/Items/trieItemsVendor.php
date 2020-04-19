@@ -12,7 +12,7 @@
         }
 
         if (strcmp($achat, $catagorie) == 0) {
-            $sql = "SELECT id,title,email_vendor,prix,img FROM items WHERE email_vendor = ? ";
+            $sql = "SELECT id,title,email_vendor,prix,img,typeAchat,categorie FROM items WHERE email_vendor = ? ";
             if($stmt = $db->prepare($sql)){
                 $stmt->bind_param("s", $param_email);
                 $param_email = $email;
@@ -30,7 +30,7 @@
         }
 
         else if ((strcmp($catagorie, "all") == 0)&&((strcmp($achat, "all") != 0))) {
-            $sql = "SELECT id,title,email_vendor,prix,img FROM items WHERE typeAchat = ? AND email_vendor = ?";
+            $sql = "SELECT id,title,email_vendor,prix,img,typeAchat,categorie FROM items WHERE typeAchat = ? AND email_vendor = ?";
             if($stmt = $db->prepare($sql)){
                 $json =  @json_encode("Aille");
                 $stmt->bind_param("ss", $param_achat,$param_email);
@@ -51,7 +51,7 @@
 
        
         else if ((strcmp($achat,"all") == 0)&&((strcmp($catagorie,"all") != 0))) {
-            $sql = "SELECT id,title,email_vendor,prix,img FROM items WHERE categorie = ? AND email_vendor = ?";
+            $sql = "SELECT id,title,email_vendor,prix,img,typeAchat,categorie FROM items WHERE categorie = ? AND email_vendor = ?";
             if($stmt = $db->prepare($sql)){
                 $stmt->bind_param("ss", $param_categorie,$param_email);
                 $param_categorie = $catagorie;
@@ -69,7 +69,7 @@
             }
         }
         else if((strcmp($achat,"all") != 0)&&(strcmp($catagorie, "all") != 0)){
-            $sql = "SELECT id,title,email_vendor,prix,img FROM items WHERE categorie = ? AND typeAchat = ? AND email_vendor = ? ";
+            $sql = "SELECT id,title,email_vendor,prix,img,typeAchat,categorie FROM items WHERE categorie = ? AND typeAchat = ? AND email_vendor = ? ";
             if($stmt = $db->prepare($sql)){
                 $stmt->bind_param("sss", $param_categorie,$param_achat,$param_email);
                 $param_categorie = $catagorie;

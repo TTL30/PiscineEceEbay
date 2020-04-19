@@ -24,7 +24,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     include '../../BackEnd/Vendor/getProfilVendor.php';
     $mesData = getProfilVendor();
     $mesImage = getImageVendor();
-    if($mesImage === null)
+    if($mesImage[0] === "")
     {
         $profil = "no.png";
     }
@@ -32,21 +32,20 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         $profil =$mesImage[0];
     }
 
-
     ?>
 
     <body style="background-image: url(../../BackEnd/IMG/profil/imgCouverture/<?php echo $mesImage[1]?>)">
-        <nav class="navbar fixed-top navbar-expand-lg navbar-light" style="border-bottom: 1px solid grey; background: rgb(221,223,230);
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light" style="border-bottom: 1px solid grey; background: rgb(221,223,230);
                                                                            background: linear-gradient(320deg, rgba(221,223,230,1) 0%, rgba(241,149,155,1) 46%, rgba(37,44,65,1) 100%);">
-            <a class="navbar-brand" href="HomeVendeur.php"> <img src="logo.png" alt="" width="60" height="30"> </a>
+            <a class="navbar-brand" href="../HomePage/HomeVendeur.php" style="width:170px;text-align:center"> <img src="logo.png" alt="" width="65" height="30"> </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <nav class="nav" style="margin-left:6%;width:100%">
-                    <a id="lien" class="nav-link" href="../Panier/itemVenduVendor.php">Mes ventes</a>
-                    <a id="lien" class="nav-link" href="../Panier/negociation.php">Mes negos</a>
+                <nav class="nav" >
+                    <a id="lien" class="nav-link" href="../Panier/itemVenduVendor.php">Ventes</a>
+                    <a id="lien" class="nav-link" href="../Panier/negociation.php">Offres</a>
                 </nav>
                 <div class="container">
                     <div class="logo dropleft">
@@ -67,7 +66,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                     </div>
                 </div>
             </div>
-        </nav>  
+        </nav> 
         <div class="Profil">
             <div class="PdP">
                 <img src="../../BackEnd/IMG/profil/<?php echo $profil?>" width="100" height="100">

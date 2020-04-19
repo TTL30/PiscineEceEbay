@@ -131,14 +131,14 @@ if ($_SESSION['type'] === 3) {
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <nav class="nav">
-                <a id="lien" class="nav-link" href="../Panier/mesAchats.php">Mes achats</a>
-                <a id="lien" class="nav-link" href="../Panier/panierAcheteur.php"><i class="fas fa-shopping-cart"></i></a>
+            <a id="lien" class="nav-link" href="../Panier/itemVenduVendor.php">Ventes</a>
+            <a id="lien" class="nav-link" href="../Panier/negociation.php">Offres</a>
             </nav>
             <div class="container">
                 <div class="logo dropleft">
                     <button class="btn btn-sm dropdown-toggle" type="button" id="menu1" data-toggle="dropdown" style="background-color:#f1404b">
 
-                        <a href="../Profils/ProfilGene.php"><svg class="dropdown toggle" width="2em" height="2em" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="padding-right: 5px;margin-right: 0px">
+                        <a href="../Profils/ProfilVendeur.php"><svg class="dropdown toggle" width="2em" height="2em" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="padding-right: 5px;margin-right: 0px">
                                 <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 008 15a6.987 6.987 0 005.468-2.63z" />
                                 <path fill-rule="evenodd" d="M8 9a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
                                 <path fill-rule="evenodd" d="M8 1a7 7 0 100 14A7 7 0 008 1zM0 8a8 8 0 1116 0A8 8 0 010 8z" clip-rule="evenodd" />
@@ -218,7 +218,7 @@ if ($_SESSION['type'] === 3) {
                                         <div class="col-sm-6" >
                                             <form method="post">
                                             <button type="submit" class="btn btn-outline-warning" name="add" value="add" style="padding:10px;max-width:200px;margin:auto;display : <?php echo $showButAddPanier ?>">Ajouter au panier</button>
-                                            <button type="submit" class="btn btn-danger" style="display: <?php echo $showBut ?>;float:right;float:bottom;margin-right:1%" name="delete" value="delete">Supprimer</button>
+                                            <button type="submit" class="btn btn-danger" style="display: <?php echo $showBut ?>;padding:10px;max-width:200px;margin:auto" name="delete" value="delete">Supprimer</button>
                                         </form>
 
                                         </div>

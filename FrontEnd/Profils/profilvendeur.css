@@ -3,8 +3,8 @@
     right: 10px;
 }
 .Profil{
-    color: #dddfe6
-        position: relative;
+    color: #dddfe6;
+    position: relative;
     width: 50%;
     margin: auto;
     margin-top:  10%;
@@ -43,7 +43,19 @@ body{
     color: black;
     background: whitesmoke;
 }
+#lien{
+    color: whitesmoke;
+}
+#lien:visited {
+    color: white;
+}
+#lien:hover, #lien:focus, #lien:active {
+    text-decoration: none;
+    color: black;
+    background: whitesmoke;
+}
 #lien.active {
     color: black;
     background-color: whitesmoke;
 }
+

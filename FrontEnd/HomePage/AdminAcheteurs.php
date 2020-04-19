@@ -1,3 +1,13 @@
+<?php
+session_start();
+if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+    header("location: ../Auth/login.php");
+    exit();
+}
+?>
+
+
+
 <html lang="en">
 
     <head>
@@ -14,11 +24,51 @@
         <script src="https://kit.fontawesome.com/6569843510.js" crossorigin="anonymous"></script>
 
     </head>
+
+    <?php
+    include '../../BackEnd/Admin/getUsers.php';
+    $Acheteurs = getAcheteur();
+
+
+    ?>
+
+    <script type="text/javascript">
+        var Acheteurs = <?php echo json_encode($Acheteurs); ?>;
+        console.log(Acheteurs);
+        var acheteur = "";
+        var total = 0;
+        insertItems = function() {
+            var parent = document.getElementsByClassName("list")[0];
+            Acheteurs.forEach(function(e) {
+                var tr = document.createElement('tr');
+            
+                var vente = document.createElement('th');
+                vente.setAttribute('scope','row');
+                vente.innerHTML = e["id"];
+                var title = document.createElement('td');
+                title.innerHTML=e["email"];
+                var achat = document.createElement('td');
+                achat.innerHTML=e["name"];
+                var prix = document.createElement('td');
+                prix.innerHTML=e["last_name"];
+                var dateCrea = document.createElement('td');
+                dateCrea.innerHTML=e["created_at"];
+                tr.appendChild(vente)
+                tr.appendChild(title)
+                tr.appendChild(achat)
+                tr.appendChild(prix)
+                tr.appendChild(dateCrea)
+                parent.appendChild(tr);
+
+            });
+        }
+        window.onload = insertItems  
+    </script>
     <body>
         <div class="container">
             <nav class="navbar fixed-top navbar-expand-lg navbar-light" style="border-bottom: 1px solid grey; background: rgb(221,223,230);
                                                                                background: linear-gradient(320deg, rgba(221,223,230,1) 0%, rgba(241,149,155,1) 46%, rgba(37,44,65,1) 100%);">
-                <a class="navbar-brand" href="HomeAcheteur.php"> <img src="logo.png" alt="" width="60" height="30"> </a>
+                <a class="navbar-brand" href="HomeAdmin.php"> <img src="logo.png" alt="" width="60" height="30"> </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -40,8 +90,24 @@
         </div>
         <div class="Wrapper-VM">
             <div class="vertical-menu">
-                <a href="HomeAdmin.php" class="active">Accueil</a>
+                <a href="HomeAdmin.php" class="active"><strong style="color:white">Acheteurs</strong></a>
             </div>
+        </div>
+        <div class="listItems">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Prenom</th>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Date Creation du compte</th>
+                    </tr>
+                </thead>
+                <tbody class="list">
+
+                </tbody>
+            </table>
         </div>
 
 

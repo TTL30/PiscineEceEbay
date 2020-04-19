@@ -12,7 +12,7 @@
             die("ERROR: Could not connect. " . $db->connect_error);
         }
 
-        $sql = "SELECT id,title,email_vendor,prix,img FROM items WHERE email_vendor = ? AND sold = 0";
+        $sql = "SELECT id,title,email_vendor,prix,img,typeAchat,categorie FROM items WHERE email_vendor = ? AND sold = 0";
         if($stmt = $db->prepare($sql)){
             $stmt->bind_param("s", $param_email);
             $param_email = $email;

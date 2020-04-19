@@ -37,13 +37,14 @@ if ($mesAddress[2] === 0) {
 <body>
     <nav class="navbar fixed-top navbar-expand-lg navbar-light" style="border-bottom: 1px solid grey; background: rgb(221,223,230);
                                                                            background: linear-gradient(320deg, rgba(221,223,230,1) 0%, rgba(241,149,155,1) 46%, rgba(37,44,65,1) 100%);">
-            <a class="navbar-brand" href="../HomePage/HomeAcheteur.php"> <img src="logo.png" alt="" width="60" height="30"> </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<a class="navbar-brand" href="../HomePage/HomeAcheteur.php" style="width:170px;text-align:center"> 
+                <img src="logo.png" alt="" width="65" height="30"> 
+            </a>            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <nav class="nav" style="margin-left:6%">
+                <nav class="nav">
                     <a id="lien" class="nav-link" href="../Panier/mesAchats.php">Mes achats</a>
                     <a id="lien" class="nav-link" href="../Panier/panierAcheteur.php"><i class="fas fa-shopping-cart"></i></a>
                 </nav>
@@ -59,7 +60,7 @@ if ($mesAddress[2] === 0) {
                         <span class="caret"></span>
                     </button>
                     <div class="dropdown-menu" style="text-align:center">
-                        <a class="dropdown-item" href="ProfilVendeur.php">Mon profil</a>
+                        <a class="dropdown-item" href="ProfilGene.php">Mon profil</a>
                         <div class="dropdown-divider"></div>
                         <a href="../../BackEnd/Auth/logout.php" class="btn btn-sm btn-outline-danger">Déconnexion</a>
                     </div>
@@ -69,9 +70,9 @@ if ($mesAddress[2] === 0) {
     </nav>
     <div class="container" id="conteneur">
         <div class="row" id="Profil">
-            <h1 class="Titre"> Votre profil </h1>
+            <h1 class="Titre"> Mon Profil: </h1>
             <div class="col-sm-12" id="Pdp">
-                <img src="TTL.jpg" width="100" height="100">
+                <img src="imgPro.png" width="100" height="100">
             </div>
             <div class="col" id="Info">
                 <form>
