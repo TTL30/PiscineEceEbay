@@ -38,36 +38,36 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     <body style="background-image: url(../../BackEnd/IMG/profil/imgCouverture/<?php echo $mesImage[1]?>)">
         <nav class="navbar fixed-top navbar-expand-lg navbar-light" style="border-bottom: 1px solid grey; background: rgb(221,223,230);
                                                                            background: linear-gradient(320deg, rgba(221,223,230,1) 0%, rgba(241,149,155,1) 46%, rgba(37,44,65,1) 100%);">
-            <a class="navbar-brand" href="../HomePage/HomeVendeur.php"> <img src="logo.png" alt="" width="60" height="30"> </a>
+            <a class="navbar-brand" href="HomeVendeur.php"> <img src="logo.png" alt="" width="60" height="30"> </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <nav class="nav" style="margin-left:6%;width:100%">
+                    <a id="lien" class="nav-link" href="../Panier/itemVenduVendor.php">Mes ventes</a>
+                    <a id="lien" class="nav-link" href="../Panier/negociation.php">Mes negos</a>
+                </nav>
                 <div class="container">
                     <div class="logo dropleft">
-                        <button class="btn btn-sm  dropdown-toggle" type="button" id="menu1" data-toggle="dropdown" style="background-color:#f1404b">
+                        <button class="btn btn-sm dropdown-toggle" type="button" id="menu1" data-toggle="dropdown" style="background-color:#f1404b" >
 
-                            <a href="ProfilVendeur.php"><svg class="dropdown toggle" width="2em" height="2em" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="padding-right: 5px;margin-right: 0px">
-                                <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 008 15a6.987 6.987 0 005.468-2.63z" />
-                                <path fill-rule="evenodd" d="M8 9a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
-                                <path fill-rule="evenodd" d="M8 1a7 7 0 100 14A7 7 0 008 1zM0 8a8 8 0 1116 0A8 8 0 010 8z" clip-rule="evenodd" />
+                            <a href="../Profils/ProfilVendeur.php"><svg class="dropdown toggle" width="2em" height="2em" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg" style="padding-right: 5px;margin-right: 0px">
+                                <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 008 15a6.987 6.987 0 005.468-2.63z"/>
+                                <path fill-rule="evenodd" d="M8 9a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/>
+                                <path fill-rule="evenodd" d="M8 1a7 7 0 100 14A7 7 0 008 1zM0 8a8 8 0 1116 0A8 8 0 010 8z" clip-rule="evenodd"/>
                                 </svg></a>
                             <span class="caret"></span>
                         </button>
                         <div class="dropdown-menu" style="text-align:center">
-                            <a class="dropdown-item" href="ProfilVendeur.php">Mon profil</a>
+                            <a class="dropdown-item" href="../Profils/ProfilVendeur.php">Mon profil</a>
                             <div class="dropdown-divider"></div>
                             <a href="../../BackEnd/Auth/logout.php" class="btn btn-sm btn-outline-danger">Déconnexion</a>
                         </div>
                     </div>
-                    <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Item, vendeur...." aria-label="Search">
-                        <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Rechercher</button>
-                    </form>
                 </div>
             </div>
-        </nav>
+        </nav>  
         <div class="Profil">
             <div class="PdP">
                 <img src="../../BackEnd/IMG/profil/<?php echo $profil?>" width="100" height="100">
