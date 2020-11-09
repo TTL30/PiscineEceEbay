@@ -8,17 +8,17 @@ Project in One week recreate ebay website, using :
 
 
 ## HomePage
-![alt text](img/h.png)
+![alt text](img/h.PNG)
 
 ## Inscription
-![alt text](img/i.png)
+![alt text](img/i.PNG)
 
 ## Acheteur
 ![alt text](img/unknown.png)
-![alt text](img/Capture.png)
+![alt text](img/Capture.PNG)
 
 ##  Enchère
-![alt text](img/e.png)
+![alt text](img/e.PNG)
 
 ##  Vendeur
-![alt text](img/ad.png)
+![alt text](img/ad.PNG)
